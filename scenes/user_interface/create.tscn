@@ -1,0 +1,72 @@
+[gd_scene load_steps=3 format=3 uid="uid://dr5uolssgg1yg"]
+
+[ext_resource type="Texture2D" uid="uid://8gi20yhem3n2" path="res://icon.svg" id="1_m2j8i"]
+[ext_resource type="Script" uid="uid://vkbbvde44vxh" path="res://scenes/user_interface/create_creature.gd" id="1_w6lwg"]
+
+[node name="Create" type="VBoxContainer"]
+offset_right = 150.0
+offset_bottom = 405.0
+size_flags_vertical = 3
+
+[node name="FileDialog" type="FileDialog" parent="."]
+oversampling_override = 1.0
+title = "Select Image"
+initial_position = 1
+dialog_hide_on_ok = true
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.png", "*.jpeg", "*.jpg")
+use_native_dialog = true
+
+[node name="CreateCreatureContainer" type="FoldableContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+title = "Create Creature"
+script = ExtResource("1_w6lwg")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CreateCreatureContainer"]
+layout_mode = 2
+
+[node name="CreatureName" type="LineEdit" parent="CreateCreatureContainer/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Name..."
+
+[node name="Stats" type="TextEdit" parent="CreateCreatureContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+placeholder_text = "Stats..."
+
+[node name="Description" type="TextEdit" parent="CreateCreatureContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+placeholder_text = "Description..."
+
+[node name="AddImage" type="Button" parent="CreateCreatureContainer/VBoxContainer"]
+layout_mode = 2
+text = "[Add Image]"
+
+[node name="TextureRect" type="TextureRect" parent="CreateCreatureContainer/VBoxContainer"]
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("1_m2j8i")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CreatureCreateButton" type="Button" parent="CreateCreatureContainer/VBoxContainer"]
+layout_mode = 2
+text = "Create"
+
+[node name="CreateObjectContainer" type="FoldableContainer" parent="."]
+layout_mode = 2
+folded = true
+title = "Create Object"
+
+[node name="Label" type="Label" parent="CreateObjectContainer"]
+visible = false
+layout_mode = 2
+text = "I do nothing"
+
+[connection signal="file_selected" from="FileDialog" to="CreateCreatureContainer" method="_on_file_dialog_file_selected"]
+[connection signal="pressed" from="CreateCreatureContainer/VBoxContainer/AddImage" to="CreateCreatureContainer" method="add_image"]
+[connection signal="pressed" from="CreateCreatureContainer/VBoxContainer/CreatureCreateButton" to="CreateCreatureContainer" method="create_creature"]

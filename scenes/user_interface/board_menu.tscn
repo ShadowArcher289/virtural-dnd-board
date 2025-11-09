@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dvbs62al8qbq"]
+[gd_scene load_steps=4 format=3 uid="uid://dvbs62al8qbq"]
 
 [ext_resource type="Script" uid="uid://q4jh4vdem12m" path="res://scripts/board_ui/add.gd" id="1_2nxaw"]
 [ext_resource type="PackedScene" uid="uid://blc4dyk30acl1" path="res://scenes/user_interface/spawn_object_on_board.tscn" id="2_8rgmx"]
+[ext_resource type="PackedScene" uid="uid://dr5uolssgg1yg" path="res://scenes/user_interface/create.tscn" id="3_2nxaw"]
 
 [node name="BoardMenu" type="FoldableContainer"]
 anchors_preset = 9
@@ -30,3 +31,8 @@ select_all_on_focus = true
 [node name="SpawnObjectOnBoard" parent="TabContainer/Add" instance=ExtResource("2_8rgmx")]
 visible = false
 layout_mode = 2
+
+[node name="Create" parent="TabContainer" instance=ExtResource("3_2nxaw")]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1

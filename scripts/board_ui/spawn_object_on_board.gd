@@ -26,7 +26,7 @@ func _ready() -> void:
 
 func _on_pressed() -> void:
 	var new_object: Node3D = FIGURE.instantiate();
-	new_object.global_position = Vector3(0, 0, 0);
+	new_object.position = Vector3(0, 0, 0);
 	new_object.object_type = self.object_type;
 	new_object.object_name = self.object_name;
 	new_object.object_image_path = self.object_image_path;

@@ -5,11 +5,14 @@ class_name Figure extends Node3D
  
 @onready var image: MeshInstance3D = $Image
 @onready var base: CSGMesh3D = $Base
+@onready var figure_name: Label3D = $FigureName
+
 
 @export var object_type: String = "creature";
 @export var object_name: String = "Thri-Kreen";
 @export var object_image_path: String = "res://assets/creatures/thri-kreen.jpg";
 @export var creature_stats: String = "Stats";
+
 
 enum State { ## The types of states for a Figure
 	STILL,
@@ -27,6 +30,7 @@ func _ready() -> void:
 	var new_material = StandardMaterial3D.new();
 	new_material.albedo_texture = load(object_image_path);
 	image.material_override = new_material;
+	figure_name.text = object_name;
 
 func _process(_delta: float) -> void:
 	match current_state:
