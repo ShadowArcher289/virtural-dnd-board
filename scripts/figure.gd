@@ -1,0 +1,37 @@
+extends Node3D
+ 
+@onready var image: MeshInstance3D = $Image
+
+# set two states: moving and stasis
+# if the creature can be moved
+
+enum State { ## The types of states for a Figure
+	STILL,
+	PICKED
+}
+
+var current_state = State.PICKED; ## The current state of the creature, the default state is STILL
+
+var mouse_position: Vector2; ## the current mouse position
+
+
+func _process(_delta: float) -> void:
+	match current_state:
+		State.STILL:
+			pass;
+		State.PICKED:
+			if Globals.mouse_raycast_data != null && Globals.mouse_raycast_data.get("position") != null:
+				self.global_position = Vector3(Globals.mouse_raycast_data.get("position").x, self.position.y, Globals.mouse_raycast_data.get("position").z);
+		_:
+			print_debug("Error: Invalid State ()" + str(current_state) + ") for Figure");
+
+func switch_state(state: State):
+	current_state = state;
+
+func click(): ## function called when the object is clicked by the user in the 3D view
+	print_debug("SWITCHED STATE")
+	if current_state == State.PICKED:
+		switch_state(State.STILL);
+	else:
+		switch_state(State.PICKED)
+	print_debug("I HAVE BEEN CLICKED")
