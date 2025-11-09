@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://f7ugbsb8lo5e"]
+[gd_scene load_steps=9 format=3 uid="uid://f7ugbsb8lo5e"]
 
 [ext_resource type="Script" uid="uid://b1ykrtxoitm1c" path="res://scripts/board.gd" id="1_bw3vb"]
 [ext_resource type="Script" uid="uid://jhusc4ndo1te" path="res://scripts/imported_camera/camera.gd" id="2_tx6nw"]
+[ext_resource type="Texture2D" uid="uid://ctoianmnul48s" path="res://assets/ForestEncampment_digital_day_grid.jpg" id="3_fv4ni"]
 [ext_resource type="PackedScene" uid="uid://c48qfnkalq78t" path="res://scenes/figure.tscn" id="3_nglv8"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bw3vb"]
@@ -16,6 +17,10 @@ background_mode = 2
 sky = SubResource("Sky_tx6nw")
 tonemap_mode = 2
 glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dxjtj"]
+albedo_texture = ExtResource("3_fv4ni")
+albedo_texture_force_srgb = true
 
 [node name="Board" type="Node3D"]
 script = ExtResource("1_bw3vb")
@@ -36,14 +41,16 @@ script = ExtResource("2_tx6nw")
 
 [node name="RayCast3D" type="RayCast3D" parent="Setup/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+visible = false
 
 [node name="GridMap" type="GridMap" parent="."]
 cell_size = Vector3(1, 1, 1)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -1, -1.5)
+material_override = SubResource("StandardMaterial3D_dxjtj")
 use_collision = true
-size = Vector3(6, 1, 6)
+size = Vector3(12.1, 1, 19.1)
 
 [node name="Creature" parent="." instance=ExtResource("3_nglv8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7686701, -0.6, -0.5215864)
