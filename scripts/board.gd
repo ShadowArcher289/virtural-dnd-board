@@ -3,8 +3,6 @@ extends Node3D
 @onready var camera_3d: FreeLookCamera = $Setup/Camera3D
 
 
-
-
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		pass;

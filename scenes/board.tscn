@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://f7ugbsb8lo5e"]
+[gd_scene load_steps=10 format=3 uid="uid://f7ugbsb8lo5e"]
 
 [ext_resource type="Script" uid="uid://b1ykrtxoitm1c" path="res://scripts/board.gd" id="1_bw3vb"]
 [ext_resource type="Script" uid="uid://jhusc4ndo1te" path="res://scripts/imported_camera/camera.gd" id="2_tx6nw"]
 [ext_resource type="Texture2D" uid="uid://ctoianmnul48s" path="res://assets/ForestEncampment_digital_day_grid.jpg" id="3_fv4ni"]
 [ext_resource type="PackedScene" uid="uid://c48qfnkalq78t" path="res://scenes/figure.tscn" id="3_nglv8"]
+[ext_resource type="PackedScene" uid="uid://dvbs62al8qbq" path="res://scenes/user_interface/board_menu.tscn" id="5_dxjtj"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bw3vb"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -60,3 +61,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 0, -2.4)
 
 [node name="Figure3" parent="." instance=ExtResource("3_nglv8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1, 0, -0.70000005)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="BoardMenu" parent="CanvasLayer" instance=ExtResource("5_dxjtj")]

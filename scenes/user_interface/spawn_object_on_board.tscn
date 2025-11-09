@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://blc4dyk30acl1"]
+
+[ext_resource type="Texture2D" uid="uid://c3r0q0hslj6ie" path="res://assets/creatures/thri-kreen.jpg" id="1_x8mvm"]
+[ext_resource type="Script" uid="uid://d6tjypoudq5j" path="res://scripts/board_ui/spawn_object_on_board.gd" id="2_qb2vt"]
+
+[node name="SpawnObjectOnBoard" type="Button"]
+offset_right = 124.0
+offset_bottom = 125.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+icon = ExtResource("1_x8mvm")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("2_qb2vt")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

@@ -1,22 +1,32 @@
-extends Node3D
+class_name Figure extends Node3D
+
+## A unique figure to be used on the board. Each figure holds all the data for it's respective instance of a creature
+## object_name, object_image_path, creature_stats
  
 @onready var image: MeshInstance3D = $Image
 @onready var base: CSGMesh3D = $Base
 
-# set two states: moving and stasis
-# if the creature can be moved
+@export var object_type: String = "creature";
+@export var object_name: String = "Thri-Kreen";
+@export var object_image_path: String = "res://assets/creatures/thri-kreen.jpg";
+@export var creature_stats: String = "Stats";
 
 enum State { ## The types of states for a Figure
 	STILL,
 	PICKED
 }
 
-var new_material = StandardMaterial3D.new()
+var new_material = StandardMaterial3D.new();
 
 var current_state = State.STILL; ## The current state of the creature, the default state is STILL
 
 var mouse_position: Vector2; ## the current mouse position
-var current_position = self.global_position;
+var current_position = self.position;
+
+func _ready() -> void:
+	var new_material = StandardMaterial3D.new();
+	new_material.albedo_texture = load(object_image_path);
+	image.material_override = new_material;
 
 func _process(_delta: float) -> void:
 	match current_state:

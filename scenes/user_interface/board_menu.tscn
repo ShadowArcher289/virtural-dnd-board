@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvbs62al8qbq"]
+
+[ext_resource type="Script" uid="uid://q4jh4vdem12m" path="res://scripts/board_ui/add.gd" id="1_2nxaw"]
+[ext_resource type="PackedScene" uid="uid://blc4dyk30acl1" path="res://scenes/user_interface/spawn_object_on_board.tscn" id="2_8rgmx"]
+
+[node name="BoardMenu" type="FoldableContainer"]
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 299.0
+grow_vertical = 2
+focus_mode = 0
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 2
+current_tab = 0
+drag_to_rearrange_enabled = true
+deselect_enabled = true
+
+[node name="Add" type="VBoxContainer" parent="TabContainer"]
+layout_mode = 2
+script = ExtResource("1_2nxaw")
+metadata/_tab_index = 0
+
+[node name="LineEdit" type="LineEdit" parent="TabContainer/Add"]
+layout_mode = 2
+placeholder_text = "search..."
+clear_button_enabled = true
+select_all_on_focus = true
+
+[node name="SpawnObjectOnBoard" parent="TabContainer/Add" instance=ExtResource("2_8rgmx")]
+visible = false
+layout_mode = 2
