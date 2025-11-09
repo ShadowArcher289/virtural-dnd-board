@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c48qfnkalq78t"]
+[gd_scene load_steps=9 format=3 uid="uid://c48qfnkalq78t"]
 
 [ext_resource type="Script" uid="uid://cijsbt1vbl1e7" path="res://scripts/figure.gd" id="1_upmfi"]
 [ext_resource type="Texture2D" uid="uid://c3r0q0hslj6ie" path="res://assets/creatures/thri-kreen.jpg" id="2_bvms0"]
@@ -14,10 +14,14 @@ albedo_texture = ExtResource("2_bvms0")
 billboard_mode = 2
 billboard_keep_scale = true
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tc3ao"]
+albedo_color = Color(1, 0.8627451, 0.09019608, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_bvms0"]
+material = SubResource("StandardMaterial3D_tc3ao")
 size = Vector3(0.5, 0.2, 0.5)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tc3ao"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lvhly"]
 albedo_color = Color(1, 0.8627451, 0.09019608, 1)
 
 [node name="Figure" type="Node3D"]
@@ -32,4 +36,4 @@ surface_material_override/0 = SubResource("StandardMaterial3D_rl551")
 transform = Transform3D(0.70710677, 0, -0.70710677, 0, 1, 0, 0.70710677, 0, 0.70710677, 0, 0.1, 0)
 use_collision = true
 mesh = SubResource("BoxMesh_bvms0")
-material = SubResource("StandardMaterial3D_tc3ao")
+material = SubResource("StandardMaterial3D_lvhly")
