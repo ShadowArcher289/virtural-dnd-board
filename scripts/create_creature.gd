@@ -7,15 +7,13 @@ extends FoldableContainer
 
 @onready var file_dialog: FileDialog = $"../FileDialog"
 
-var image_path = "res://icon.svg";
+var image = Image.new();
 
 func _on_file_dialog_file_selected(path: String) -> void:
 	
-	var image = Image.new()
+
 	image.load(path);
 	
-	image_path = path;
-		
 	var image_texture = ImageTexture.new();
 	image_texture.set_image(image);
 	
@@ -29,7 +27,7 @@ func create_creature() -> void:
 	
 	Globals.creatures.get_or_add(key, {
 		"name": creature_name.text, 
-		"image_path": image_path, 
+		"image": image, 
 		"stats": stats.text,
 		"description": description.text
 	}); # adds the creature with the key:value creature-name, Dictionary{}

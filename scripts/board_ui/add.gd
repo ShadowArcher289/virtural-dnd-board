@@ -21,7 +21,7 @@ func create_object_spawner(creature: Dictionary):
 	var new_object_spawner = SPAWN_OBJECT_ON_BOARD.instantiate();
 	new_object_spawner.object_type = "creature";
 	new_object_spawner.object_name = creature.get("name");
-	new_object_spawner.object_image_path = creature.get("image_path");
+	new_object_spawner.object_image = creature.get("image");
 	new_object_spawner.creature_stats = creature.get("name");
 	self.add_child(new_object_spawner);
 	new_object_spawner.show();

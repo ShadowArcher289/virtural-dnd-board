@@ -22,4 +22,3 @@ Attach `camera.gd` to your Camera3D node. That's it!
 
 ## License
 [MIT](https://opensource.org/licenses/MIT).
-

@@ -6,13 +6,13 @@ var mouse_raycast_collider: Node3D; ## the object the mouse clicked
 var creatures: Dictionary = { ## dictionary for all the creatures made in the game
 	"thri_kreen": {
 		"name": "Thri-Kreen", 
-		"image_path": "res://assets/creatures/thri-kreen.jpg", 
+		"image": load("res://assets/creatures/thri-kreen.jpg"), 
 		"stats": "Stats",
 		"description": "Cool ant person"
 	},
 	"bard": {
 		"name": "Bard", 
-		"image_path": "res://assets/creatures/bard.png", 
+		"image": load("res://assets/creatures/bard.png"), 
 		"stats": "Stats",
 		"description": "A dragon's favorite"
 	},

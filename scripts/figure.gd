@@ -10,7 +10,7 @@ class_name Figure extends Node3D
 
 @export var object_type: String = "creature";
 @export var object_name: String = "Thri-Kreen";
-@export var object_image_path: String = "res://assets/creatures/thri-kreen.jpg";
+@export var object_image: Resource = load("res://assets/creatures/thri-kreen.jpg");
 @export var creature_stats: String = "Stats";
 
 
@@ -28,7 +28,7 @@ var current_position = self.position;
 
 func _ready() -> void:
 	var new_material = StandardMaterial3D.new();
-	new_material.albedo_texture = load(object_image_path);
+	new_material.albedo_texture = object_image;
 	image.material_override = new_material;
 	figure_name.text = object_name;
 

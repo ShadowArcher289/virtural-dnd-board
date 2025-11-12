@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dr5uolssgg1yg"]
 
 [ext_resource type="Texture2D" uid="uid://8gi20yhem3n2" path="res://icon.svg" id="1_m2j8i"]
-[ext_resource type="Script" uid="uid://vkbbvde44vxh" path="res://scenes/user_interface/create_creature.gd" id="1_w6lwg"]
+[ext_resource type="Script" uid="uid://vkbbvde44vxh" path="res://scripts/create_creature.gd" id="1_w6lwg"]
 
 [node name="Create" type="VBoxContainer"]
 offset_right = 150.0
