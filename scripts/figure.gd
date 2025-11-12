@@ -28,7 +28,17 @@ var current_position = self.position;
 
 func _ready() -> void:
 	var new_material = StandardMaterial3D.new();
-	new_material.albedo_texture = object_image;
+	
+	if(not object_image is CompressedTexture2D): # if the image is not a Texture (meaning it is likely a user's image), then set it as a texture
+		var image_texture = ImageTexture.new();
+		image_texture.set_image(object_image);
+		new_material.albedo_texture = image_texture;
+	else: # otherwise, the image is likely a pre-added image so just use it
+		new_material.albedo_texture = object_image;
+	
+	new_material.billboard_mode = BaseMaterial3D.BILLBOARD_FIXED_Y;
+	new_material.billboard_keep_scale = true;
+	
 	image.material_override = new_material;
 	figure_name.text = object_name;
 

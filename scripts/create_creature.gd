@@ -11,8 +11,10 @@ var image = Image.new();
 
 func _on_file_dialog_file_selected(path: String) -> void:
 	
-
+	image = Image.new();
 	image.load(path);
+	
+	UserRecourceManager.figure_image.get_or_add(path, image);
 	
 	var image_texture = ImageTexture.new();
 	image_texture.set_image(image);

@@ -19,7 +19,12 @@ const FIGURE = preload("res://scenes/figure.tscn")
 	#print(object_name + " object created!");
 
 func _ready() -> void:
-	self.icon = object_image;
+	if(not object_image is CompressedTexture2D): # if the image is not a Texture (meaning it is likely a user's image), then set it as a texture
+		var image_texture = ImageTexture.new();
+		image_texture.set_image(object_image);
+		self.icon = image_texture;
+	else: # otherwise, the image is likely a pre-added image so just use it
+		self.icon = object_image;
 	print(object_type);
 	print(object_name);
 	print(object_image);
