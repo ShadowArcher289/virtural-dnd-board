@@ -10,7 +10,7 @@ size_flags_vertical = 3
 
 [node name="FileDialog" type="FileDialog" parent="."]
 oversampling_override = 1.0
-title = "Select Image"
+title = "Open a File"
 initial_position = 1
 dialog_hide_on_ok = true
 file_mode = 0
@@ -54,6 +54,7 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="CreatureCreateButton" type="Button" parent="CreateCreatureContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 text = "Create"
 

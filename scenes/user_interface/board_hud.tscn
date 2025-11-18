@@ -17,7 +17,7 @@ anchor_bottom = 0.0
 offset_bottom = 94.0
 grow_vertical = 1
 
-[node name="Panel" type="Panel" parent="."]
+[node name="DataPannel" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
@@ -27,7 +27,7 @@ offset_left = -257.0
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="DataPannel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -39,22 +39,22 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="DataPannel/MarginContainer"]
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="DataPannel/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 text = "Creature Data"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="RichTextLabel2" type="RichTextLabel" parent="DataPannel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Creature Data"
 
-[node name="RichTextLabel3" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="RichTextLabel3" type="RichTextLabel" parent="DataPannel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Creature Data"
