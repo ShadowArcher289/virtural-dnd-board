@@ -9,7 +9,7 @@ func _ready() -> void:
 		creature = Globals.creatures.get(creature);
 		#var new_object = spawn_object.new("creature", creature.get("name"), creature.get("image_path")); # doesn't work well, the aspect ratio is not stored
 		create_object_spawner(creature);
-	
+
 
 func _creature_created(key: String): ## add another creature to the add list when one is created
 	var creature = Globals.creatures.get(key);
