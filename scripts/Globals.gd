@@ -17,3 +17,12 @@ var creatures: Dictionary = { ## dictionary for all the creatures made in the ga
 		"description": "A dragon's favorite"
 	},
 }
+
+var selected_creature: Dictionary = {
+	"thri_kreen": {
+		"name": "Thri-Kreen", 
+		"image": load("res://assets/creatures/thri-kreen.jpg"), 
+		"stats": "Stats",
+		"description": "Cool ant person"
+	},
+}

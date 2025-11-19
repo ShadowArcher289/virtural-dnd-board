@@ -19,19 +19,19 @@ metadata/_tab_index = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="CreatureName" type="RichTextLabel" parent="VBoxContainer"]
+[node name="CreatureNameText" type="RichTextLabel" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 text = "Creature Data"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CreatureStats" type="RichTextLabel" parent="VBoxContainer"]
+[node name="CreatureStatsText" type="RichTextLabel" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Creature Data"
 
-[node name="CreatureDescription" type="RichTextLabel" parent="VBoxContainer"]
+[node name="CreatureDescriptionText" type="RichTextLabel" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Creature Data"
