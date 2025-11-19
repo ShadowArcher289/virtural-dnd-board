@@ -18,11 +18,9 @@ var creatures: Dictionary = { ## dictionary for all the creatures made in the ga
 	},
 }
 
-var selected_creature: Dictionary = {
-	"thri_kreen": {
-		"name": "Thri-Kreen", 
-		"image": load("res://assets/creatures/thri-kreen.jpg"), 
-		"stats": "Stats",
-		"description": "Cool ant person"
-	},
+var current_selected_creature: Dictionary = { ## the creature currently selected by the player. Its info is displayed in the Info tab.
+	"name": "Thri-Kreen", 
+	"image": load("res://assets/creatures/thri-kreen.jpg"), 
+	"stats": "Stats",
+	"description": "Cool ant person"
 }

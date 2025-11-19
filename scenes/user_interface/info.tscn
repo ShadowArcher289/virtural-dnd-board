@@ -30,6 +30,7 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_vertical = 3
 text = "Creature Data"
+horizontal_alignment = 1
 
 [node name="CreatureDescriptionText" type="RichTextLabel" parent="VBoxContainer"]
 layout_mode = 2

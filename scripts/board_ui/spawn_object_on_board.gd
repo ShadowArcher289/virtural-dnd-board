@@ -3,9 +3,10 @@ extends Button
 const FIGURE = preload("res://scenes/figure.tscn")
 
 @export var object_type: String = "creature";
-@export var object_name: String = "Thri-Kreen"; ## Name of the object
+@export var object_name: String = "Thri-Kreen"; ## Name of the object.
 @export var object_image: Resource = load("res://assets/creatures/thri-kreen.jpg"); ## The path to the image that will display as the button.
-@export var creature_stats: String = "Stats"; ## stats for a creature
+@export var object_description: String = "Cool ant person"; ## Description of the object.
+@export var creature_stats: String = "Stats"; ## Stats for a creature.
 
 #@warning_ignore("shadowed_variable")
 #func _init(object_type: String, object_name: String, objejct_image_path: String, creature_stats: String = "Stats" ) -> void:
@@ -35,6 +36,7 @@ func _on_pressed() -> void:
 	new_object.object_type = self.object_type;
 	new_object.object_name = self.object_name;
 	new_object.object_image = self.object_image;
+	new_object.object_description = self.object_description;
 	new_object.creature_stats = self.creature_stats;
 	new_object.show();
 	get_tree().root.add_child(new_object);

@@ -11,6 +11,7 @@ class_name Figure extends Node3D
 @export var object_type: String = "creature";
 @export var object_name: String = "Thri-Kreen";
 @export var object_image: Resource = load("res://assets/creatures/thri-kreen.jpg");
+@export var object_description: String = "Cool ant person";
 @export var creature_stats: String = "Stats";
 
 
@@ -21,9 +22,9 @@ enum State { ## The types of states for a Figure
 
 var new_material = StandardMaterial3D.new();
 
-var current_state = State.STILL; ## The current state of the creature, the default state is STILL
+var current_state = State.STILL; ## The current state of the creature, the default state is STILL.
 
-var mouse_position: Vector2; ## the current mouse position
+var mouse_position: Vector2; ## The current mouse position.
 var current_position = self.position;
 
 func _ready() -> void:
@@ -58,11 +59,21 @@ func _process(_delta: float) -> void:
 		_:
 			print_debug("Error: Invalid State ()" + str(current_state) + ") for Figure");
 
-func switch_state(state: State):
+func switch_state(state: State): ## Switch state and set the Global's current selected creature to this one if picked.
 	current_state = state;
+	print_debug("SWITCHED STATE: " + str(state));
+	if(state == State.PICKED): # switch the current selected creature
+		var self_as_creature_dictionary = {}
+		self_as_creature_dictionary = { ## This figure, but as a creature dictionary.
+			"name": object_name,
+			"image": object_image, 
+			"stats": creature_stats,
+			"description": object_description
+		}
+		SignalBus.creature_selected.emit(self_as_creature_dictionary);
+		Globals.current_selected_creature = self_as_creature_dictionary;
 
 func click(): ## function called when the object is clicked by the user in the 3D view
-	print_debug("SWITCHED STATE")
 	if current_state == State.PICKED:
 		switch_state(State.STILL);
 	else:
