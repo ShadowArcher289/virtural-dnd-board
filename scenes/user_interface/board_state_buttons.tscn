@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://b75lr2wt3pgoq"]
+
+[ext_resource type="Script" uid="uid://bc8ji0hrc6rfu" path="res://scripts/board_ui/board_state_buttons.gd" id="1_8impl"]
+
+[node name="BoardStateButtons" type="HBoxContainer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -138.0
+offset_top = -40.0
+offset_right = 138.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("1_8impl")
+
+[node name="AttackArea" type="Button" parent="."]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+text = "AttackArea"
+
+[node name="Measure" type="Button" parent="."]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+text = "Measure"
+
+[node name="Select" type="Button" parent="."]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+text = "Select"
+
+[node name="Info" type="Button" parent="."]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+text = "Info"
+
+[connection signal="pressed" from="AttackArea" to="." method="_on_attack_area_pressed"]
+[connection signal="pressed" from="Measure" to="." method="_on_measure_pressed"]
+[connection signal="pressed" from="Select" to="." method="_on_select_pressed"]
+[connection signal="pressed" from="Info" to="." method="_on_info_pressed"]

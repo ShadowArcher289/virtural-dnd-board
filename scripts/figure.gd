@@ -49,13 +49,13 @@ func _process(_delta: float) -> void:
 			new_material.albedo_color = "#00c600"
 			base.material_override = new_material
 		State.PICKED:
-			if Globals.mouse_raycast_data != null && Globals.mouse_raycast_data.get("position") != null:
-				self.global_position = Vector3(Globals.mouse_raycast_data.get("position").x, self.position.y, Globals.mouse_raycast_data.get("position").z);
+			if MouseCollision.mouse_raycast_data != null && MouseCollision.mouse_raycast_data.get("position") != null:
+				self.global_position = Vector3(MouseCollision.mouse_raycast_data.get("position").x, self.position.y, MouseCollision.mouse_raycast_data.get("position").z);
 				
-				#if (current_position != Globals.mouse_raycast_data.get("position")): # once moved, switch state to still
+				#if (current_position != MouseCollision.mouse_raycast_data.get("position")): # once moved, switch state to still
 					#switch_state(State.STILL);
-			new_material.albedo_color = "#ffdc17"
-			base.material_override = new_material
+			new_material.albedo_color = "#ffdc17";
+			base.material_override = new_material;
 		_:
 			print_debug("Error: Invalid State ()" + str(current_state) + ") for Figure");
 
@@ -71,11 +71,11 @@ func switch_state(state: State): ## Switch state and set the Global's current se
 			"description": object_description
 		}
 		SignalBus.creature_selected.emit(self_as_creature_dictionary);
-		Globals.current_selected_creature = self_as_creature_dictionary;
+		MouseCollision.current_selected_creature = self_as_creature_dictionary;
 
 func click(): ## function called when the object is clicked by the user in the 3D view
 	if current_state == State.PICKED:
 		switch_state(State.STILL);
 	else:
-		switch_state(State.PICKED)
-	print_debug("I HAVE BEEN CLICKED")
+		switch_state(State.PICKED);
+	print_debug("I HAVE BEEN CLICKED");

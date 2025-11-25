@@ -14,7 +14,7 @@ func _ready() -> void:
 func _creature_created(key: String): ## add another creature to the add list when one is created
 	var creature = Globals.creatures.get(key);
 	create_object_spawner(creature);
-	
+
 
 func create_object_spawner(creature: Dictionary):
 	print(creature);

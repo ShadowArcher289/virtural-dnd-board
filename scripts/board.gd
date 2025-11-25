@@ -22,8 +22,8 @@ func shoot_camera_ray(): ## shoots an array from a mouse click, clicking an obje
 	ray_query.to = to;
 	var raycast_result = space.intersect_ray(ray_query);
 	#print_debug(raycast_result);
-	Globals.mouse_raycast_data = raycast_result;
-	Globals.mouse_raycast_collider = raycast_result.get("collider");
+	MouseCollision.mouse_raycast_data = raycast_result;
+	MouseCollision.mouse_raycast_collider = raycast_result.get("collider");
 	
-	if Globals.mouse_raycast_collider && Globals.mouse_raycast_collider.get_parent().has_method("click"): # if the selected object has a click() method, then run it.
-		Globals.mouse_raycast_collider.get_parent().click();
+	if MouseCollision.mouse_raycast_collider && MouseCollision.mouse_raycast_collider.get_parent().has_method("click"): # if the selected object has a click() method, then run it.
+		MouseCollision.mouse_raycast_collider.get_parent().click();

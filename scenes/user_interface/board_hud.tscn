@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://u1xlvnt2pymg"]
+[gd_scene load_steps=3 format=3 uid="uid://u1xlvnt2pymg"]
 
 [ext_resource type="PackedScene" uid="uid://dvbs62al8qbq" path="res://scenes/user_interface/board_menu.tscn" id="1_8qhv0"]
+[ext_resource type="PackedScene" uid="uid://b75lr2wt3pgoq" path="res://scenes/user_interface/board_state_buttons.tscn" id="2_8h0sw"]
 
 [node name="BoardHUD" type="Control"]
 layout_mode = 3
@@ -14,10 +15,25 @@ grow_vertical = 2
 layout_mode = 0
 anchors_preset = 0
 anchor_bottom = 0.0
-offset_bottom = 94.0
+offset_bottom = 646.0
+grow_vertical = 1
+
+[node name="BoardStateButtons" parent="." instance=ExtResource("2_8h0sw")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 481.0
+offset_top = 604.0
+offset_right = 757.0
+offset_bottom = 644.0
+grow_horizontal = 1
 grow_vertical = 1
 
 [node name="DataPannel" type="Panel" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
