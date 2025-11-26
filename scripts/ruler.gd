@@ -11,6 +11,8 @@ enum State {
 	IDLE
 }
 
+const RULER_DISTANCE_MULTIPLIER = 6; ## Number to multiply the raw distance to get the D&D 5m per square distance
+
 var current_state = State.IDLE;
 
 func _input(event: InputEvent) -> void:
@@ -50,7 +52,7 @@ func placeLine() -> void:
 		else:
 			line.hide();
 		
-		distance.text = str(round(line.mesh.height * 100)/100) + "m";
+		distance.text = str((round(line.mesh.height * 100)/100) * RULER_DISTANCE_MULTIPLIER) + "m";
 	else: # hide the line otherwise
 		line.hide();
 	
