@@ -27,7 +27,7 @@ var _e = false
 var _shift = false
 var _alt = false
 
-func _unhandled_input(event):
+func _input(event):
 	# Receives mouse motion
 	if event is InputEventMouseMotion:
 		_mouse_position = event.relative
@@ -56,6 +56,10 @@ func _unhandled_input(event):
 			KEY_Q:
 				_q = event.pressed
 			KEY_E:
+				_e = event.pressed
+			KEY_SHIFT:
+				_q = event.pressed
+			KEY_SPACE:
 				_e = event.pressed
 
 # Updates mouselook and movement every frame

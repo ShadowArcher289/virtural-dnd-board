@@ -17,7 +17,8 @@ class_name Figure extends Node3D
 
 enum State { ## The types of states for a Figure
 	STILL,
-	PICKED
+	PICKED,
+	INFO
 }
 
 var new_material = StandardMaterial3D.new();
@@ -43,6 +44,11 @@ func _ready() -> void:
 	image.material_override = new_material;
 	figure_name.text = object_name;
 
+func _input(event: InputEvent) -> void:
+	if(event.is_action_pressed("left_click")):
+		if(current_state == State.INFO):
+			switch_state(State.STILL);
+
 func _process(_delta: float) -> void:
 	match current_state:
 		State.STILL:
@@ -56,13 +62,16 @@ func _process(_delta: float) -> void:
 					#switch_state(State.STILL);
 			new_material.albedo_color = "#ffdc17";
 			base.material_override = new_material;
+		State.INFO:
+			new_material.albedo_color = "#57d5ff";
+			base.material_override = new_material;
 		_:
 			print_debug("Error: Invalid State ()" + str(current_state) + ") for Figure");
 
 func switch_state(state: State): ## Switch state and set the Global's current selected creature to this one if picked.
 	current_state = state;
 	print_debug("SWITCHED STATE: " + str(state));
-	if(state == State.PICKED): # switch the current selected creature
+	if(state == State.PICKED || state == State.INFO): # switch the current selected creature
 		var self_as_creature_dictionary = {}
 		self_as_creature_dictionary = { ## This figure, but as a creature dictionary.
 			"name": object_name,
@@ -74,8 +83,11 @@ func switch_state(state: State): ## Switch state and set the Global's current se
 		MouseCollision.current_selected_creature = self_as_creature_dictionary;
 
 func click(): ## function called when the object is clicked by the user in the 3D view
-	if current_state == State.PICKED:
+	if current_state != State.STILL:
 		switch_state(State.STILL);
-	else:
-		switch_state(State.PICKED);
+	else: # switch to the repsective state based on the MouseCollision's state.
+		if(MouseCollision.currentState("info")):
+			switch_state(State.INFO);
+		elif(MouseCollision.currentState("select")):
+			switch_state(State.PICKED);
 	print_debug("I HAVE BEEN CLICKED");

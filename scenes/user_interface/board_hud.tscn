@@ -12,23 +12,24 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="BoardMenu" parent="." instance=ExtResource("1_8qhv0")]
-layout_mode = 0
-anchors_preset = 0
-anchor_bottom = 0.0
-offset_bottom = 646.0
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.26000002
+anchor_bottom = 0.99700004
+offset_right = -0.52001953
+offset_bottom = -0.056030273
 grow_vertical = 1
 
 [node name="BoardStateButtons" parent="." instance=ExtResource("2_8h0sw")]
-layout_mode = 0
-anchors_preset = 0
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 481.0
-offset_top = 604.0
-offset_right = 757.0
-offset_bottom = 644.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.418
+anchor_top = 0.93200004
+anchor_right = 0.657
+offset_left = -0.53601074
+offset_top = 0.063964844
+offset_right = 0.13598633
+offset_bottom = -4.0
 grow_horizontal = 1
 grow_vertical = 1
 
