@@ -15,18 +15,21 @@ const RULER_DISTANCE_MULTIPLIER = 6; ## Number to multiply the raw distance to g
 
 var current_state = State.IDLE;
 
+var switch_count = 0;
+
 func _input(event: InputEvent) -> void:
 	if(MouseCollision.currentState("measure")):
 		if(event.is_action_pressed("left_click")):
-			print_debug("Ruler placed point_1");
-			point_1.show();
-			switchState("place_point_1");
-			#point_1.global_position = MouseCollision.mouse_raycast_data.get("position");
-		elif(event.is_action_pressed("right_click")):
-			print_debug("Ruler placed point_2");
-			point_2.show();
-			switchState("place_point_2");
-			#point_2.global_position = MouseCollision.mouse_raycast_data.get("position");
+			place_point();
+			#print_debug("Ruler placed point_1");
+			#point_1.show();
+			#switch_state("place_point_1");
+			##point_1.global_position = MouseCollision.mouse_raycast_data.get("position");
+		#elif(event.is_action_pressed("right_click")):
+			#print_debug("Ruler placed point_2");
+			#point_2.show();
+			#switch_state("place_point_2");
+			##point_2.global_position = MouseCollision.mouse_raycast_data.get("position");
 
 func _process(_delta: float) -> void:
 	
@@ -37,9 +40,9 @@ func _process(_delta: float) -> void:
 			State.PLACE_POINT_2:
 				point_2.global_position = MouseCollision.mouse_raycast_data.get("position");
 	
-	placeLine();
+	place_line();
 
-func placeLine() -> void:
+func place_line() -> void:
 	if(point_1.is_visible_in_tree() && point_2.is_visible_in_tree()): # show the line only if both points are visible
 		line.show();
 		
@@ -55,12 +58,36 @@ func placeLine() -> void:
 		distance.text = str((round(line.mesh.height * 100)/100) * RULER_DISTANCE_MULTIPLIER) + "m";
 	else: # hide the line otherwise
 		line.hide();
+
+func place_point() -> void: ## place points 1 and 2 on the map.
+	match switch_count:
+		0:
+			print_debug("Ruler placed point_1");
+			point_1.show();
+			switch_state("place_point_1");
+		1:
+			print_debug("Ruler placed point_2");
+			point_2.show();
+			switch_state("place_point_2");
+		2:
+			print_debug("Ruler in Idle");
+			switch_state("idle");
+		_:
+			print_debug("Invalid switch_count number: " + str(switch_count));
 	
-func switchState(state: String) -> void: ## Switch the ruler's state
+	if(switch_count < 2):
+		switch_count += 1;
+	else:
+		switch_count = 0;
+
+
+func switch_state(state: String) -> void: ## Switch the ruler's state
 	match state.to_lower():
 		"place_point_1":
 			current_state = State.PLACE_POINT_1;
 		"place_point_2":
 			current_state = State.PLACE_POINT_2;
+		"idle":
+			current_state = State.IDLE;
 		_:
 			print_debug("Invalid State: " + state);
