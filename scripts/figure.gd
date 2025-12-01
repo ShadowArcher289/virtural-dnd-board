@@ -53,7 +53,6 @@ func _input(event: InputEvent) -> void:
 			switch_state(State.STILL);
 			MouseCollision.remove_selected_creature();
 	if(event.is_action_released("left_click")):
-		print_debug("Figure Released")
 		released = true;
 		if(current_state != State.INFO):
 			switch_state(State.STILL);
@@ -80,7 +79,7 @@ func _process(_delta: float) -> void:
 
 func switch_state(state: State): ## Switch state and set the Global's current selected creature to this one if picked.
 	current_state = state;
-	print_debug("SWITCHED STATE: " + str(state));
+	#print_debug("SWITCHED STATE: " + str(state));
 	if(state == State.PICKED || state == State.INFO): # switch the current selected creature
 		set_current_selected_creature();
 
@@ -107,4 +106,4 @@ func click(): ## function called when the object is clicked by the user in the 3
 			elif(MouseCollision.currentState("select")):
 				switch_state(State.PICKED);
 				released = false;
-	print_debug("I HAVE BEEN CLICKED");
+	#print_debug("I HAVE BEEN CLICKED");

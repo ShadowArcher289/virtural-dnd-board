@@ -7,7 +7,6 @@ func _ready() -> void:
 
 func _creature_selected(_creature: Dictionary) -> void: ## Switch tab to the info tab when a creature is selected
 	if (MouseCollision.currentState("info")):
-		print_debug("SELECTED")
 		self.show();
 		self.folded = false;
 		tab_container.current_tab = 2;
