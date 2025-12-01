@@ -12,10 +12,10 @@ enum State {
 }
 
 var current_selected_creature: Dictionary = { ## the creature currently selected by the player. Its info is displayed in the Info tab.
-	"name": "Thri-Kreen", 
-	"image": load("res://assets/creatures/thri-kreen.jpg"), 
-	"stats": "Stats",
-	"description": "Cool ant person"
+	#"name": "Thri-Kreen", 
+	#"image": load("res://assets/creatures/thri-kreen.jpg"), 
+	#"stats": "Stats",
+	#"description": "Cool ant person"
 }
 
 var current_mouse_state = State.SELECT; ## The current mouse's state
@@ -34,6 +34,9 @@ func currentState(state: String) -> bool: ## Return the current state
 			print_debug("Invalid State: " + state);
 			return false;
 
+func remove_selected_creature() -> void:
+	current_selected_creature = {};
+	
 func switchState(state: String) -> void: ## Switch the mouse's state
 	match state.to_lower():
 		"measure":

@@ -52,26 +52,26 @@ func _process(_delta: float) -> void:
 	
 	place_line();
 
-func place_point() -> void: ## place points 1 and 2 on the map.
-	match switch_count:
-		0:
-			print_debug("Ruler placed point_1");
-			point_1.show();
-			switch_state("place_point_1");
-		1:
-			print_debug("Ruler placed point_2");
-			point_2.show();
-			switch_state("place_point_2");
-		2:
-			print_debug("Ruler in Idle");
-			switch_state("idle");
-		_:
-			print_debug("Invalid switch_count number: " + str(switch_count));
-	
-	if(switch_count < 2):
-		switch_count += 1;
-	else:
-		switch_count = 0;
+#func place_point() -> void: ## place points 1 and 2 on the map.
+	#match switch_count:
+		#0:
+			#print_debug("Ruler placed point_1");
+			#point_1.show();
+			#switch_state("place_point_1");
+		#1:
+			#print_debug("Ruler placed point_2");
+			#point_2.show();
+			#switch_state("place_point_2");
+		#2:
+			#print_debug("Ruler in Idle");
+			#switch_state("idle");
+		#_:
+			#print_debug("Invalid switch_count number: " + str(switch_count));
+	#
+	#if(switch_count < 2):
+		#switch_count += 1;
+	#else:
+		#switch_count = 0;
 
 
 func switch_state(state: String) -> void: ## Switch the ruler's state

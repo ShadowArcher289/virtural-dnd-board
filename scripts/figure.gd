@@ -28,6 +28,8 @@ var current_state = State.STILL; ## The current state of the creature, the defau
 var mouse_position: Vector2; ## The current mouse position.
 var current_position = self.position;
 
+var released = true; ## holds if the figure has been released (ie. the mouse is still held down after clicking).
+
 func _ready() -> void:
 	
 	var new_material = StandardMaterial3D.new();
@@ -49,6 +51,13 @@ func _input(event: InputEvent) -> void:
 	if(event.is_action_pressed("left_click")):
 		if(current_state == State.INFO):
 			switch_state(State.STILL);
+			MouseCollision.remove_selected_creature();
+	if(event.is_action_released("left_click")):
+		print_debug("Figure Released")
+		released = true;
+		if(current_state != State.INFO):
+			switch_state(State.STILL);
+			MouseCollision.remove_selected_creature();
 
 func _process(_delta: float) -> void:
 	match current_state:
@@ -73,22 +82,29 @@ func switch_state(state: State): ## Switch state and set the Global's current se
 	current_state = state;
 	print_debug("SWITCHED STATE: " + str(state));
 	if(state == State.PICKED || state == State.INFO): # switch the current selected creature
-		var self_as_creature_dictionary = {}
-		self_as_creature_dictionary = { ## This figure, but as a creature dictionary.
-			"name": object_name,
-			"image": object_image, 
-			"stats": creature_stats,
-			"description": object_description
-		}
-		SignalBus.creature_selected.emit(self_as_creature_dictionary);
-		MouseCollision.current_selected_creature = self_as_creature_dictionary;
+		set_current_selected_creature();
+
+func set_current_selected_creature() -> void: ## set the MouseCollision.current_selected_creature to this figure
+	var self_as_creature_dictionary = {}
+	self_as_creature_dictionary = { ## This figure, but as a creature dictionary.
+		"name": object_name,
+		"image": object_image, 
+		"stats": creature_stats,
+		"description": object_description,
+		"object": self
+	}
+	SignalBus.creature_selected.emit(self_as_creature_dictionary);
+	MouseCollision.current_selected_creature = self_as_creature_dictionary;
 
 func click(): ## function called when the object is clicked by the user in the 3D view
-	if current_state != State.STILL:
+	if current_state != State.STILL && released:
 		switch_state(State.STILL);
 	else: # switch to the repsective state based on the MouseCollision's state.
-		if(MouseCollision.currentState("info")):
-			switch_state(State.INFO);
-		elif(MouseCollision.currentState("select")):
-			switch_state(State.PICKED);
+		if(MouseCollision.current_selected_creature.size() == 0): # run if there is no selected creature
+			if(MouseCollision.currentState("info")):
+				switch_state(State.INFO);
+				released = false;
+			elif(MouseCollision.currentState("select")):
+				switch_state(State.PICKED);
+				released = false;
 	print_debug("I HAVE BEEN CLICKED");

@@ -11,7 +11,6 @@ func _input(event: InputEvent) -> void:
 		shoot_camera_ray();
 
 func _process(_delta: float) -> void:
-	set_process_unhandled_input(true);
 	if(Input.is_action_pressed("left_click")):
 		shoot_camera_ray();
 
