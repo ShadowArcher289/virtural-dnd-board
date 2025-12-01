@@ -8,32 +8,36 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -138.0
+offset_left = -181.0
 offset_top = -40.0
-offset_right = 138.0
+offset_right = 209.0
 grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("1_8impl")
 
 [node name="AttackArea" type="Button" parent="."]
-custom_minimum_size = Vector2(40, 40)
+custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
 text = "AttackArea"
 
 [node name="Measure" type="Button" parent="."]
-custom_minimum_size = Vector2(40, 40)
+custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
 text = "Measure"
 
 [node name="Select" type="Button" parent="."]
-custom_minimum_size = Vector2(40, 40)
+custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
 text = "Select"
 
 [node name="Info" type="Button" parent="."]
-custom_minimum_size = Vector2(40, 40)
+custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
 text = "Info"
+
+[node name="CurrentState" type="Label" parent="."]
+layout_mode = 2
+text = "State"
 
 [connection signal="pressed" from="AttackArea" to="." method="_on_attack_area_pressed"]
 [connection signal="pressed" from="Measure" to="." method="_on_measure_pressed"]

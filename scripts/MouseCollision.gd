@@ -11,6 +11,13 @@ enum State {
 	INFO,
 }
 
+var current_selected_creature: Dictionary = { ## the creature currently selected by the player. Its info is displayed in the Info tab.
+	"name": "Thri-Kreen", 
+	"image": load("res://assets/creatures/thri-kreen.jpg"), 
+	"stats": "Stats",
+	"description": "Cool ant person"
+}
+
 var current_mouse_state = State.SELECT; ## The current mouse's state
 
 func currentState(state: String) -> bool: ## Return the current state
@@ -39,10 +46,3 @@ func switchState(state: String) -> void: ## Switch the mouse's state
 			current_mouse_state = State.INFO;
 		_:
 			print_debug("Invalid State: " + state);
-
-var current_selected_creature: Dictionary = { ## the creature currently selected by the player. Its info is displayed in the Info tab.
-	"name": "Thri-Kreen", 
-	"image": load("res://assets/creatures/thri-kreen.jpg"), 
-	"stats": "Stats",
-	"description": "Cool ant person"
-}

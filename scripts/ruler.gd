@@ -20,7 +20,11 @@ var switch_count = 0;
 func _input(event: InputEvent) -> void:
 	if(MouseCollision.currentState("measure")):
 		if(event.is_action_pressed("left_click")):
-			place_point();
+			switch_state("place_point_1");
+			await get_tree().create_timer(0.01).timeout;
+			switch_state("place_point_2");
+		if(event.is_action_released("left_click")):
+			switch_state("idle");
 			#print_debug("Ruler placed point_1");
 			#point_1.show();
 			#switch_state("place_point_1");
@@ -34,30 +38,19 @@ func _input(event: InputEvent) -> void:
 func _process(_delta: float) -> void:
 	
 	if MouseCollision.mouse_raycast_data != null && MouseCollision.mouse_raycast_data.get("position") != null && MouseCollision.currentState("measure"):
+		
 		match current_state:
 			State.PLACE_POINT_1:
+				point_1.show();
 				point_1.global_position = MouseCollision.mouse_raycast_data.get("position");
 			State.PLACE_POINT_2:
+				point_2.show();
 				point_2.global_position = MouseCollision.mouse_raycast_data.get("position");
+	elif(!MouseCollision.currentState("measure")):
+		point_1.hide();
+		point_2.hide();
 	
 	place_line();
-
-func place_line() -> void:
-	if(point_1.is_visible_in_tree() && point_2.is_visible_in_tree()): # show the line only if both points are visible
-		line.show();
-		
-		# set the line to be in-between the two points
-		line.global_position = ((point_2.global_position - point_1.global_position)/2) + point_1.global_position;
-		line.mesh.height = sqrt(pow(abs(point_2.global_position.x - point_1.global_position.x), 2) + pow(abs(point_2.global_position.y - point_1.global_position.y), 2) + pow(abs(point_2.global_position.z - point_1.global_position.z), 2));
-		if(point_1.global_position != point_2.global_position):
-			line.look_at(point_2.global_position); # line's rotation
-			line.rotation_degrees.x += 90;
-		else:
-			line.hide();
-		
-		distance.text = str((round(line.mesh.height * 100)/100) * RULER_DISTANCE_MULTIPLIER) + "m";
-	else: # hide the line otherwise
-		line.hide();
 
 func place_point() -> void: ## place points 1 and 2 on the map.
 	match switch_count:
@@ -91,3 +84,20 @@ func switch_state(state: String) -> void: ## Switch the ruler's state
 			current_state = State.IDLE;
 		_:
 			print_debug("Invalid State: " + state);
+
+func place_line() -> void:
+	if(point_1.is_visible_in_tree() && point_2.is_visible_in_tree()): # show the line only if both points are visible
+		line.show();
+		
+		# set the line to be in-between the two points
+		line.global_position = ((point_2.global_position - point_1.global_position)/2) + point_1.global_position;
+		line.mesh.height = sqrt(pow(abs(point_2.global_position.x - point_1.global_position.x), 2) + pow(abs(point_2.global_position.y - point_1.global_position.y), 2) + pow(abs(point_2.global_position.z - point_1.global_position.z), 2));
+		if(point_1.global_position != point_2.global_position):
+			line.look_at(point_2.global_position); # line's rotation
+			line.rotation_degrees.x += 90;
+		else:
+			line.hide();
+		
+		distance.text = str((round(line.mesh.height * 100)/100) * RULER_DISTANCE_MULTIPLIER) + "m";
+	else: # hide the line otherwise
+		line.hide();

@@ -29,6 +29,7 @@ var mouse_position: Vector2; ## The current mouse position.
 var current_position = self.position;
 
 func _ready() -> void:
+	
 	var new_material = StandardMaterial3D.new();
 	
 	if(not object_image is CompressedTexture2D): # if the image is not a Texture (meaning it is likely a user's image), then set it as a texture

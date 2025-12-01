@@ -10,6 +10,10 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("left_click"):
 		shoot_camera_ray();
 
+func _process(_delta: float) -> void:
+	set_process_unhandled_input(true);
+	if(Input.is_action_pressed("left_click")):
+		shoot_camera_ray();
 
 func shoot_camera_ray(): ## shoots an array from a mouse click, clicking an object in 3D space.
 	var mouse_pos = get_viewport().get_mouse_position();
@@ -27,3 +31,5 @@ func shoot_camera_ray(): ## shoots an array from a mouse click, clicking an obje
 	
 	if MouseCollision.mouse_raycast_collider && MouseCollision.mouse_raycast_collider.get_parent().has_method("click"): # if the selected object has a click() method, then run it.
 		MouseCollision.mouse_raycast_collider.get_parent().click();
+	
+	SignalBus.mouse_collided.emit();
