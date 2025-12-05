@@ -21,6 +21,8 @@ Press **shift** to move faster, and hold **alt** to move slower.
 Hold down the **right mouse button** to rotate the camera.
 There's a slider in the editor to control mouse sensitivity.
 
+## Installation
+Attach `camera.gd` to your Camera3D node. That's it!
 
 ## License
 [MIT](https://opensource.org/licenses/MIT).

@@ -1,10 +1,14 @@
 
-## Usage
-Use **W** and **S** to move forward and backward.
+## Setup
 
-Use **A** and **D** to move left and right.
-
-Use **Q** and **E** to move up and down.
+## Controls
+### Camera:
+- **W**: Forward
+- **S**: Backward
+- **A**: Left
+- **D**: Right
+- **Q** or **Space**: Up
+- **E** or **Shift**: Down
 
 Roll the **scroll wheel** to increase and decrease movement speed.
 
