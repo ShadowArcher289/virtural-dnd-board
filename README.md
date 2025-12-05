@@ -5,7 +5,7 @@
 - Open the project in Godot
 - Run the project (press (F5)) or hit the Play button in the top right of the editor
 - Make sure the input mode in the top left of the game is (Input)
-![Input image]("./readme_input_screenshot.png" "Input")
+![Input image](readme_input_screenshot.png "Input")
 
 ## Controls
 ### Camera:
