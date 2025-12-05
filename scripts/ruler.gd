@@ -52,6 +52,7 @@ func _process(_delta: float) -> void:
 				point_1.show();
 				point_1.global_position = MouseCollision.mouse_raycast_data.get("position");
 			PlaceState.PLACE_POINT_2:
+				point_1.show(); # if point 2 is placed, then point_1 should already be in a valid place
 				point_2.show();
 				point_2.global_position = MouseCollision.mouse_raycast_data.get("position");
 	elif(!MouseCollision.currentState("measure") || !MouseCollision.currentState("attack_area")):
@@ -107,8 +108,10 @@ func place_line(p1: MeshInstance3D, p2: MeshInstance3D, given_line: MeshInstance
 			given_line.look_at(p2.global_position); # line's rotation
 			given_line.rotation_degrees.x += 90;
 		else:
+			print("HIDE1")
 			given_line.hide();
 		
 		distance.text = str((round(main_line.mesh.height * 100)/100) * RULER_DISTANCE_MULTIPLIER) + "m";
 	else: # hide the line otherwise
+		print("HIDE2")
 		given_line.hide();
