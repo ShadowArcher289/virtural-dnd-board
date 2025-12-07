@@ -151,9 +151,16 @@ func place_circle(p1: MeshInstance3D, p2: MeshInstance3D, given_circle: MeshInst
 		radius.global_position = calculate_midpoint(p1, p2);
 		radius.global_position.y = p1.global_position.y + 0.1;
 	else:
-		given_circle.hide();
+		given_circle.hide(); # TODO: Implement hiding the circle when a button is toggled, not when the mode is switched so that users can move figures while seeing the AOE.
 
+func place_square(p1: MeshInstance3D, p2: MeshInstance3D, given_square: MeshInstance3D) -> void: ## place a given square with a reach of the distance between two given points and centered at p1.
+	pass; # TODO: Implement this
 
+func place_cone(p1: MeshInstance3D, p2: MeshInstance3D, given_cone: MeshInstance3D) -> void: ## place a given cone with a reach of the distance between two given points starting at p1.
+	pass; # TODO: Implement this
+	# NOTE: CONE A cone extends in a direction you choose from its point of origin. 
+	# A cone's width at a given point along its length is equal to that point's distance from the point of origin. 
+	# A cone's area of effect specifies its maximum length. A cone's point of origin is not included in the cone's area of effect, unless you decide otherwise.
 
 func calculate_distance_between_two_points(p1: MeshInstance3D, p2: MeshInstance3D) -> float: ## returns the distance between two points(p1 & p2) in a 3D space
 	return sqrt(pow(abs(p2.global_position.x - p1.global_position.x), 2) + pow(abs(p2.global_position.y - p1.global_position.y), 2) + pow(abs(p2.global_position.z - p1.global_position.z), 2));
