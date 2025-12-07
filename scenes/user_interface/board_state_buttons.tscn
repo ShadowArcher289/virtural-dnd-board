@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://b75lr2wt3pgoq"]
+[gd_scene load_steps=3 format=3 uid="uid://b75lr2wt3pgoq"]
 
 [ext_resource type="Script" uid="uid://bc8ji0hrc6rfu" path="res://scripts/board_ui/board_state_buttons.gd" id="1_8impl"]
+[ext_resource type="Texture2D" uid="uid://8gi20yhem3n2" path="res://icon.svg" id="2_ol3v0"]
 
 [node name="BoardStateButtons" type="HBoxContainer"]
 anchors_preset = 7
@@ -16,28 +17,34 @@ grow_vertical = 0
 script = ExtResource("1_8impl")
 
 [node name="AttackArea" type="Button" parent="."]
-custom_minimum_size = Vector2(80, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 text = "AttackArea"
 
 [node name="Measure" type="Button" parent="."]
-custom_minimum_size = Vector2(80, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 text = "Measure"
 
 [node name="Select" type="Button" parent="."]
-custom_minimum_size = Vector2(80, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 text = "Select"
 
 [node name="Info" type="Button" parent="."]
-custom_minimum_size = Vector2(80, 40)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 text = "Info"
 
 [node name="CurrentState" type="Label" parent="."]
 layout_mode = 2
 text = "State"
+
+[node name="SelectionArrow" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(469, 21)
+scale = Vector2(0.14062506, 0.14062506)
+texture = ExtResource("2_ol3v0")
 
 [connection signal="pressed" from="AttackArea" to="." method="_on_attack_area_pressed"]
 [connection signal="pressed" from="Measure" to="." method="_on_measure_pressed"]

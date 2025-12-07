@@ -6,7 +6,7 @@ const FIGURE = preload("res://scenes/figure.tscn")
 @export var object_name: String = "Thri-Kreen"; ## Name of the object.
 @export var object_image: Resource = load("res://assets/creatures/thri-kreen.jpg"); ## The path to the image that will display as the button.
 @export var object_description: String = "Cool ant person"; ## Description of the object.
-@export var creature_stats: String = "Stats"; ## Stats for a creature.
+@export var creature_stats: Dictionary = {"ability_scores": [12, 13, 4, 5, 12, 53]}; ## Stats for a creature.
 
 #@warning_ignore("shadowed_variable")
 #func _init(object_type: String, object_name: String, objejct_image_path: String, creature_stats: String = "Stats" ) -> void:

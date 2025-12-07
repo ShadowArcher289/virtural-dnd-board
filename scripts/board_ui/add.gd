@@ -26,4 +26,3 @@ func create_object_spawner(creature: Dictionary):
 	new_object_spawner.creature_stats = creature.get("stats");
 	self.add_child(new_object_spawner);
 	new_object_spawner.show();
-	

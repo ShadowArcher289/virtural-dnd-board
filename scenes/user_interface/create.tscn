@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dr5uolssgg1yg"]
 
 [ext_resource type="Texture2D" uid="uid://8gi20yhem3n2" path="res://icon.svg" id="1_m2j8i"]
-[ext_resource type="Script" uid="uid://vkbbvde44vxh" path="res://scripts/create_creature.gd" id="1_w6lwg"]
+[ext_resource type="Script" uid="uid://vkbbvde44vxh" path="res://scripts/creature_scripts/create_creature.gd" id="1_w6lwg"]
 
 [node name="Create" type="VBoxContainer"]
 offset_right = 150.0
@@ -30,6 +30,100 @@ layout_mode = 2
 [node name="CreatureName" type="LineEdit" parent="CreateCreatureContainer/VBoxContainer"]
 layout_mode = 2
 placeholder_text = "Name..."
+
+[node name="StatsContainer" type="HBoxContainer" parent="CreateCreatureContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Str" type="VBoxContainer" parent="CreateCreatureContainer/VBoxContainer/StatsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="CreateCreatureContainer/VBoxContainer/StatsContainer/Str"]
+layout_mode = 2
+text = "STR"
+horizontal_alignment = 1
+
+[node name="StrData" type="TextEdit" parent="CreateCreatureContainer/VBoxContainer/StatsContainer/Str"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+placeholder_text = "14"
+
+[node name="Dex" type="VBoxContainer" parent="CreateCreatureContainer/VBoxContainer/StatsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="CreateCreatureContainer/VBoxContainer/StatsContainer/Dex"]
+layout_mode = 2
+text = "DEX"
+horizontal_alignment = 1
+
+[node name="DexData" type="TextEdit" parent="CreateCreatureContainer/VBoxContainer/StatsContainer/Dex"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+placeholder_text = "13"
+
+[node name="Con" type="VBoxContainer" parent="CreateCreatureContainer/VBoxContainer/StatsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="CreateCreatureContainer/VBoxContainer/StatsContainer/Con"]
+layout_mode = 2
+text = "CON"
+horizontal_alignment = 1
+
+[node name="ConData" type="TextEdit" parent="CreateCreatureContainer/VBoxContainer/StatsContainer/Con"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+placeholder_text = "11"
+
+[node name="Int" type="VBoxContainer" parent="CreateCreatureContainer/VBoxContainer/StatsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="CreateCreatureContainer/VBoxContainer/StatsContainer/Int"]
+layout_mode = 2
+text = "INT"
+horizontal_alignment = 1
+
+[node name="IntData" type="TextEdit" parent="CreateCreatureContainer/VBoxContainer/StatsContainer/Int"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+placeholder_text = "15"
+
+[node name="Wis" type="VBoxContainer" parent="CreateCreatureContainer/VBoxContainer/StatsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="CreateCreatureContainer/VBoxContainer/StatsContainer/Wis"]
+layout_mode = 2
+text = "WIS"
+horizontal_alignment = 1
+
+[node name="WisData" type="TextEdit" parent="CreateCreatureContainer/VBoxContainer/StatsContainer/Wis"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+placeholder_text = "10"
+
+[node name="Cha" type="VBoxContainer" parent="CreateCreatureContainer/VBoxContainer/StatsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="CreateCreatureContainer/VBoxContainer/StatsContainer/Cha"]
+layout_mode = 2
+text = "CHA"
+horizontal_alignment = 1
+
+[node name="ChaData" type="TextEdit" parent="CreateCreatureContainer/VBoxContainer/StatsContainer/Cha"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+placeholder_text = "14"
 
 [node name="Stats" type="TextEdit" parent="CreateCreatureContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)

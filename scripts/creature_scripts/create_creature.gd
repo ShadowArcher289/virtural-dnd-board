@@ -1,9 +1,17 @@
 extends FoldableContainer
 
 @onready var creature_name: LineEdit = $VBoxContainer/CreatureName
-@onready var stats: TextEdit = $VBoxContainer/Stats
 @onready var description: TextEdit = $VBoxContainer/Description
 @onready var texture_rect: TextureRect = $VBoxContainer/TextureRect
+
+@onready var stats: TextEdit = $VBoxContainer/Stats
+@onready var str_data: TextEdit = $VBoxContainer/StatsContainer/Str/StrData
+@onready var dex_data: TextEdit = $VBoxContainer/StatsContainer/Dex/DexData
+@onready var con_data: TextEdit = $VBoxContainer/StatsContainer/Con/ConData
+@onready var int_data: TextEdit = $VBoxContainer/StatsContainer/Int/IntData
+@onready var wis_data: TextEdit = $VBoxContainer/StatsContainer/Wis/WisData
+@onready var cha_data: TextEdit = $VBoxContainer/StatsContainer/Cha/ChaData
+
 
 @onready var file_dialog: FileDialog = $"../FileDialog"
 
@@ -30,7 +38,10 @@ func create_creature() -> void:
 	Globals.creatures.get_or_add(key, {
 		"name": creature_name.text, 
 		"image": image, 
-		"stats": stats.text,
+		"stats": format_stats(), # TODO: Change this to be a dictionary of the stats
 		"description": description.text
 	}); # adds the creature with the key:value creature-name, Dictionary{}
 	SignalBus.creature_created.emit(key);
+
+func format_stats() -> Dictionary: ## return the stats in the form of a dictionary
+	return {"ability_scores": [int(str_data.text), int(dex_data.text), int(con_data.text), int(int_data.text), int(wis_data.text), int(cha_data.text)], "proficiencies": stats.text}; # default

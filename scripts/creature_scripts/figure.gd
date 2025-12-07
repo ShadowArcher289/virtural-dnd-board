@@ -12,7 +12,7 @@ class_name Figure extends Node3D
 @export var object_name: String = "Thri-Kreen";
 @export var object_image: Resource = load("res://assets/creatures/thri-kreen.jpg");
 @export var object_description: String = "Cool ant person";
-@export var creature_stats: String = "Stats";
+@export var creature_stats: Dictionary = {"ability_scores": [12, 13, 4, 5, 12, 53]};
 
 
 enum State { ## The types of states for a Figure

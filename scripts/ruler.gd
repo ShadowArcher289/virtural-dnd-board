@@ -108,10 +108,11 @@ func place_line(p1: MeshInstance3D, p2: MeshInstance3D, given_line: MeshInstance
 			given_line.look_at(p2.global_position); # line's rotation
 			given_line.rotation_degrees.x += 90;
 		else:
-			print("HIDE1")
 			given_line.hide();
 		
 		distance.text = str((round(main_line.mesh.height * 100)/100) * RULER_DISTANCE_MULTIPLIER) + "m";
 	else: # hide the line otherwise
-		print("HIDE2")
 		given_line.hide();
+
+func place_circle(p1: MeshInstance3D, p2: MeshInstance3D, given_circle: MeshInstance3D) -> void: ## place a given circle with a radius of the distance between two given points and centered at p1.
+	pass;

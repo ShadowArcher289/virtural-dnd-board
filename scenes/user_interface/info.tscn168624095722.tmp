@@ -26,99 +26,99 @@ text = "Creature Data"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="StatsContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 
-[node name="Str" type="VBoxContainer" parent="VBoxContainer/StatsContainer"]
+[node name="Str" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="VBoxContainer/StatsContainer/Str"]
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/Str"]
 layout_mode = 2
 text = "STR"
 horizontal_alignment = 1
 
-[node name="StrData" type="Label" parent="VBoxContainer/StatsContainer/Str"]
+[node name="StrData" type="Label" parent="VBoxContainer/HBoxContainer/Str"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "14"
 horizontal_alignment = 1
 
-[node name="Dex" type="VBoxContainer" parent="VBoxContainer/StatsContainer"]
+[node name="Dex" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="VBoxContainer/StatsContainer/Dex"]
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/Dex"]
 layout_mode = 2
 text = "DEX"
 horizontal_alignment = 1
 
-[node name="DexData" type="Label" parent="VBoxContainer/StatsContainer/Dex"]
+[node name="DexData" type="Label" parent="VBoxContainer/HBoxContainer/Dex"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "13"
 horizontal_alignment = 1
 
-[node name="Con" type="VBoxContainer" parent="VBoxContainer/StatsContainer"]
+[node name="Con" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="VBoxContainer/StatsContainer/Con"]
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/Con"]
 layout_mode = 2
 text = "CON"
 horizontal_alignment = 1
 
-[node name="ConData" type="Label" parent="VBoxContainer/StatsContainer/Con"]
+[node name="ConData" type="Label" parent="VBoxContainer/HBoxContainer/Con"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "11"
 horizontal_alignment = 1
 
-[node name="Int" type="VBoxContainer" parent="VBoxContainer/StatsContainer"]
+[node name="Int" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="VBoxContainer/StatsContainer/Int"]
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/Int"]
 layout_mode = 2
 text = "INT"
 horizontal_alignment = 1
 
-[node name="IntData" type="Label" parent="VBoxContainer/StatsContainer/Int"]
+[node name="IntData" type="Label" parent="VBoxContainer/HBoxContainer/Int"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "15"
 horizontal_alignment = 1
 
-[node name="Wis" type="VBoxContainer" parent="VBoxContainer/StatsContainer"]
+[node name="Wis" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="VBoxContainer/StatsContainer/Wis"]
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/Wis"]
 layout_mode = 2
 text = "WIS"
 horizontal_alignment = 1
 
-[node name="WisData" type="Label" parent="VBoxContainer/StatsContainer/Wis"]
+[node name="WisData" type="Label" parent="VBoxContainer/HBoxContainer/Wis"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "10"
 horizontal_alignment = 1
 
-[node name="Cha" type="VBoxContainer" parent="VBoxContainer/StatsContainer"]
+[node name="Cha" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="VBoxContainer/StatsContainer/Cha"]
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/Cha"]
 layout_mode = 2
 text = "CHA"
 horizontal_alignment = 1
 
-[node name="ChaData" type="Label" parent="VBoxContainer/StatsContainer/Cha"]
+[node name="ChaData" type="Label" parent="VBoxContainer/HBoxContainer/Cha"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
