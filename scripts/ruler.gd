@@ -221,7 +221,7 @@ func place_cone(p1: MeshInstance3D, p2: MeshInstance3D, given_cone: Node3D, cone
 		# set the cone's extra points
 		cone_data.get("cone_p1").global_position = p2.global_position;
 		cone_data.get("cone_p2").global_position = p2.global_position;
-		cone_data.get("cone_p1").position.y = cone_data.get("cone_l2").mesh.height/2;
+		cone_data.get("cone_p1").position.y = cone_data.get("cone_l2").mesh.height/2; # BUG: The points aren't being placed quite right due to the halving, make a big cone and you'll see
 		cone_data.get("cone_p2").position.y = -cone_data.get("cone_l2").mesh.height/2;
 		
 		# set the cone's side lines
