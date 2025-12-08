@@ -1,0 +1,64 @@
+[gd_scene load_steps=4 format=3 uid="uid://c8itwpvj223cr"]
+
+[ext_resource type="Script" uid="uid://cfsqnos8qqn1r" path="res://scripts/board_ui/area_of_effects.gd" id="1_a2uuu"]
+[ext_resource type="Texture2D" uid="uid://8gi20yhem3n2" path="res://icon.svg" id="1_hc7e2"]
+[ext_resource type="PackedScene" uid="uid://bgi370v7tnn0r" path="res://scenes/ruler.tscn" id="3_pa28u"]
+
+[node name="AreaOfEffects" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 211.0
+offset_bottom = 336.0
+script = ExtResource("1_a2uuu")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="CircleArea" type="Button" parent="MarginContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+toggle_mode = true
+text = "Circle"
+icon = ExtResource("1_hc7e2")
+icon_alignment = 1
+expand_icon = true
+
+[node name="SquareArea" type="Button" parent="MarginContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+toggle_mode = true
+text = "Square"
+icon = ExtResource("1_hc7e2")
+icon_alignment = 1
+expand_icon = true
+
+[node name="ConeArea" type="Button" parent="MarginContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+toggle_mode = true
+text = "Cone"
+icon = ExtResource("1_hc7e2")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Ruler" parent="." instance=ExtResource("3_pa28u")]
+
+[connection signal="pressed" from="MarginContainer/GridContainer/CircleArea" to="." method="_on_circle_area_pressed"]
+[connection signal="pressed" from="MarginContainer/GridContainer/SquareArea" to="." method="_on_square_area_pressed"]
+[connection signal="pressed" from="MarginContainer/GridContainer/ConeArea" to="." method="_on_cone_area_pressed"]

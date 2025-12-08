@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://dvbs62al8qbq"]
+[gd_scene load_steps=7 format=3 uid="uid://dvbs62al8qbq"]
 
 [ext_resource type="Script" uid="uid://q4jh4vdem12m" path="res://scripts/board_ui/add.gd" id="1_2nxaw"]
 [ext_resource type="Script" uid="uid://b65gptmgi0u4d" path="res://scripts/board_ui/board_menu.gd" id="1_6mwid"]
 [ext_resource type="PackedScene" uid="uid://blc4dyk30acl1" path="res://scenes/user_interface/spawn_object_on_board.tscn" id="2_8rgmx"]
 [ext_resource type="PackedScene" uid="uid://dr5uolssgg1yg" path="res://scenes/user_interface/create.tscn" id="3_2nxaw"]
 [ext_resource type="PackedScene" uid="uid://ksrdvarxh4rm" path="res://scenes/user_interface/info.tscn" id="4_epdas"]
+[ext_resource type="PackedScene" uid="uid://c8itwpvj223cr" path="res://scenes/user_interface/area_of_effects.tscn" id="6_tri1x"]
 
 [node name="BoardMenu" type="FoldableContainer"]
 anchors_preset = 9
@@ -16,11 +17,12 @@ script = ExtResource("1_6mwid")
 
 [node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 2
-current_tab = 0
+current_tab = 3
 drag_to_rearrange_enabled = true
 deselect_enabled = true
 
 [node name="Add" type="VBoxContainer" parent="TabContainer"]
+visible = false
 layout_mode = 2
 script = ExtResource("1_2nxaw")
 metadata/_tab_index = 0
@@ -43,3 +45,7 @@ metadata/_tab_index = 1
 [node name="Info" parent="TabContainer" instance=ExtResource("4_epdas")]
 visible = false
 layout_mode = 2
+
+[node name="AOEs" parent="TabContainer" instance=ExtResource("6_tri1x")]
+layout_mode = 2
+metadata/_tab_index = 3

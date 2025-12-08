@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bgi370v7tnn0r"]
+[gd_scene load_steps=10 format=3 uid="uid://bgi370v7tnn0r"]
 
 [ext_resource type="Script" uid="uid://boj2lmi2xhnmu" path="res://scripts/ruler.gd" id="1_0ls0d"]
 [ext_resource type="Material" uid="uid://wf1yx3xdxtne" path="res://assets/themes/ruler_line_red.tres" id="2_wc50e"]
@@ -21,6 +21,12 @@ material = ExtResource("2_wc50e")
 [sub_resource type="TorusMesh" id="TorusMesh_0ls0d"]
 material = ExtResource("2_wc50e")
 outer_radius = 0.6
+
+[sub_resource type="TorusMesh" id="TorusMesh_wc50e"]
+material = ExtResource("2_wc50e")
+outer_radius = 0.6
+rings = 4
+ring_segments = 4
 
 [node name="Ruler" type="Node3D"]
 script = ExtResource("1_0ls0d")
@@ -51,3 +57,12 @@ mesh = SubResource("TorusMesh_0ls0d")
 transform = Transform3D(-2.1855697e-09, 3.4969116e-08, -0.05, 1, -6.993822e-07, -4.37114e-08, -2.1855697e-09, -0.8, -2.1855695e-09, 0, 0, -0.10000004)
 billboard = 1
 text = "Radius"
+
+[node name="MainSquare" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("TorusMesh_wc50e")
+
+[node name="Width" type="Label3D" parent="MainSquare"]
+transform = Transform3D(-2.1855697e-09, 3.4969116e-08, -0.05, 1, -6.993822e-07, -4.37114e-08, -2.1855697e-09, -0.8, -2.1855695e-09, 0, 0, -0.10000004)
+billboard = 1
+text = "Width"

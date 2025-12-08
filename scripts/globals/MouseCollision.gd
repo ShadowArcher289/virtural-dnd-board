@@ -19,9 +19,12 @@ var current_selected_creature: Dictionary = { ## the creature currently selected
 	#"description": "Cool ant person"
 }
 
+func remove_selected_creature() -> void:
+	current_selected_creature = {};
+
 var current_mouse_state = State.SELECT; ## The current mouse's state
 
-func currentState(state: String) -> bool: ## Return the current state
+func currentState(state: String) -> bool: ## Return the current state: MEASURE, ATTACK_AREA, SELECT, INFO
 	match state.to_lower():
 		"measure":
 			return current_mouse_state == State.MEASURE;
@@ -34,11 +37,8 @@ func currentState(state: String) -> bool: ## Return the current state
 		_:
 			print_debug("Invalid State: " + state);
 			return false;
-
-func remove_selected_creature() -> void:
-	current_selected_creature = {};
 	
-func switchState(state: String) -> void: ## Switch the mouse's state
+func switchState(state: String) -> void: ## Switch the mouse's state: MEASURE, ATTACK_AREA, SELECT, INFO
 	match state.to_lower():
 		"measure":
 			current_mouse_state = State.MEASURE;

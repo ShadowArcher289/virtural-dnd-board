@@ -9,6 +9,9 @@ extends Node3D
 @onready var main_circle: MeshInstance3D = $MainCircle
 @onready var radius: Label3D = $MainCircle/Radius
 
+@onready var main_square: MeshInstance3D = $MainSquare
+@onready var width: Label3D = $MainSquare/Width
+
 const RED = "#9c0000";
 
 enum PlaceState { ## The state for placing a point
@@ -34,11 +37,11 @@ var switch_count = 0;
 func _input(event: InputEvent) -> void:
 	if(MouseCollision.currentState("measure") || MouseCollision.currentState("attack_area")):
 		if(event.is_action_pressed("left_click")):
-			switch_state("place_point_1");
+			switch_point_state("place_point_1");
 			await get_tree().create_timer(0.01).timeout;
-			switch_state("place_point_2");
+			switch_point_state("place_point_2");
 		if(event.is_action_released("left_click")):
-			switch_state("idle");
+			switch_point_state("idle");
 
 func _process(_delta: float) -> void:
 	
@@ -46,9 +49,9 @@ func _process(_delta: float) -> void:
 	if MouseCollision.mouse_raycast_data != null && MouseCollision.mouse_raycast_data.get("position") != null && (MouseCollision.currentState("measure") || MouseCollision.currentState("attack_area")):
 		
 		if(MouseCollision.currentState("measure")):
-			switch_state("ruler");
-		elif(MouseCollision.currentState("attack_area")):
-			switch_state("atk_aoe_circle");
+			switch_aoe_state("ruler");
+		elif(MouseCollision.currentState("attack_area") && current_measure_state == MeasureState.RULER):
+			switch_aoe_state("atk_aoe_circle");
 
 		match current_place_state:
 			PlaceState.PLACE_POINT_1:
@@ -69,6 +72,10 @@ func _process(_delta: float) -> void:
 			place_line(point_1, point_2, main_line);
 		MeasureState.ATK_AOE_CIRCLE:
 			place_circle(point_1, point_2, main_circle);
+		MeasureState.ATK_AOE_SQUARE:
+			place_square(point_1, point_2, main_square);
+		MeasureState.ATK_AOE_CONE:
+			place_line(point_1, point_2, main_line);
 
 
 #func place_point() -> void: ## place points 1 and 2 on the map.
@@ -92,7 +99,7 @@ func _process(_delta: float) -> void:
 	#else:
 		#switch_count = 0;
 
-func switch_state(state: String) -> void: ## Switch the ruler's PlaceState or State depending on the value that is inputed
+func switch_point_state(state: String) -> void: ## Switch the ruler's PlaceState for placing points
 	match state.to_lower():
 		"place_point_1":
 			current_place_state = PlaceState.PLACE_POINT_1;
@@ -100,6 +107,11 @@ func switch_state(state: String) -> void: ## Switch the ruler's PlaceState or St
 			current_place_state = PlaceState.PLACE_POINT_2;
 		"idle":
 			current_place_state = PlaceState.IDLE;
+		_:
+			print_debug("Invalid State: " + state);
+
+func switch_aoe_state(state: String) -> void: ## Switch the ruler's AoeState for attack area
+	match state.to_lower():
 		"ruler":
 			current_measure_state = MeasureState.RULER;
 			hide_lines();
@@ -118,6 +130,7 @@ func switch_state(state: String) -> void: ## Switch the ruler's PlaceState or St
 func hide_lines(): ## hide all the drawn lines 
 	main_line.hide();
 	main_circle.hide();
+	main_square.hide();
 
 func place_line(p1: MeshInstance3D, p2: MeshInstance3D, given_line: MeshInstance3D) -> void: ## place a given line between two given points
 	if(p1.is_visible_in_tree() && p2.is_visible_in_tree()): # show the line only if both points are visible
@@ -154,7 +167,28 @@ func place_circle(p1: MeshInstance3D, p2: MeshInstance3D, given_circle: MeshInst
 		given_circle.hide(); # TODO: Implement hiding the circle when a button is toggled, not when the mode is switched so that users can move figures while seeing the AOE.
 
 func place_square(p1: MeshInstance3D, p2: MeshInstance3D, given_square: MeshInstance3D) -> void: ## place a given square with a reach of the distance between two given points and centered at p1.
-	pass; # TODO: Implement this
+	if(p1.is_visible_in_tree() && p2.is_visible_in_tree()): # show the circle only if both points are visible
+		given_square.show();
+		
+		given_square.global_position = p1.global_position; # Set the square to be centered at point 1
+		
+		# Set it's width equal to the distance between the two points.
+		given_square.mesh.inner_radius = calculate_distance_between_two_points(p1, p2) - 0.05;
+		given_square.mesh.outer_radius = given_square.mesh.inner_radius + 0.1;
+		
+		given_square.look_at(p2.global_position); # line's rotation
+		given_square.rotation_degrees.x = 0;
+		given_square.rotation_degrees.z = 0;
+		
+		var c = (given_square.mesh.inner_radius+0.05);
+		var adjacent = c*cos(PI/4);
+		width.text = str((round((adjacent) * 100)/100) * 2 * RULER_DISTANCE_MULTIPLIER) + "m";
+		
+		width.global_position = calculate_midpoint(p1, p2);
+		width.global_position.y = p1.global_position.y + 0.1;
+	else:
+		given_square.hide(); # TODO: Implement hiding the circle when a button is toggled, not when the mode is switched so that users can move figures while seeing the AOE.
+
 
 func place_cone(p1: MeshInstance3D, p2: MeshInstance3D, given_cone: MeshInstance3D) -> void: ## place a given cone with a reach of the distance between two given points starting at p1.
 	pass; # TODO: Implement this
