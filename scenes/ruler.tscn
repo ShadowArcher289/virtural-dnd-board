@@ -66,3 +66,5 @@ mesh = SubResource("TorusMesh_wc50e")
 transform = Transform3D(-2.1855697e-09, 3.4969116e-08, -0.05, 1, -6.993822e-07, -4.37114e-08, -2.1855697e-09, -0.8, -2.1855695e-09, 0, 0, -0.10000004)
 billboard = 1
 text = "Width"
+
+[node name="MainCone" type="MeshInstance3D" parent="."]

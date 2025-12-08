@@ -167,14 +167,15 @@ func place_circle(p1: MeshInstance3D, p2: MeshInstance3D, given_circle: MeshInst
 		given_circle.hide(); # TODO: Implement hiding the circle when a button is toggled, not when the mode is switched so that users can move figures while seeing the AOE.
 
 func place_square(p1: MeshInstance3D, p2: MeshInstance3D, given_square: MeshInstance3D) -> void: ## place a given square with a reach of the distance between two given points and centered at p1.
-	if(p1.is_visible_in_tree() && p2.is_visible_in_tree()): # show the circle only if both points are visible
+	if(p1.is_visible_in_tree() && p2.is_visible_in_tree()): # show the square only if both points are visible
 		given_square.show();
 		
-		given_square.global_position = p1.global_position; # Set the square to be centered at point 1
+		given_square.global_position = calculate_midpoint(p1, p2); # set the square to be centered between p1 and p2, with the same y position as p1
+		given_square.global_position.y = p1.global_position.y;
 		
 		# Set it's width equal to the distance between the two points.
-		given_square.mesh.inner_radius = calculate_distance_between_two_points(p1, p2) - 0.05;
-		given_square.mesh.outer_radius = given_square.mesh.inner_radius + 0.1;
+		given_square.mesh.inner_radius = (calculate_distance_between_two_points(p1, p2)/2 - 0.05);
+		given_square.mesh.outer_radius = (given_square.mesh.inner_radius + 0.1);
 		
 		given_square.look_at(p2.global_position); # line's rotation
 		given_square.rotation_degrees.x = 0;
