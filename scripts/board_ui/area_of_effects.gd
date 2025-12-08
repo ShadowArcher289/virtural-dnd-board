@@ -20,7 +20,7 @@ func _on_square_area_pressed() -> void:
 	cone_area.toggle_mode = false;
 
 func _on_cone_area_pressed() -> void:
-	ruler.switch_aoe_state("atk_aoe_circle");
+	ruler.switch_aoe_state("atk_aoe_cone");
 	MouseCollision.switchState("attack_area");
 	circle_area.toggle_mode = false;
 	square_area.toggle_mode = false;

@@ -12,6 +12,17 @@ extends Node3D
 @onready var main_square: MeshInstance3D = $MainSquare
 @onready var width: Label3D = $MainSquare/Width
 
+@onready var main_cone: Node3D = $MainCone ## Node to hide all objects of the main cone
+@onready var main_cone_parts: Dictionary = {
+	"cone_l1": $MainCone/ConeL1, 
+	"cone_l2": $MainCone/ConeL2, 
+	"cone_l3": $MainCone/ConeL3,  
+	"cone_p1": $MainCone/ConeL2/ConeP1, 
+	"cone_p2": $MainCone/ConeL2/ConeP2
+}; ## Dictionary of all the objects used for a cone. numbered from lowest on the left to highest on the right.
+@onready var size: Label3D = $MainCone/Size
+
+
 const RED = "#9c0000";
 
 enum PlaceState { ## The state for placing a point
@@ -75,7 +86,7 @@ func _process(_delta: float) -> void:
 		MeasureState.ATK_AOE_SQUARE:
 			place_square(point_1, point_2, main_square);
 		MeasureState.ATK_AOE_CONE:
-			place_line(point_1, point_2, main_line);
+			place_cone(point_1, point_2, main_cone, main_cone_parts);
 
 
 #func place_point() -> void: ## place points 1 and 2 on the map.
@@ -131,11 +142,12 @@ func hide_lines(): ## hide all the drawn lines
 	main_line.hide();
 	main_circle.hide();
 	main_square.hide();
+	main_cone.hide();
 
 func place_line(p1: MeshInstance3D, p2: MeshInstance3D, given_line: MeshInstance3D) -> void: ## place a given line between two given points
 	if(p1.is_visible_in_tree() && p2.is_visible_in_tree()): # show the line only if both points are visible
 		given_line.show();
-		
+
 		# set the line to be in-between the two points
 		given_line.global_position = calculate_midpoint(p1, p2);
 		given_line.mesh.height = calculate_distance_between_two_points(p1, p2);
@@ -191,13 +203,49 @@ func place_square(p1: MeshInstance3D, p2: MeshInstance3D, given_square: MeshInst
 		given_square.hide(); # TODO: Implement hiding the circle when a button is toggled, not when the mode is switched so that users can move figures while seeing the AOE.
 
 
-func place_cone(p1: MeshInstance3D, p2: MeshInstance3D, given_cone: MeshInstance3D) -> void: ## place a given cone with a reach of the distance between two given points starting at p1.
-	pass; # TODO: Implement this
+func place_cone(p1: MeshInstance3D, p2: MeshInstance3D, given_cone: Node3D, cone_data: Dictionary) -> void: ## place a given cone with a reach of the distance between two given points starting at p1.
+	if(p1.is_visible_in_tree() && p2.is_visible_in_tree()): # show the line only if both points are visible
+		main_cone.show();
+		
+		var cone_size = calculate_distance_between_two_points(p1, p2);
+				
+		# set the line to be in-between the two points
+		cone_data.get("cone_l2").global_position = p2.global_position;
+		cone_data.get("cone_l2").mesh.height = cone_size;
+		if(p1.global_position != p2.global_position):
+			cone_data.get("cone_l2").look_at(p1.global_position); # line's rotation
+			cone_data.get("cone_l2").rotation_degrees.z += 90;
+		else:
+			main_cone.hide();
+			
+		# set the cone's extra points
+		cone_data.get("cone_p1").global_position = p2.global_position;
+		cone_data.get("cone_p2").global_position = p2.global_position;
+		cone_data.get("cone_p1").position.y = cone_data.get("cone_l2").mesh.height/2;
+		cone_data.get("cone_p2").position.y = -cone_data.get("cone_l2").mesh.height/2;
+		
+		# set the cone's side lines
+		cone_data.get("cone_l1").mesh.height = calculate_distance_between_two_points(p1, cone_data.get("cone_p1"));
+		cone_data.get("cone_l3").mesh.height = calculate_distance_between_two_points(p1, cone_data.get("cone_p2"));
+		cone_data.get("cone_l1").global_position = calculate_midpoint(p1, cone_data.get("cone_p1"));
+		cone_data.get("cone_l3").global_position = calculate_midpoint(p1, cone_data.get("cone_p2"));
+		cone_data.get("cone_l1").look_at(p1.global_position);
+		cone_data.get("cone_l3").look_at(p1.global_position);
+		cone_data.get("cone_l1").rotation_degrees.x += 90;
+		cone_data.get("cone_l3").rotation_degrees.x += 90;
+		
+		size.global_position = calculate_midpoint(p1, p2);
+		size.global_position.y = p1.global_position.y + 0.1;
+		size.text = str((round(cone_size * 100)/100) * RULER_DISTANCE_MULTIPLIER) + "m";
+	else: # hide the line otherwise
+		main_cone.hide();
+	
 	# NOTE: CONE A cone extends in a direction you choose from its point of origin. 
 	# A cone's width at a given point along its length is equal to that point's distance from the point of origin. 
 	# A cone's area of effect specifies its maximum length. A cone's point of origin is not included in the cone's area of effect, unless you decide otherwise.
 
 func calculate_distance_between_two_points(p1: MeshInstance3D, p2: MeshInstance3D) -> float: ## returns the distance between two points(p1 & p2) in a 3D space
+	# c = sqrt(x^2 + y^2 + z^2);
 	return sqrt(pow(abs(p2.global_position.x - p1.global_position.x), 2) + pow(abs(p2.global_position.y - p1.global_position.y), 2) + pow(abs(p2.global_position.z - p1.global_position.z), 2));
 
 func calculate_midpoint(p1: MeshInstance3D, p2: MeshInstance3D) -> Vector3: ## returns the point in the middle of p1 & p2 in a 3D space

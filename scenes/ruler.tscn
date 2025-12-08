@@ -67,4 +67,31 @@ transform = Transform3D(-2.1855697e-09, 3.4969116e-08, -0.05, 1, -6.993822e-07, 
 billboard = 1
 text = "Width"
 
-[node name="MainCone" type="MeshInstance3D" parent="."]
+[node name="MainCone" type="Node3D" parent="."]
+
+[node name="Size" type="Label3D" parent="MainCone"]
+transform = Transform3D(-2.1855697e-09, 3.4969116e-08, -0.05, 1, -6.993822e-07, -4.37114e-08, -2.1855697e-09, -0.8, -2.1855695e-09, 0, 0, -0.10000004)
+billboard = 1
+text = "Size"
+
+[node name="ConeL1" type="MeshInstance3D" parent="MainCone"]
+transform = Transform3D(0.05, 0, 0, 0, 1, 0, 0, 0, 0.05, 0, 0, 0)
+mesh = SubResource("CylinderMesh_wc50e")
+
+[node name="ConeL2" type="MeshInstance3D" parent="MainCone"]
+transform = Transform3D(0.05, 0, 0, 0, 1, 0, 0, 0, 0.05, 0, 0, 0)
+mesh = SubResource("CylinderMesh_wc50e")
+
+[node name="ConeP1" type="MeshInstance3D" parent="MainCone/ConeL2"]
+transform = Transform3D(5.9999986, 0, 0, 0, 0.3, 0, 0, 0, 5.9999986, 0, 0, 0)
+mesh = SubResource("SphereMesh_0ls0d")
+skeleton = NodePath("../../..")
+
+[node name="ConeP2" type="MeshInstance3D" parent="MainCone/ConeL2"]
+transform = Transform3D(5.9999986, 0, 0, 0, 0.3, 0, 0, 0, 5.9999986, 0, 0, 0)
+mesh = SubResource("SphereMesh_0ls0d")
+skeleton = NodePath("../../..")
+
+[node name="ConeL3" type="MeshInstance3D" parent="MainCone"]
+transform = Transform3D(0.05, 0, 0, 0, 1, 0, 0, 0, 0.05, 0, 0, 0)
+mesh = SubResource("CylinderMesh_wc50e")
