@@ -15,7 +15,7 @@ extends Node3D
 @onready var main_cone: Node3D = $MainCone ## Node to hide all objects of the main cone
 @onready var main_cone_parts: Dictionary = {
 	"cone_l1": $MainCone/ConeL1, 
-	"cone_l2": $MainCone/ConeL2, 
+	"cone_l2": $MainCone/ConeL2,
 	"cone_l3": $MainCone/ConeL3,  
 	"cone_p1": $MainCone/ConeL2/ConeP1, 
 	"cone_p2": $MainCone/ConeL2/ConeP2
@@ -189,9 +189,10 @@ func place_square(p1: MeshInstance3D, p2: MeshInstance3D, given_square: MeshInst
 		given_square.mesh.inner_radius = (calculate_distance_between_two_points(p1, p2)/2 - 0.05);
 		given_square.mesh.outer_radius = (given_square.mesh.inner_radius + 0.1);
 		
-		given_square.look_at(p2.global_position); # line's rotation
-		given_square.rotation_degrees.x = 0;
-		given_square.rotation_degrees.z = 0;
+		if(given_square.global_position != p2.global_position):
+			given_square.look_at(p2.global_position); # line's rotation
+			given_square.rotation_degrees.x = 0;
+			given_square.rotation_degrees.z = 0;
 		
 		var c = (given_square.mesh.inner_radius+0.05);
 		var adjacent = c*cos(PI/4);
@@ -205,14 +206,15 @@ func place_square(p1: MeshInstance3D, p2: MeshInstance3D, given_square: MeshInst
 
 func place_cone(p1: MeshInstance3D, p2: MeshInstance3D, given_cone: Node3D, cone_data: Dictionary) -> void: ## place a given cone with a reach of the distance between two given points starting at p1.
 	if(p1.is_visible_in_tree() && p2.is_visible_in_tree()): # show the line only if both points are visible
-		main_cone.show();
+		given_cone.show();
 		
 		var cone_size = calculate_distance_between_two_points(p1, p2);
-				
+		
 		# set the line to be in-between the two points
 		cone_data.get("cone_l2").global_position = p2.global_position;
+		cone_data.get("cone_l2").global_position.y = p1.global_position.y;
 		cone_data.get("cone_l2").mesh.height = cone_size;
-		if(p1.global_position != p2.global_position):
+		if(p1.global_position != cone_data.get("cone_l2").global_position):
 			cone_data.get("cone_l2").look_at(p1.global_position); # line's rotation
 			cone_data.get("cone_l2").rotation_degrees.z += 90;
 		else:
@@ -221,24 +223,27 @@ func place_cone(p1: MeshInstance3D, p2: MeshInstance3D, given_cone: Node3D, cone
 		# set the cone's extra points
 		cone_data.get("cone_p1").global_position = p2.global_position;
 		cone_data.get("cone_p2").global_position = p2.global_position;
-		cone_data.get("cone_p1").position.y = cone_data.get("cone_l2").mesh.height/2; # BUG: The points aren't being placed quite right due to the halving, make a big cone and you'll see
-		cone_data.get("cone_p2").position.y = -cone_data.get("cone_l2").mesh.height/2;
+		cone_data.get("cone_p1").global_position.y = p1.global_position.y;
+		cone_data.get("cone_p2").global_position.y = p1.global_position.y;
+		cone_data.get("cone_p1").position.y = (cone_data.get("cone_l2").mesh.height/2);
+		cone_data.get("cone_p2").position.y = -(cone_data.get("cone_l2").mesh.height/2);
 		
 		# set the cone's side lines
 		cone_data.get("cone_l1").mesh.height = calculate_distance_between_two_points(p1, cone_data.get("cone_p1"));
 		cone_data.get("cone_l3").mesh.height = calculate_distance_between_two_points(p1, cone_data.get("cone_p2"));
 		cone_data.get("cone_l1").global_position = calculate_midpoint(p1, cone_data.get("cone_p1"));
 		cone_data.get("cone_l3").global_position = calculate_midpoint(p1, cone_data.get("cone_p2"));
-		cone_data.get("cone_l1").look_at(p1.global_position);
-		cone_data.get("cone_l3").look_at(p1.global_position);
-		cone_data.get("cone_l1").rotation_degrees.x += 90;
-		cone_data.get("cone_l3").rotation_degrees.x += 90;
+		if(p1.global_position != cone_data.get("cone_l1").global_position && p1.global_position != cone_data.get("cone_l3").global_position):
+			cone_data.get("cone_l1").look_at(p1.global_position);
+			cone_data.get("cone_l3").look_at(p1.global_position);
+			cone_data.get("cone_l1").rotation_degrees.x += 90;
+			cone_data.get("cone_l3").rotation_degrees.x += 90;
 		
 		size.global_position = calculate_midpoint(p1, p2);
 		size.global_position.y = p1.global_position.y + 0.1;
 		size.text = str((round(cone_size * 100)/100) * RULER_DISTANCE_MULTIPLIER) + "m";
 	else: # hide the line otherwise
-		main_cone.hide();
+		given_cone.hide();
 	
 	# NOTE: CONE A cone extends in a direction you choose from its point of origin. 
 	# A cone's width at a given point along its length is equal to that point's distance from the point of origin. 
