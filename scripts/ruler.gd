@@ -203,19 +203,18 @@ func place_square(p1: MeshInstance3D, p2: MeshInstance3D, given_square: MeshInst
 	else:
 		given_square.hide(); # TODO: Implement hiding the circle when a button is toggled, not when the mode is switched so that users can move figures while seeing the AOE.
 
-
 func place_cone(p1: MeshInstance3D, p2: MeshInstance3D, given_cone: Node3D, cone_data: Dictionary) -> void: ## place a given cone with a reach of the distance between two given points starting at p1.
 	if(p1.is_visible_in_tree() && p2.is_visible_in_tree()): # show the line only if both points are visible
 		given_cone.show();
 		
 		var cone_size = calculate_distance_between_two_points(p1, p2);
 		
-		# set the line to be in-between the two points
+		# set line2 to be the end of the cone.
 		cone_data.get("cone_l2").global_position = p2.global_position;
 		cone_data.get("cone_l2").global_position.y = p1.global_position.y;
 		cone_data.get("cone_l2").mesh.height = cone_size;
 		if(p1.global_position != cone_data.get("cone_l2").global_position):
-			cone_data.get("cone_l2").look_at(p1.global_position); # line's rotation
+			cone_data.get("cone_l2").look_at(p1.global_position); # rotation
 			cone_data.get("cone_l2").rotation_degrees.z += 90;
 		else:
 			main_cone.hide();
@@ -242,12 +241,9 @@ func place_cone(p1: MeshInstance3D, p2: MeshInstance3D, given_cone: Node3D, cone
 		size.global_position = calculate_midpoint(p1, p2);
 		size.global_position.y = p1.global_position.y + 0.1;
 		size.text = str((round(cone_size * 100)/100) * RULER_DISTANCE_MULTIPLIER) + "m";
-	else: # hide the line otherwise
+	else: # hide the cone otherwise
 		given_cone.hide();
-	
-	# NOTE: CONE A cone extends in a direction you choose from its point of origin. 
-	# A cone's width at a given point along its length is equal to that point's distance from the point of origin. 
-	# A cone's area of effect specifies its maximum length. A cone's point of origin is not included in the cone's area of effect, unless you decide otherwise.
+
 
 func calculate_distance_between_two_points(p1: MeshInstance3D, p2: MeshInstance3D) -> float: ## returns the distance between two points(p1 & p2) in a 3D space
 	# c = sqrt(x^2 + y^2 + z^2);
