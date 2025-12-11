@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://536xl01q6ffl"]
+
+[ext_resource type="Script" uid="uid://c4waj8rapgell" path="res://scripts/board_ui/switch_map_image.gd" id="1_1v66t"]
+
+[node name="switch_map_image" type="Button"]
+offset_right = 8.0
+offset_bottom = 8.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_1v66t")
+
+[connection signal="pressed" from="." to="." method="switch_map"]

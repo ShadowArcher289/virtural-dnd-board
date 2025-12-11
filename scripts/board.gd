@@ -1,6 +1,7 @@
 extends Node3D
 
 @onready var camera_3d: FreeLookCamera = $Setup/Camera3D
+@onready var map: CSGBox3D = $Map
 
 
 func _input(event: InputEvent) -> void:

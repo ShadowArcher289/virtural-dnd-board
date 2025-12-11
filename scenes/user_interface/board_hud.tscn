@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://u1xlvnt2pymg"]
+[gd_scene load_steps=5 format=3 uid="uid://u1xlvnt2pymg"]
 
 [ext_resource type="PackedScene" uid="uid://dvbs62al8qbq" path="res://scenes/user_interface/board_menu.tscn" id="1_8qhv0"]
 [ext_resource type="PackedScene" uid="uid://b75lr2wt3pgoq" path="res://scenes/user_interface/board_state_buttons.tscn" id="2_8h0sw"]
+[ext_resource type="PackedScene" uid="uid://euut6psdy2po" path="res://scenes/map.tscn" id="2_ya43h"]
 [ext_resource type="PackedScene" uid="uid://dfrcln70vcgq4" path="res://scenes/user_interface/dice_roller.tscn" id="3_y2b6n"]
 
 [node name="BoardHUD" type="Control"]
@@ -11,6 +12,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Map" parent="." instance=ExtResource("2_ya43h")]
+layout_mode = 1
 
 [node name="DiceRoller" parent="." instance=ExtResource("3_y2b6n")]
 layout_mode = 1

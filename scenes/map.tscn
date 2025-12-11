@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=3 uid="uid://euut6psdy2po"]
+
+[ext_resource type="Texture2D" uid="uid://ctoianmnul48s" path="res://assets/board_maps/ForestEncampment_digital_day_grid.jpg" id="1_paxxb"]
+[ext_resource type="Script" uid="uid://bc1vti3hocab1" path="res://scripts/board_ui/map_switcher.gd" id="2_gldc4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0cso3"]
+albedo_texture = ExtResource("1_paxxb")
+albedo_texture_force_srgb = true
+
+[node name="Map" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Map" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+material_override = SubResource("StandardMaterial3D_0cso3")
+use_collision = true
+size = Vector3(12, 1, 18)
+
+[node name="MapSwitcher" type="FoldableContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -178.0
+offset_right = 304.0
+grow_vertical = 0
+title_position = 1
+script = ExtResource("2_gldc4")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MapSwitcher"]
+layout_mode = 2

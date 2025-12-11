@@ -14,3 +14,10 @@ var creatures: Dictionary = { ## dictionary for all the creatures made in the ga
 		"description": "A dragon's favorite"
 	},
 }
+
+var maps: Dictionary = {
+	"forest": {
+		"name": "Forest",
+		"image": load("res://assets/board_maps/ForestEncampment_digital_day_grid.jpg")
+	}
+}
