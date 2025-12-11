@@ -12,6 +12,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="DiceRoller" parent="." instance=ExtResource("3_y2b6n")]
+layout_mode = 1
+
 [node name="BoardMenu" parent="." instance=ExtResource("1_8qhv0")]
 layout_mode = 1
 anchors_preset = -1
@@ -76,6 +79,3 @@ text = "Creature Data"
 layout_mode = 2
 size_flags_vertical = 3
 text = "Creature Data"
-
-[node name="DiceRoller" parent="." instance=ExtResource("3_y2b6n")]
-layout_mode = 1

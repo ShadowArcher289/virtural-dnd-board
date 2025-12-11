@@ -17,12 +17,11 @@ script = ExtResource("1_6mwid")
 
 [node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 2
-current_tab = 3
+current_tab = 0
 drag_to_rearrange_enabled = true
 deselect_enabled = true
 
 [node name="Add" type="VBoxContainer" parent="TabContainer"]
-visible = false
 layout_mode = 2
 script = ExtResource("1_2nxaw")
 metadata/_tab_index = 0
@@ -47,5 +46,6 @@ visible = false
 layout_mode = 2
 
 [node name="AOEs" parent="TabContainer" instance=ExtResource("6_tri1x")]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 3

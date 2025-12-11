@@ -4,8 +4,8 @@
 [ext_resource type="Script" uid="uid://vkbbvde44vxh" path="res://scripts/creature_scripts/create_creature.gd" id="1_w6lwg"]
 
 [node name="Create" type="VBoxContainer"]
-offset_right = 150.0
-offset_bottom = 405.0
+offset_right = 213.0
+offset_bottom = 459.0
 size_flags_vertical = 3
 
 [node name="FileDialog" type="FileDialog" parent="."]
@@ -125,11 +125,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 placeholder_text = "14"
 
-[node name="Stats" type="TextEdit" parent="CreateCreatureContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-placeholder_text = "Stats..."
-
 [node name="Description" type="TextEdit" parent="CreateCreatureContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -141,6 +136,7 @@ text = "[Add Image]"
 
 [node name="TextureRect" type="TextureRect" parent="CreateCreatureContainer/VBoxContainer"]
 clip_contents = true
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_vertical = 3
 texture = ExtResource("1_m2j8i")
@@ -149,6 +145,30 @@ stretch_mode = 5
 
 [node name="CreatureCreateButton" type="Button" parent="CreateCreatureContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "Create"
+
+[node name="Upload Map" type="FoldableContainer" parent="."]
+layout_mode = 2
+title = "Upload Map"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Upload Map"]
+layout_mode = 2
+
+[node name="AddMapImage" type="Button" parent="Upload Map/VBoxContainer"]
+layout_mode = 2
+text = "[Add Image]"
+
+[node name="TextureRect" type="TextureRect" parent="Upload Map/VBoxContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("1_m2j8i")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CreateMap" type="Button" parent="Upload Map/VBoxContainer"]
 layout_mode = 2
 text = "Create"
 
