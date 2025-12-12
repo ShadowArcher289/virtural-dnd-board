@@ -38,7 +38,7 @@ enum MeasureState {
 	ATK_AOE_SQUARE
 }
 
-const RULER_DISTANCE_MULTIPLIER = 6; ## Number to multiply the raw distance to get the D&D 5m per square distance
+const RULER_DISTANCE_MULTIPLIER = 6.67; ## Number to multiply the raw distance to get the D&D 5m per square distance
 
 var current_place_state = PlaceState.IDLE;
 var current_measure_state = MeasureState.RULER;
@@ -136,7 +136,7 @@ func place_line(p1: MeshInstance3D, p2: MeshInstance3D, given_line: MeshInstance
 		else:
 			given_line.hide();
 		
-		distance.text = str((round(main_line.mesh.height * 100)/100) * RULER_DISTANCE_MULTIPLIER) + "m";
+		distance.text = str(round(main_line.mesh.height * 100 * RULER_DISTANCE_MULTIPLIER)/100) + "m";
 	else: # hide the line otherwise
 		given_line.hide();
 
@@ -150,7 +150,7 @@ func place_circle(p1: MeshInstance3D, p2: MeshInstance3D, given_circle: MeshInst
 		given_circle.mesh.inner_radius = calculate_distance_between_two_points(p1, p2) - 0.05;
 		given_circle.mesh.outer_radius = given_circle.mesh.inner_radius + 0.1;
 		
-		radius.text = str((round((given_circle.mesh.inner_radius+0.05) * 100)/100) * RULER_DISTANCE_MULTIPLIER) + "m";
+		radius.text = str(round((given_circle.mesh.inner_radius+0.05) * 100 * RULER_DISTANCE_MULTIPLIER)/100) + "m";
 		
 		radius.global_position = calculate_midpoint(p1, p2);
 		radius.global_position.y = p1.global_position.y + 0.1;
@@ -175,7 +175,7 @@ func place_square(p1: MeshInstance3D, p2: MeshInstance3D, given_square: MeshInst
 		
 		var c = (given_square.mesh.inner_radius+0.05);
 		var adjacent = c*cos(PI/4);
-		width.text = str((round((adjacent) * 100)/100) * 2 * RULER_DISTANCE_MULTIPLIER) + "m";
+		width.text = str(round(adjacent * 2 * RULER_DISTANCE_MULTIPLIER * 100)/100) + "m";
 		
 		width.global_position = calculate_midpoint(p1, p2);
 		width.global_position.y = p1.global_position.y + 0.1;
@@ -219,7 +219,7 @@ func place_cone(p1: MeshInstance3D, p2: MeshInstance3D, given_cone: Node3D, cone
 		
 		size.global_position = calculate_midpoint(p1, p2);
 		size.global_position.y = p1.global_position.y + 0.1;
-		size.text = str((round(cone_size * 100)/100) * RULER_DISTANCE_MULTIPLIER) + "m";
+		size.text = str(round(cone_size * RULER_DISTANCE_MULTIPLIER * 100)/100) + "m";
 	else: # hide the cone otherwise
 		given_cone.hide();
 
