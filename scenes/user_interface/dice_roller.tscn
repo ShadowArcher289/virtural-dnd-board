@@ -1,18 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dfrcln70vcgq4"]
+[gd_scene load_steps=3 format=3 uid="uid://dfrcln70vcgq4"]
 
 [ext_resource type="Script" uid="uid://b2sbi3f6qdfq6" path="res://scripts/board_ui/dice_roller.gd" id="1_5or3y"]
-[ext_resource type="Texture2D" uid="uid://8gi20yhem3n2" path="res://icon.svg" id="1_rslbq"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_5or3y"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("1_rslbq")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
+[ext_resource type="Texture2D" uid="uid://bgs8hf8jnbbc2" path="res://assets/ui/dice.png" id="2_5or3y"]
 
 [node name="DiceRoller" type="Control"]
 layout_mode = 3
@@ -34,15 +23,16 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -122.0
-offset_top = -122.0
-offset_right = -39.0
-offset_bottom = -39.0
+offset_left = -200.0
+offset_top = -200.0
+offset_right = -38.0
+offset_bottom = -38.0
 grow_horizontal = 0
 grow_vertical = 0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 28
 bbcode_enabled = true
-text = "20"
+text = "10"
 scroll_active = false
 autowrap_mode = 0
 horizontal_alignment = 1
@@ -57,11 +47,11 @@ grow_horizontal = 2
 grow_vertical = 2
 flat = true
 
-[node name="DiceSprite" type="AnimatedSprite2D" parent="DiceValueText"]
+[node name="DiceSprite" type="Sprite2D" parent="DiceValueText"]
 process_priority = -5
 z_index = -1
-position = Vector2(41, 41)
-scale = Vector2(0.6406251, 0.6406251)
-sprite_frames = SubResource("SpriteFrames_5or3y")
+position = Vector2(82, 79.000015)
+scale = Vector2(1.0906248, 1.0320579)
+texture = ExtResource("2_5or3y")
 
 [connection signal="pressed" from="DiceValueText/Button" to="." method="_on_button_pressed"]
