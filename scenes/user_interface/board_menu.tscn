@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dvbs62al8qbq"]
+[gd_scene load_steps=8 format=3 uid="uid://dvbs62al8qbq"]
 
 [ext_resource type="Script" uid="uid://q4jh4vdem12m" path="res://scripts/board_ui/add.gd" id="1_2nxaw"]
 [ext_resource type="Script" uid="uid://b65gptmgi0u4d" path="res://scripts/board_ui/board_menu.gd" id="1_6mwid"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dr5uolssgg1yg" path="res://scenes/user_interface/create.tscn" id="3_2nxaw"]
 [ext_resource type="PackedScene" uid="uid://ksrdvarxh4rm" path="res://scenes/user_interface/info.tscn" id="4_epdas"]
 [ext_resource type="PackedScene" uid="uid://c8itwpvj223cr" path="res://scenes/user_interface/area_of_effects.tscn" id="6_tri1x"]
+[ext_resource type="PackedScene" uid="uid://euut6psdy2po" path="res://scenes/map.tscn" id="7_yqmu8"]
 
 [node name="BoardMenu" type="FoldableContainer"]
 anchors_preset = 9
@@ -15,37 +16,50 @@ grow_vertical = 2
 focus_mode = 0
 script = ExtResource("1_6mwid")
 
-[node name="TabContainer" type="TabContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
-current_tab = 0
+
+[node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+current_tab = 4
 drag_to_rearrange_enabled = true
 deselect_enabled = true
 
-[node name="Add" type="VBoxContainer" parent="TabContainer"]
+[node name="Add" type="VBoxContainer" parent="VBoxContainer/TabContainer"]
+visible = false
 layout_mode = 2
 script = ExtResource("1_2nxaw")
 metadata/_tab_index = 0
 
-[node name="LineEdit" type="LineEdit" parent="TabContainer/Add"]
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/TabContainer/Add"]
 layout_mode = 2
 placeholder_text = "search..."
 clear_button_enabled = true
 select_all_on_focus = true
 
-[node name="SpawnObjectOnBoard" parent="TabContainer/Add" instance=ExtResource("2_8rgmx")]
+[node name="SpawnObjectOnBoard" parent="VBoxContainer/TabContainer/Add" instance=ExtResource("2_8rgmx")]
 visible = false
 layout_mode = 2
 
-[node name="Create" parent="TabContainer" instance=ExtResource("3_2nxaw")]
+[node name="Create" parent="VBoxContainer/TabContainer" instance=ExtResource("3_2nxaw")]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="Info" parent="TabContainer" instance=ExtResource("4_epdas")]
+[node name="Info" parent="VBoxContainer/TabContainer" instance=ExtResource("4_epdas")]
 visible = false
 layout_mode = 2
 
-[node name="AOEs" parent="TabContainer" instance=ExtResource("6_tri1x")]
+[node name="AOEs" parent="VBoxContainer/TabContainer" instance=ExtResource("6_tri1x")]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 3
+
+[node name="Map" parent="VBoxContainer/TabContainer" instance=ExtResource("7_yqmu8")]
+layout_mode = 2
+size_flags_horizontal = 1
+size_flags_vertical = 3
+metadata/_tab_index = 4
+
+[connection signal="text_changed" from="VBoxContainer/TabContainer/Add/LineEdit" to="VBoxContainer/TabContainer/Add" method="_on_line_edit_text_changed"]

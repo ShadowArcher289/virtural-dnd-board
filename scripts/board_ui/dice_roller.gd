@@ -1,6 +1,6 @@
 extends Control
 
-@onready var dice_sprite: AnimatedSprite2D = $DiceSprite
+@onready var dice_sprite: AnimatedSprite2D = $DiceValueText/DiceSprite
 @onready var dice_value_text: RichTextLabel = $DiceValueText
 
 const ROLL_AMOUNT = 5 ## Roll the dice this amount.

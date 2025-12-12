@@ -1,6 +1,6 @@
 extends FoldableContainer
 
-@onready var tab_container: TabContainer = $TabContainer
+@onready var tab_container: TabContainer = $VBoxContainer/TabContainer
 
 func _ready() -> void:
 	SignalBus.creature_selected.connect(_creature_selected);

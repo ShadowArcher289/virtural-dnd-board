@@ -1,6 +1,7 @@
 extends Button
 
 const FIGURE = preload("res://scenes/figure.tscn")
+@onready var rich_text_label: RichTextLabel = $RichTextLabel
 
 @export var object_type: String = "creature";
 @export var object_name: String = "Thri-Kreen"; ## Name of the object.
@@ -26,6 +27,7 @@ func _ready() -> void:
 		self.icon = image_texture;
 	else: # otherwise, the image is likely a pre-added image so just use it
 		self.icon = object_image;
+	rich_text_label.text = self.object_name;
 	print(object_type);
 	print(object_name);
 	print(object_image);

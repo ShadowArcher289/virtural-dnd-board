@@ -20,10 +20,14 @@ filters = PackedStringArray("*.png", "*.jpeg", "*.jpg")
 use_native_dialog = true
 
 [node name="MapFileDialog" type="FileDialog" parent="."]
+oversampling_override = 1.0
 title = "Open a File"
+initial_position = 1
+dialog_hide_on_ok = true
 file_mode = 0
 access = 2
-filters = PackedStringArray("*.png", "*.jpeg", "")
+filters = PackedStringArray("*.png", "*.jpeg", "*.jpg")
+use_native_dialog = true
 
 [node name="CreateCreatureContainer" type="FoldableContainer" parent="."]
 layout_mode = 2
@@ -150,7 +154,7 @@ texture = ExtResource("1_m2j8i")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="CreatureCreateButton" type="Button" parent="CreateCreatureContainer/VBoxContainer"]
+[node name="CreateCreatureButton" type="Button" parent="CreateCreatureContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 text = "Create"
@@ -165,6 +169,7 @@ layout_mode = 2
 
 [node name="MapName" type="LineEdit" parent="Upload Map/VBoxContainer"]
 layout_mode = 2
+placeholder_text = "name..."
 
 [node name="AddMapImage" type="Button" parent="Upload Map/VBoxContainer"]
 layout_mode = 2
@@ -180,6 +185,7 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="CreateMap" type="Button" parent="Upload Map/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 text = "Create"
 
@@ -196,6 +202,6 @@ text = "I do nothing"
 [connection signal="file_selected" from="FileDialog" to="CreateCreatureContainer" method="_on_file_dialog_file_selected"]
 [connection signal="file_selected" from="MapFileDialog" to="Upload Map" method="_on_map_file_dialog_file_selected"]
 [connection signal="pressed" from="CreateCreatureContainer/VBoxContainer/AddImage" to="CreateCreatureContainer" method="add_image"]
-[connection signal="pressed" from="CreateCreatureContainer/VBoxContainer/CreatureCreateButton" to="CreateCreatureContainer" method="create_creature"]
+[connection signal="pressed" from="CreateCreatureContainer/VBoxContainer/CreateCreatureButton" to="CreateCreatureContainer" method="create_creature"]
 [connection signal="pressed" from="Upload Map/VBoxContainer/AddMapImage" to="Upload Map" method="_on_add_map_image_pressed"]
 [connection signal="pressed" from="Upload Map/VBoxContainer/CreateMap" to="Upload Map" method="create_map"]

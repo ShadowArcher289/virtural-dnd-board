@@ -14,4 +14,19 @@ icon_alignment = 1
 expand_icon = true
 script = ExtResource("2_qb2vt")
 
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -24.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/outline_size = 6
+text = "Thri-Kreen"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="pressed" from="." to="." method="_on_pressed"]
