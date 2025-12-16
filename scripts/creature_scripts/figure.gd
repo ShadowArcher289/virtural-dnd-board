@@ -7,12 +7,22 @@ class_name Figure extends Node3D
 @onready var base: CSGMesh3D = $Base
 @onready var figure_name: Label3D = $FigureName
 
+@onready var conditions: Node3D = $Conditions ## stores objects to identify conditions on a creature
+@onready var red_ring: MeshInstance3D = $Conditions/RedRing
+@onready var orange_ring: MeshInstance3D = $Conditions/OrangeRing
+@onready var yellow_ring: MeshInstance3D = $Conditions/YellowRing
+@onready var green_ring: MeshInstance3D = $Conditions/GreenRing
+@onready var blue_ring: MeshInstance3D = $Conditions/BlueRing
+@onready var pink_ring: MeshInstance3D = $Conditions/PinkRing
+@onready var white_ring: MeshInstance3D = $Conditions/WhiteRing
+
 
 @export var object_type: String = "creature";
 @export var object_name: String = "Thri-Kreen";
 @export var object_image: Resource = load("res://assets/creatures/thri-kreen.jpg");
 @export var object_description: String = "Cool ant person";
 @export var creature_stats: Dictionary = {"ability_scores": [12, 13, 4, 5, 12, 53]};
+#@export var creature_conditions: Array[String] = ["poisoned", "on_fire"]; ## A list of conditions on the creature (ex: poisoned, damaged, petrified)
 
 
 enum State { ## The types of states for a Figure
@@ -107,3 +117,37 @@ func click(): ## function called when the object is clicked by the user in the 3
 				switch_state(State.PICKED);
 				released = false;
 	#print_debug("I HAVE BEEN CLICKED");
+
+func show_condition_ring(ring_color: String): ## show a given colored ring. 
+	match ring_color:
+		"red":
+			red_ring.show();
+		"orange":
+			orange_ring.show();
+		"yellow":
+			yellow_ring.show();
+		"green":
+			green_ring.show();
+		"blue":
+			blue_ring.show();
+		"pink":
+			pink_ring.show();
+		"white":
+			white_ring.show();
+
+func hide_condition_ring(ring_color: String): ## hide a given colored ring. 
+	match ring_color:
+		"red":
+			red_ring.hide();
+		"orange":
+			orange_ring.hide();
+		"yellow":
+			yellow_ring.hide();
+		"green":
+			green_ring.hide();
+		"blue":
+			blue_ring.hide();
+		"pink":
+			pink_ring.hide();
+		"white":
+			white_ring.hide();

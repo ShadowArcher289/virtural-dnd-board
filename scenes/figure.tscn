@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c48qfnkalq78t"]
+[gd_scene load_steps=22 format=3 uid="uid://c48qfnkalq78t"]
 
 [ext_resource type="Script" uid="uid://cijsbt1vbl1e7" path="res://scripts/creature_scripts/figure.gd" id="1_upmfi"]
 [ext_resource type="Texture2D" uid="uid://c3r0q0hslj6ie" path="res://assets/creatures/thri-kreen.jpg" id="2_bvms0"]
@@ -24,6 +24,58 @@ size = Vector3(0.5, 0.2, 0.5)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lvhly"]
 albedo_color = Color(1, 0.8627451, 0.09019608, 1)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_32la3"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_wbeh0"]
+material = SubResource("StandardMaterial3D_32la3")
+inner_radius = 0.55
+outer_radius = 0.6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1xgw1"]
+albedo_color = Color(0.8067237, 0.4579485, 9.62615e-07, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_1xgw1"]
+material = SubResource("StandardMaterial3D_1xgw1")
+inner_radius = 0.55
+outer_radius = 0.6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i0tls"]
+albedo_color = Color(0.98333335, 1, 0, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_iog37"]
+material = SubResource("StandardMaterial3D_i0tls")
+inner_radius = 0.55
+outer_radius = 0.6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wbeh0"]
+albedo_color = Color(0.045702457, 0.4657284, 3.85046e-07, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_tnnxw"]
+material = SubResource("StandardMaterial3D_wbeh0")
+inner_radius = 0.55
+outer_radius = 0.6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_til8k"]
+albedo_color = Color(0, 0.6666665, 1, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_agh4w"]
+material = SubResource("StandardMaterial3D_til8k")
+inner_radius = 0.55
+outer_radius = 0.6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tnnxw"]
+albedo_color = Color(0.99, 0.36630002, 0.7613099, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_v58xs"]
+material = SubResource("StandardMaterial3D_tnnxw")
+inner_radius = 0.55
+outer_radius = 0.6
+
+[sub_resource type="TorusMesh" id="TorusMesh_tc3ao"]
+inner_radius = 0.55
+outer_radius = 0.6
+
 [node name="Figure" type="Node3D"]
 script = ExtResource("1_upmfi")
 
@@ -42,3 +94,39 @@ material = SubResource("StandardMaterial3D_lvhly")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)
 billboard = 2
 text = "Name"
+
+[node name="Conditions" type="Node3D" parent="."]
+visible = false
+
+[node name="RedRing" type="MeshInstance3D" parent="Conditions"]
+transform = Transform3D(0.22414389, -0.12940954, 0.9659258, 0.5, 0.8660254, 0, -0.83651626, 0.4829629, 0.25881907, 0, 0.8, 0)
+mesh = SubResource("TorusMesh_wbeh0")
+skeleton = NodePath("../..")
+
+[node name="OrangeRing" type="MeshInstance3D" parent="Conditions"]
+transform = Transform3D(0.4829629, 0.40849367, -0.774519, 0.12940952, 0.84150624, 0.5245191, 0.8660254, -0.3535534, 0.35355335, 0, 0.8, 0)
+mesh = SubResource("TorusMesh_1xgw1")
+
+[node name="YellowRing" type="MeshInstance3D" parent="Conditions"]
+transform = Transform3D(-1, 6.181724e-08, -6.181724e-08, 0, 0.70710677, 0.70710677, 8.742278e-08, 0.70710677, -0.70710677, 0, 0.8, 0)
+mesh = SubResource("TorusMesh_iog37")
+skeleton = NodePath("../..")
+
+[node name="GreenRing" type="MeshInstance3D" parent="Conditions"]
+transform = Transform3D(-0.50000006, -0.6123724, -0.6123724, 0, 0.70710677, -0.70710677, 0.8660254, -0.3535534, -0.3535534, 0, 0.8, 0)
+mesh = SubResource("TorusMesh_tnnxw")
+skeleton = NodePath("../..")
+
+[node name="BlueRing" type="MeshInstance3D" parent="Conditions"]
+transform = Transform3D(0.25881907, 0.8365163, 0.48296288, 0, 0.49999997, -0.86602545, -0.9659258, 0.2241439, 0.12940952, 0, 0.8, 0)
+mesh = SubResource("TorusMesh_agh4w")
+skeleton = NodePath("../YellowRing")
+
+[node name="PinkRing" type="MeshInstance3D" parent="Conditions"]
+transform = Transform3D(0.9659258, 0.25881904, 0, -0.25881904, 0.9659258, 0, 0, 0, 1, 0, 0.8, 0)
+mesh = SubResource("TorusMesh_v58xs")
+skeleton = NodePath("../..")
+
+[node name="WhiteRing" type="MeshInstance3D" parent="Conditions"]
+transform = Transform3D(0.4829629, 0.03349367, 0.875, -0.12940949, 0.99102545, 0.03349367, -0.86602557, -0.12940954, 0.48296294, 0, 0.8, 0)
+mesh = SubResource("TorusMesh_tc3ao")

@@ -14,6 +14,7 @@ extends MarginContainer
 @export var creature_name: String; ## Info on creature's name.
 @export var creature_stats: Dictionary; ## Info on creature's stats.
 @export var creature_description: String; ## General creature description.
+@export var creature_conditions: Array[String]; ## A list of conditions on the creature (ex: poisoned, damaged, 
 
 func _ready() -> void:
 	SignalBus.creature_selected.connect(_creature_selected);
