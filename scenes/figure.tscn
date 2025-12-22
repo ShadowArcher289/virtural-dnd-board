@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://c48qfnkalq78t"]
+[gd_scene load_steps=24 format=3 uid="uid://c48qfnkalq78t"]
 
 [ext_resource type="Script" uid="uid://cijsbt1vbl1e7" path="res://scripts/creature_scripts/figure.gd" id="1_upmfi"]
 [ext_resource type="Texture2D" uid="uid://c3r0q0hslj6ie" path="res://assets/creatures/thri-kreen.jpg" id="2_bvms0"]
@@ -64,6 +64,14 @@ material = SubResource("StandardMaterial3D_til8k")
 inner_radius = 0.55
 outer_radius = 0.6
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v58xs"]
+albedo_color = Color(0.42856285, 0.0023214424, 0.7775649, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_i0tls"]
+material = SubResource("StandardMaterial3D_v58xs")
+inner_radius = 0.55
+outer_radius = 0.6
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tnnxw"]
 albedo_color = Color(0.99, 0.36630002, 0.7613099, 1)
 
@@ -96,7 +104,6 @@ billboard = 2
 text = "Name"
 
 [node name="Conditions" type="Node3D" parent="."]
-visible = false
 
 [node name="RedRing" type="MeshInstance3D" parent="Conditions"]
 transform = Transform3D(0.22414389, -0.12940954, 0.9659258, 0.5, 0.8660254, 0, -0.83651626, 0.4829629, 0.25881907, 0, 0.8, 0)
@@ -121,6 +128,10 @@ skeleton = NodePath("../..")
 transform = Transform3D(0.25881907, 0.8365163, 0.48296288, 0, 0.49999997, -0.86602545, -0.9659258, 0.2241439, 0.12940952, 0, 0.8, 0)
 mesh = SubResource("TorusMesh_agh4w")
 skeleton = NodePath("../YellowRing")
+
+[node name="PurpleRing" type="MeshInstance3D" parent="Conditions"]
+transform = Transform3D(0.25881907, -0.68301266, -0.68301266, 0, 0.70710677, -0.70710677, 0.9659258, 0.18301272, 0.18301272, 0, 0.90000004, 0)
+mesh = SubResource("TorusMesh_i0tls")
 
 [node name="PinkRing" type="MeshInstance3D" parent="Conditions"]
 transform = Transform3D(0.9659258, 0.25881904, 0, -0.25881904, 0.9659258, 0, 0, 0, 1, 0, 0.8, 0)

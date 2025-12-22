@@ -9,7 +9,6 @@ func _ready() -> void:
 	
 	for creature in Globals.creatures: # get every creature stored in the game
 		creature = Globals.creatures.get(creature);
-		#var new_object = spawn_object.new("creature", creature.get("name"), creature.get("image_path")); # doesn't work well, the aspect ratio is not stored
 		create_object_spawner(creature);
 
 func _creature_created(key: String): ## add another creature to the add list when one is created
@@ -17,14 +16,11 @@ func _creature_created(key: String): ## add another creature to the add list whe
 	create_object_spawner(creature);
 
 
-func create_object_spawner(creature: Dictionary):
+func create_object_spawner(creature: FigureData):
 	print(creature);
 	var new_object_spawner = SPAWN_OBJECT_ON_BOARD.instantiate();
 	new_object_spawner.object_type = "creature";
-	new_object_spawner.object_name = creature.get("name");
-	new_object_spawner.object_image = creature.get("image");
-	new_object_spawner.object_description = creature.get("description");
-	new_object_spawner.creature_stats = creature.get("stats");
+	new_object_spawner.object_data = creature;
 	self.add_child(new_object_spawner);
 	object_spawners.append(new_object_spawner);
 	new_object_spawner.show();

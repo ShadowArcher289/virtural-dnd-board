@@ -12,7 +12,7 @@ func _input(event: InputEvent) -> void:
 		shoot_camera_ray();
 
 func _process(_delta: float) -> void:
-	if(Input.is_action_pressed("left_click")):
+	if(Input.is_action_pressed("left_click")): # shoot a camera ray on left click
 		shoot_camera_ray();
 
 func shoot_camera_ray(): ## shoots an array from a mouse click, clicking an object in 3D space.

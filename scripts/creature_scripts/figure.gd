@@ -13,17 +13,19 @@ class_name Figure extends Node3D
 @onready var yellow_ring: MeshInstance3D = $Conditions/YellowRing
 @onready var green_ring: MeshInstance3D = $Conditions/GreenRing
 @onready var blue_ring: MeshInstance3D = $Conditions/BlueRing
+@onready var purple_ring: MeshInstance3D = $Conditions/PurpleRing
 @onready var pink_ring: MeshInstance3D = $Conditions/PinkRing
 @onready var white_ring: MeshInstance3D = $Conditions/WhiteRing
 
 
 @export var object_type: String = "creature";
-@export var object_name: String = "Thri-Kreen";
-@export var object_image: Resource = load("res://assets/creatures/thri-kreen.jpg");
-@export var object_description: String = "Cool ant person";
-@export var creature_stats: Dictionary = {"ability_scores": [12, 13, 4, 5, 12, 53]};
-#@export var creature_conditions: Array[String] = ["poisoned", "on_fire"]; ## A list of conditions on the creature (ex: poisoned, damaged, petrified)
+@export var object_data: FigureData = FigureData.new(
+	"Thri-Kreen", load("res://assets/creatures/thri-kreen.jpg"), 
+	{"ability_scores": [12, 13, 4, 5, 12, 53]}, 
+	"Cool ant person"
+);
 
+#@export var creature_conditions: Array[String] = ["poisoned", "on_fire"]; ## A list of conditions on the creature (ex: poisoned, damaged, petrified)
 
 enum State { ## The types of states for a Figure
 	STILL,
@@ -41,21 +43,20 @@ var current_position = self.position;
 var released = true; ## holds if the figure has been released (ie. the mouse is still held down after clicking).
 
 func _ready() -> void:
-	
 	var new_material = StandardMaterial3D.new();
 	
-	if(not object_image is CompressedTexture2D): # if the image is not a Texture (meaning it is likely a user's image), then set it as a texture
+	if(not object_data.image is CompressedTexture2D): # if the image is not a Texture (meaning it is likely a user's image), then set it as a texture
 		var image_texture = ImageTexture.new();
-		image_texture.set_image(object_image);
+		image_texture.set_image(object_data.image);
 		new_material.albedo_texture = image_texture;
 	else: # otherwise, the image is likely a pre-added image so just use it
-		new_material.albedo_texture = object_image;
+		new_material.albedo_texture = object_data.image;
 	
 	new_material.billboard_mode = BaseMaterial3D.BILLBOARD_FIXED_Y;
 	new_material.billboard_keep_scale = true;
 	
 	image.material_override = new_material;
-	figure_name.text = object_name;
+	figure_name.text = object_data.name;
 
 func _input(event: InputEvent) -> void:
 	if(event.is_action_pressed("left_click")):
@@ -86,6 +87,40 @@ func _process(_delta: float) -> void:
 			base.material_override = new_material;
 		_:
 			print_debug("Error: Invalid State ()" + str(current_state) + ") for Figure");
+	
+	if(object_data.status_rings.get("red") == true): ## hide or show the respective condition rings
+		show_condition_ring("red");
+	else:
+		hide_condition_ring("red");
+	if(object_data.status_rings.get("orange") == true):
+		show_condition_ring("orange");
+	else:
+		hide_condition_ring("orange");
+	if(object_data.status_rings.get("yellow") == true):
+		show_condition_ring("yellow");
+	else:
+		hide_condition_ring("yellow");
+	if(object_data.status_rings.get("green") == true):
+		show_condition_ring("green");
+	else:
+		hide_condition_ring("green");
+	if(object_data.status_rings.get("blue") == true):
+		show_condition_ring("blue");
+	else:
+		hide_condition_ring("blue");
+	if(object_data.status_rings.get("purple") == true):
+		show_condition_ring("purple");
+	else:
+		hide_condition_ring("purple");
+	if(object_data.status_rings.get("pink") == true):
+		show_condition_ring("pink");
+	else:
+		hide_condition_ring("pink");
+	if(object_data.status_rings.get("white") == true):
+		show_condition_ring("white");
+	else:
+		hide_condition_ring("white");
+	
 
 func switch_state(state: State): ## Switch state and set the Global's current selected creature to this one if picked.
 	current_state = state;
@@ -96,10 +131,7 @@ func switch_state(state: State): ## Switch state and set the Global's current se
 func set_current_selected_creature() -> void: ## set the MouseCollision.current_selected_creature to this figure
 	var self_as_creature_dictionary = {}
 	self_as_creature_dictionary = { ## This figure, but as a creature dictionary.
-		"name": object_name,
-		"image": object_image, 
-		"stats": creature_stats,
-		"description": object_description,
+		"data": object_data, # the figure's data
 		"object": self
 	}
 	SignalBus.creature_selected.emit(self_as_creature_dictionary);
@@ -130,10 +162,14 @@ func show_condition_ring(ring_color: String): ## show a given colored ring.
 			green_ring.show();
 		"blue":
 			blue_ring.show();
+		"purple":
+			purple_ring.show();
 		"pink":
 			pink_ring.show();
 		"white":
 			white_ring.show();
+		_:
+			print_debug("Error: Invalid color for show_condition_ring()");
 
 func hide_condition_ring(ring_color: String): ## hide a given colored ring. 
 	match ring_color:
@@ -147,7 +183,11 @@ func hide_condition_ring(ring_color: String): ## hide a given colored ring.
 			green_ring.hide();
 		"blue":
 			blue_ring.hide();
+		"purple":
+			purple_ring.hide();
 		"pink":
 			pink_ring.hide();
 		"white":
 			white_ring.hide();
+		_:
+			print_debug("Error: Invalid color for show_condition_ring()");

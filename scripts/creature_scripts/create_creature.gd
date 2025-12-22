@@ -34,12 +34,14 @@ func add_image() -> void:
 func create_creature() -> void:
 	var key = creature_name.text.to_kebab_case();
 	
-	Globals.creatures.get_or_add(key, {
-		"name": creature_name.text, 
-		"image": image, 
-		"stats": format_stats(), # TODO: Change this to be a dictionary of the stats
-		"description": description.text
-	}); # adds the creature with the key:value creature-name, Dictionary{}
+	Globals.creatures.get_or_add(key, 
+		FigureData.new(
+			creature_name.text, 
+			image, 
+			format_stats(), # TODO: Change this to be a dictionary of the stats
+			description.text
+		)
+	); # adds the creature with the key:value creature-name, FigureData{}
 	SignalBus.creature_created.emit(key);
 
 func format_stats() -> Dictionary: ## return the stats in the form of a dictionary

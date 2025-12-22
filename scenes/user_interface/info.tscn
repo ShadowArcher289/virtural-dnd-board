@@ -129,3 +129,42 @@ horizontal_alignment = 1
 layout_mode = 2
 size_flags_vertical = 3
 text = "Creature Data"
+
+[node name="CreatureConditionRings" type="FoldableContainer" parent="VBoxContainer"]
+layout_mode = 2
+title = "Status Rings"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CreatureConditionRings"]
+layout_mode = 2
+
+[node name="RedRingToggle" type="CheckBox" parent="VBoxContainer/CreatureConditionRings/VBoxContainer"]
+layout_mode = 2
+text = "Red"
+
+[node name="OrangeRingToggle" type="CheckBox" parent="VBoxContainer/CreatureConditionRings/VBoxContainer"]
+layout_mode = 2
+text = "Orange"
+
+[node name="YellowRingToggle" type="CheckBox" parent="VBoxContainer/CreatureConditionRings/VBoxContainer"]
+layout_mode = 2
+text = "Yellow"
+
+[node name="GreenRingToggle" type="CheckBox" parent="VBoxContainer/CreatureConditionRings/VBoxContainer"]
+layout_mode = 2
+text = "Green"
+
+[node name="BlueRingToggle" type="CheckBox" parent="VBoxContainer/CreatureConditionRings/VBoxContainer"]
+layout_mode = 2
+text = "Blue"
+
+[node name="PurpleRingToggle" type="CheckBox" parent="VBoxContainer/CreatureConditionRings/VBoxContainer"]
+layout_mode = 2
+text = "Purple"
+
+[node name="PinkRingToggle" type="CheckBox" parent="VBoxContainer/CreatureConditionRings/VBoxContainer"]
+layout_mode = 2
+text = "Pink"
+
+[node name="WhiteRingToggle" type="CheckBox" parent="VBoxContainer/CreatureConditionRings/VBoxContainer"]
+layout_mode = 2
+text = "White"
