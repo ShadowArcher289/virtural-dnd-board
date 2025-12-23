@@ -3,6 +3,11 @@ extends Node3D
 @onready var camera_3d: FreeLookCamera = $Setup/Camera3D
 @onready var map: CSGBox3D = $Map
 
+@onready var camera_2d_toggle_marker: Marker3D = $Camera2DToggleMarker ## marks where the camera will be placed when being toggled to 2D
+@onready var previous_camera_3d_position_marker: Marker3D = $PreviousCamera3DPositionMarker ## used to store the position and rotation of the camera in 3D before it switches to 2D
+
+func _ready() -> void:
+	SignalBus.toggled_2d.connect(_2d_views_toggled);
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -33,3 +38,13 @@ func shoot_camera_ray(): ## shoots an array from a mouse click, clicking an obje
 		MouseCollision.mouse_raycast_collider.get_parent().click();
 	
 	SignalBus.mouse_collided.emit();
+
+func _2d_views_toggled(toggled: bool) -> void: ## handle being toggled between 2D&3D view
+	if(toggled):
+		previous_camera_3d_position_marker.global_position = camera_3d.global_position;
+		previous_camera_3d_position_marker.rotation = camera_3d.rotation;
+		camera_3d.look_at(Vector3(camera_3d.global_position.x, 0, camera_3d.global_position.z));
+		camera_3d.global_position = camera_2d_toggle_marker.global_position;
+	elif(!toggled):
+		camera_3d.global_position = previous_camera_3d_position_marker.global_position;
+		camera_3d.rotation = previous_camera_3d_position_marker.rotation;

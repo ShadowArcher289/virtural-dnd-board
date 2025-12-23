@@ -22,7 +22,7 @@ size_flags_horizontal = 2
 size_flags_vertical = 10
 
 [node name="Map" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04705614, -0.5, 0.38062993)
 material_override = SubResource("StandardMaterial3D_0cso3")
 use_collision = true
 size = Vector3(12, 1, 18)

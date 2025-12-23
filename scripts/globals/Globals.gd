@@ -1,5 +1,7 @@
 extends Node
 
+var toggle_2d = false; ## if true: go to 2D, if false; go to 3D
+
 var creatures: Dictionary = { ## dictionary for all the creatures made in the game
 	"thri-kreen": FigureData.new("Thri-Kreen", load("res://assets/creatures/thri-kreen.jpg"), {"ability_scores": [12, 13, 4, 5, 12, 53]}, "Cool ant person"),
 	#"thri_kreen": {

@@ -67,7 +67,8 @@ func _input(event):
 
 # Updates mouselook and movement every frame
 func _process(delta):
-	_update_mouselook()
+	if!(Globals.toggle_2d): # disable moving the camera's rotaion if 2d is enabled
+		_update_mouselook()
 	_update_movement(delta)
 
 # Updates camera movement
