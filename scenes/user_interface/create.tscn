@@ -1,15 +1,25 @@
-[gd_scene load_steps=4 format=3 uid="uid://dr5uolssgg1yg"]
+[gd_scene load_steps=5 format=3 uid="uid://dr5uolssgg1yg"]
 
 [ext_resource type="Texture2D" uid="uid://8gi20yhem3n2" path="res://icon.svg" id="1_m2j8i"]
 [ext_resource type="Script" uid="uid://vkbbvde44vxh" path="res://scripts/creature_scripts/create_creature.gd" id="1_w6lwg"]
 [ext_resource type="Script" uid="uid://covawmhcq6jfm" path="res://scripts/upload_map.gd" id="3_s5vmb"]
+[ext_resource type="Script" uid="uid://vcdpqbno2tjv" path="res://scripts/create_object.gd" id="4_cp6k3"]
 
-[node name="Create" type="VBoxContainer"]
+[node name="Create" type="ScrollContainer"]
 offset_right = 213.0
-offset_bottom = 459.0
+offset_bottom = 720.0
+size_flags_vertical = 3
+follow_focus = true
+draw_focus_border = true
+horizontal_scroll_mode = 0
+scroll_deadzone = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="FileDialog" type="FileDialog" parent="."]
+[node name="FileDialog" type="FileDialog" parent="VBoxContainer"]
 oversampling_override = 1.0
 title = "Open a File"
 initial_position = 1
@@ -19,7 +29,7 @@ access = 2
 filters = PackedStringArray("*.png", "*.jpeg", "*.jpg")
 use_native_dialog = true
 
-[node name="MapFileDialog" type="FileDialog" parent="."]
+[node name="MapFileDialog" type="FileDialog" parent="VBoxContainer"]
 oversampling_override = 1.0
 title = "Open a File"
 initial_position = 1
@@ -29,123 +39,133 @@ access = 2
 filters = PackedStringArray("*.png", "*.jpeg", "*.jpg")
 use_native_dialog = true
 
-[node name="CreateCreatureContainer" type="FoldableContainer" parent="."]
+[node name="FileDialog_3d" type="FileDialog" parent="VBoxContainer"]
+oversampling_override = 1.0
+title = "Open a File"
+initial_position = 1
+dialog_hide_on_ok = true
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.glb", "*.glTF", "*.png", "*.jpg", "*.jpeg")
+use_native_dialog = true
+
+[node name="CreateCreatureContainer" type="FoldableContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 title = "Create Creature"
 script = ExtResource("1_w6lwg")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CreateCreatureContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CreateCreatureContainer"]
 layout_mode = 2
 
-[node name="CreatureName" type="LineEdit" parent="CreateCreatureContainer/VBoxContainer"]
+[node name="CreatureName" type="LineEdit" parent="VBoxContainer/CreateCreatureContainer/VBoxContainer"]
 layout_mode = 2
-placeholder_text = "Name..."
+placeholder_text = "name..."
 
-[node name="StatsContainer" type="HBoxContainer" parent="CreateCreatureContainer/VBoxContainer"]
+[node name="StatsContainer" type="HBoxContainer" parent="VBoxContainer/CreateCreatureContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Str" type="VBoxContainer" parent="CreateCreatureContainer/VBoxContainer/StatsContainer"]
+[node name="Str" type="VBoxContainer" parent="VBoxContainer/CreateCreatureContainer/VBoxContainer/StatsContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="CreateCreatureContainer/VBoxContainer/StatsContainer/Str"]
+[node name="Label" type="Label" parent="VBoxContainer/CreateCreatureContainer/VBoxContainer/StatsContainer/Str"]
 layout_mode = 2
 text = "STR"
 horizontal_alignment = 1
 
-[node name="StrData" type="TextEdit" parent="CreateCreatureContainer/VBoxContainer/StatsContainer/Str"]
+[node name="StrData" type="TextEdit" parent="VBoxContainer/CreateCreatureContainer/VBoxContainer/StatsContainer/Str"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 placeholder_text = "14"
 
-[node name="Dex" type="VBoxContainer" parent="CreateCreatureContainer/VBoxContainer/StatsContainer"]
+[node name="Dex" type="VBoxContainer" parent="VBoxContainer/CreateCreatureContainer/VBoxContainer/StatsContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="CreateCreatureContainer/VBoxContainer/StatsContainer/Dex"]
+[node name="Label" type="Label" parent="VBoxContainer/CreateCreatureContainer/VBoxContainer/StatsContainer/Dex"]
 layout_mode = 2
 text = "DEX"
 horizontal_alignment = 1
 
-[node name="DexData" type="TextEdit" parent="CreateCreatureContainer/VBoxContainer/StatsContainer/Dex"]
+[node name="DexData" type="TextEdit" parent="VBoxContainer/CreateCreatureContainer/VBoxContainer/StatsContainer/Dex"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 placeholder_text = "13"
 
-[node name="Con" type="VBoxContainer" parent="CreateCreatureContainer/VBoxContainer/StatsContainer"]
+[node name="Con" type="VBoxContainer" parent="VBoxContainer/CreateCreatureContainer/VBoxContainer/StatsContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="CreateCreatureContainer/VBoxContainer/StatsContainer/Con"]
+[node name="Label" type="Label" parent="VBoxContainer/CreateCreatureContainer/VBoxContainer/StatsContainer/Con"]
 layout_mode = 2
 text = "CON"
 horizontal_alignment = 1
 
-[node name="ConData" type="TextEdit" parent="CreateCreatureContainer/VBoxContainer/StatsContainer/Con"]
+[node name="ConData" type="TextEdit" parent="VBoxContainer/CreateCreatureContainer/VBoxContainer/StatsContainer/Con"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 placeholder_text = "11"
 
-[node name="Int" type="VBoxContainer" parent="CreateCreatureContainer/VBoxContainer/StatsContainer"]
+[node name="Int" type="VBoxContainer" parent="VBoxContainer/CreateCreatureContainer/VBoxContainer/StatsContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="CreateCreatureContainer/VBoxContainer/StatsContainer/Int"]
+[node name="Label" type="Label" parent="VBoxContainer/CreateCreatureContainer/VBoxContainer/StatsContainer/Int"]
 layout_mode = 2
 text = "INT"
 horizontal_alignment = 1
 
-[node name="IntData" type="TextEdit" parent="CreateCreatureContainer/VBoxContainer/StatsContainer/Int"]
+[node name="IntData" type="TextEdit" parent="VBoxContainer/CreateCreatureContainer/VBoxContainer/StatsContainer/Int"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 placeholder_text = "15"
 
-[node name="Wis" type="VBoxContainer" parent="CreateCreatureContainer/VBoxContainer/StatsContainer"]
+[node name="Wis" type="VBoxContainer" parent="VBoxContainer/CreateCreatureContainer/VBoxContainer/StatsContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="CreateCreatureContainer/VBoxContainer/StatsContainer/Wis"]
+[node name="Label" type="Label" parent="VBoxContainer/CreateCreatureContainer/VBoxContainer/StatsContainer/Wis"]
 layout_mode = 2
 text = "WIS"
 horizontal_alignment = 1
 
-[node name="WisData" type="TextEdit" parent="CreateCreatureContainer/VBoxContainer/StatsContainer/Wis"]
+[node name="WisData" type="TextEdit" parent="VBoxContainer/CreateCreatureContainer/VBoxContainer/StatsContainer/Wis"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 placeholder_text = "10"
 
-[node name="Cha" type="VBoxContainer" parent="CreateCreatureContainer/VBoxContainer/StatsContainer"]
+[node name="Cha" type="VBoxContainer" parent="VBoxContainer/CreateCreatureContainer/VBoxContainer/StatsContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="CreateCreatureContainer/VBoxContainer/StatsContainer/Cha"]
+[node name="Label" type="Label" parent="VBoxContainer/CreateCreatureContainer/VBoxContainer/StatsContainer/Cha"]
 layout_mode = 2
 text = "CHA"
 horizontal_alignment = 1
 
-[node name="ChaData" type="TextEdit" parent="CreateCreatureContainer/VBoxContainer/StatsContainer/Cha"]
+[node name="ChaData" type="TextEdit" parent="VBoxContainer/CreateCreatureContainer/VBoxContainer/StatsContainer/Cha"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 placeholder_text = "14"
 
-[node name="Description" type="TextEdit" parent="CreateCreatureContainer/VBoxContainer"]
+[node name="Description" type="TextEdit" parent="VBoxContainer/CreateCreatureContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 placeholder_text = "Description..."
 
-[node name="AddImage" type="Button" parent="CreateCreatureContainer/VBoxContainer"]
+[node name="AddImage" type="Button" parent="VBoxContainer/CreateCreatureContainer/VBoxContainer"]
 layout_mode = 2
 text = "[Add Image]"
 
-[node name="TextureRect" type="TextureRect" parent="CreateCreatureContainer/VBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/CreateCreatureContainer/VBoxContainer"]
 clip_contents = true
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
@@ -154,28 +174,28 @@ texture = ExtResource("1_m2j8i")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="CreateCreatureButton" type="Button" parent="CreateCreatureContainer/VBoxContainer"]
+[node name="CreateCreatureButton" type="Button" parent="VBoxContainer/CreateCreatureContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 text = "Create"
 
-[node name="Upload Map" type="FoldableContainer" parent="."]
+[node name="Upload Map" type="FoldableContainer" parent="VBoxContainer"]
 layout_mode = 2
 title = "Upload Map"
 script = ExtResource("3_s5vmb")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Upload Map"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Upload Map"]
 layout_mode = 2
 
-[node name="MapName" type="LineEdit" parent="Upload Map/VBoxContainer"]
+[node name="MapName" type="LineEdit" parent="VBoxContainer/Upload Map/VBoxContainer"]
 layout_mode = 2
 placeholder_text = "name..."
 
-[node name="AddMapImage" type="Button" parent="Upload Map/VBoxContainer"]
+[node name="AddMapImage" type="Button" parent="VBoxContainer/Upload Map/VBoxContainer"]
 layout_mode = 2
 text = "[Add Image]"
 
-[node name="TextureRect" type="TextureRect" parent="Upload Map/VBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/Upload Map/VBoxContainer"]
 clip_contents = true
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
@@ -184,24 +204,47 @@ texture = ExtResource("1_m2j8i")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="CreateMap" type="Button" parent="Upload Map/VBoxContainer"]
+[node name="CreateMap" type="Button" parent="VBoxContainer/Upload Map/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 text = "Create"
 
-[node name="CreateObjectContainer" type="FoldableContainer" parent="."]
+[node name="CreateObjectContainer" type="FoldableContainer" parent="VBoxContainer"]
 layout_mode = 2
-folded = true
 title = "Create Object"
+script = ExtResource("4_cp6k3")
 
-[node name="Label" type="Label" parent="CreateObjectContainer"]
-visible = false
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CreateObjectContainer"]
 layout_mode = 2
-text = "I do nothing"
 
-[connection signal="file_selected" from="FileDialog" to="CreateCreatureContainer" method="_on_file_dialog_file_selected"]
-[connection signal="file_selected" from="MapFileDialog" to="Upload Map" method="_on_map_file_dialog_file_selected"]
-[connection signal="pressed" from="CreateCreatureContainer/VBoxContainer/AddImage" to="CreateCreatureContainer" method="add_image"]
-[connection signal="pressed" from="CreateCreatureContainer/VBoxContainer/CreateCreatureButton" to="CreateCreatureContainer" method="create_creature"]
-[connection signal="pressed" from="Upload Map/VBoxContainer/AddMapImage" to="Upload Map" method="_on_add_map_image_pressed"]
-[connection signal="pressed" from="Upload Map/VBoxContainer/CreateMap" to="Upload Map" method="create_map"]
+[node name="ObjectName" type="LineEdit" parent="VBoxContainer/CreateObjectContainer/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "name..."
+
+[node name="AddModel" type="Button" parent="VBoxContainer/CreateObjectContainer/VBoxContainer"]
+layout_mode = 2
+text = "[Add Model]"
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/CreateObjectContainer/VBoxContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("1_m2j8i")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CreateObject" type="Button" parent="VBoxContainer/CreateObjectContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "Create"
+
+[connection signal="file_selected" from="VBoxContainer/FileDialog" to="VBoxContainer/CreateCreatureContainer" method="_on_file_dialog_file_selected"]
+[connection signal="file_selected" from="VBoxContainer/MapFileDialog" to="VBoxContainer/Upload Map" method="_on_map_file_dialog_file_selected"]
+[connection signal="file_selected" from="VBoxContainer/FileDialog_3d" to="VBoxContainer/CreateObjectContainer" method="_on_file_dialog_3d_file_selected"]
+[connection signal="pressed" from="VBoxContainer/CreateCreatureContainer/VBoxContainer/AddImage" to="VBoxContainer/CreateCreatureContainer" method="add_image"]
+[connection signal="pressed" from="VBoxContainer/CreateCreatureContainer/VBoxContainer/CreateCreatureButton" to="VBoxContainer/CreateCreatureContainer" method="create_creature"]
+[connection signal="pressed" from="VBoxContainer/Upload Map/VBoxContainer/AddMapImage" to="VBoxContainer/Upload Map" method="_on_add_map_image_pressed"]
+[connection signal="pressed" from="VBoxContainer/Upload Map/VBoxContainer/CreateMap" to="VBoxContainer/Upload Map" method="create_map"]
+[connection signal="pressed" from="VBoxContainer/CreateObjectContainer/VBoxContainer/AddModel" to="VBoxContainer/CreateObjectContainer" method="_on_add_model_pressed"]
+[connection signal="pressed" from="VBoxContainer/CreateObjectContainer/VBoxContainer/CreateObject" to="VBoxContainer/CreateObjectContainer" method="create_object"]

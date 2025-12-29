@@ -19,9 +19,16 @@ var creatures: Dictionary = { ## dictionary for all the creatures made in the ga
 	#},
 }
 
-var maps: Dictionary = {
+var maps: Dictionary = { ## dictionary for all the maps in the game
 	"forest": {
 		"name": "Forest",
 		"image": load("res://assets/board_maps/ForestEncampment_digital_day_grid.jpg")
+	}
+}
+
+var objects: Dictionary = { ## dictionary for all the maps in the game
+	"wooden_chest": {
+		"name": "Wooden Chest",
+		"model": load("res://assets/3d_models/default_models/wooden_chest.glb")
 	}
 }
