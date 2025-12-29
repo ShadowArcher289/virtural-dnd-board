@@ -8,7 +8,7 @@ class_name BoardObject extends Node3D
 
 
 @export var object_type: String = "object";
-@export var object_data: Resource = ObjectData.new("Wooden Chest", null, null, load("res://assets/3d_models/default_models/wooden_chest.glb"), false);
+@export var object_data: Resource = ObjectData.new("Wooden Chest", null, null, load("res://assets/3d_models/default_models/wooden_chest.glb"), false, "a wooden chest made of wood");
 
 enum State { ## The types of states for a Figure
 	STILL,
@@ -32,10 +32,20 @@ func _ready() -> void:
 	if(object_data.model != null): # add pre-loaded 3D models
 		if(object_data.is_collidable):
 			add_collision_to_scene(object_data.model);
-		self.add_child(object_data.model.instantiate());
+			
+		var model = object_data.model.instantiate();
+		
+		var meshes = find_mesh_instances(model); # align the model so the base mesh is on the bottom
+		model.transform.origin = Vector3(0, (meshes[0].get_aabb().size.y/2), 0);
+		
+		self.add_child(model);
 	else: # add user-added 3D models
 		var scene = object_data.gltf_document.generate_scene(object_data.gltf_state); # Generate the scene from the document
-		scene.transform.origin = Vector3(0, 0, 0);
+		
+		var meshes = find_mesh_instances(scene); # align the model so the base mesh is on the bottom
+		scene.transform.origin = Vector3(0, (meshes[0].get_aabb().size.y/2), 0);
+		
+		print_debug(str(scene))
 		if(object_data.is_collidable):
 			add_collision_to_scene(scene);
 		self.add_child(scene); # Add the newly loaded scene to the current scene tree as a child of this figure

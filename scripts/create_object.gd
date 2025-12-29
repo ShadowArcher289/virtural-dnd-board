@@ -1,8 +1,9 @@
 extends FoldableContainer
 
 @onready var object_name: LineEdit = $VBoxContainer/ObjectName
-@onready var texture_rect: TextureRect = $VBoxContainer/TextureRect
 @onready var collidable: CheckBox = $VBoxContainer/Collidable
+@onready var description: TextEdit = $VBoxContainer/Description
+@onready var texture_rect: TextureRect = $VBoxContainer/TextureRect
 
 @onready var file_dialog_3d: FileDialog = $"../FileDialog_3d"
 
@@ -38,7 +39,8 @@ func create_object() -> void: ## adds the object to the Globals.objects dictiona
 		gltf_document, 
 		gltf_state, 
 		null,
-		is_collidable
+		is_collidable,
+		description.text
 	)
 	); # adds the object with the key:value object-name, model
 	SignalBus.object_created.emit(key);

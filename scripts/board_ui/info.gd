@@ -60,13 +60,7 @@ func _creature_selected(object: Dictionary) -> void: ## triggered when the Signa
 		"object":
 			object_name_text.text = object.get("data").name;
 			stats_container.hide();
-			str_data.text = str(0);
-			dex_data.text = str(0);
-			con_data.text = str(0);
-			int_data.text = str(0);
-			wis_data.text = str(0);
-			cha_data.text = str(0);
-			object_description_text.text = "";
+			object_description_text.text = object.get("data").description;
 			creature_condition_rings.hide();
 		_:
 			print_debug("Error: Invalid object_data.type");

@@ -159,7 +159,7 @@ placeholder_text = "14"
 [node name="Description" type="TextEdit" parent="VBoxContainer/CreateCreatureContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-placeholder_text = "Description..."
+placeholder_text = "description..."
 
 [node name="AddImage" type="Button" parent="VBoxContainer/CreateCreatureContainer/VBoxContainer"]
 layout_mode = 2
@@ -224,6 +224,11 @@ placeholder_text = "name..."
 [node name="Collidable" type="CheckBox" parent="VBoxContainer/CreateObjectContainer/VBoxContainer"]
 layout_mode = 2
 text = "Collidable"
+
+[node name="Description" type="TextEdit" parent="VBoxContainer/CreateObjectContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+placeholder_text = "description..."
 
 [node name="AddModel" type="Button" parent="VBoxContainer/CreateObjectContainer/VBoxContainer"]
 layout_mode = 2
