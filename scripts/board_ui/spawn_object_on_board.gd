@@ -1,6 +1,8 @@
 extends Button
 
 const FIGURE = preload("res://scenes/figure.tscn")
+const BOARD_OBJECT = preload("res://scenes/board_object.tscn")
+
 @onready var rich_text_label: RichTextLabel = $RichTextLabel
 
 @export var object_type: String = "creature";
@@ -17,7 +19,7 @@ func _ready() -> void:
 	match object_type:
 		"creature":
 			if(not object_data is FigureData): # confirm object_data is of the FigureData type
-				push_error("Error: object_data is not of type FigureData | " + str(typeof(object_data)));
+				push_error("Error: object_data is not of type FigureData | " + type_string(typeof(object_data)) + str(object_data));
 				
 			if(not object_data.image is CompressedTexture2D): # if the image is not a Texture (meaning it is likely a user's image), then set it as a texture
 				var image_texture = ImageTexture.new();
@@ -29,25 +31,31 @@ func _ready() -> void:
 			print(object_data.name);
 			print(object_data.image);
 		"object":
-			pass;
+			if(not object_data is ObjectData): # confirm object_data is of the ObjectData type
+				push_error("Error: object_data is not of type ObjectData | " + type_string(typeof(object_data)));
+			
+			self.icon = load("res://icon.svg"); # set the button icon to the Godot logo TODO: set it to a 2D version of the 3D model
+			
+			rich_text_label.text = self.object_data.name;
+			print(object_data.name);
+			print(object_data.gltf_document);
+			print(object_data.gltf_state);
+			print(object_data.model);
 		_:
 			push_error("Error: Invalid object_type");
 		
 
-func _on_pressed() -> void:
+func _on_pressed() -> void: ## create a new object.
+	var new_object: Node3D
 	match object_type:
 		"creature":
-			var new_object: Node3D = FIGURE.instantiate();
-			new_object.position = Vector3(0, 0, 0);
-			new_object.object_type = self.object_type;
-			new_object.object_data = self.object_data;
-			#new_object.object_name = self.object_name;
-			#new_object.object_image = self.object_image;
-			#new_object.object_description = self.object_description;
-			#new_object.creature_stats = self.creature_stats;
-			new_object.show();
-			get_tree().root.add_child(new_object);
+			new_object = FIGURE.instantiate();
 		"object":
-			pass;
+			new_object = BOARD_OBJECT.instantiate();
 		_:
-			push_error("Error: Invalid object_type");
+			print_debug("Error: Invalid object_type");
+	new_object.position = Vector3(0, 0, 0);
+	new_object.object_type = self.object_type;
+	new_object.object_data = self.object_data;
+	new_object.show();
+	get_tree().root.add_child(new_object);

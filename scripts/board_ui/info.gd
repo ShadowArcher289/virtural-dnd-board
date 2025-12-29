@@ -1,9 +1,10 @@
 extends MarginContainer
 
-@onready var creature_name_text: RichTextLabel = $VBoxContainer/CreatureNameText
-@onready var creature_description_text: RichTextLabel = $VBoxContainer/CreatureDescriptionText
+@onready var object_name_text: RichTextLabel = $VBoxContainer/ObjectNameText
+@onready var object_description_text: RichTextLabel = $VBoxContainer/ObjectDescriptionText
 
 # Labels for each of the creature's stats
+@onready var stats_container: HBoxContainer = $VBoxContainer/StatsContainer
 @onready var str_data: Label = $VBoxContainer/StatsContainer/Str/StrData
 @onready var dex_data: Label = $VBoxContainer/StatsContainer/Dex/DexData
 @onready var con_data: Label = $VBoxContainer/StatsContainer/Con/ConData
@@ -12,6 +13,7 @@ extends MarginContainer
 @onready var cha_data: Label = $VBoxContainer/StatsContainer/Cha/ChaData
 
 # Checkboxes to toggle the rings
+@onready var creature_condition_rings: FoldableContainer = $VBoxContainer/CreatureConditionRings
 @onready var red_ring_toggle: CheckBox = $VBoxContainer/CreatureConditionRings/VBoxContainer/RedRingToggle
 @onready var orange_ring_toggle: CheckBox = $VBoxContainer/CreatureConditionRings/VBoxContainer/OrangeRingToggle
 @onready var yellow_ring_toggle: CheckBox = $VBoxContainer/CreatureConditionRings/VBoxContainer/YellowRingToggle
@@ -21,14 +23,14 @@ extends MarginContainer
 @onready var pink_ring_toggle: CheckBox = $VBoxContainer/CreatureConditionRings/VBoxContainer/PinkRingToggle
 @onready var white_ring_toggle: CheckBox = $VBoxContainer/CreatureConditionRings/VBoxContainer/WhiteRingToggle
 
-@export var creature_data: FigureData;
-@export var creature_object: Node; ## the object of the creature, primarily used to modify its values
+@export var object_data: Resource;
+@export var object_node: Node; ## the object of the creature, primarily used to modify its values
 
 func _ready() -> void:
 	SignalBus.creature_selected.connect(_creature_selected);
 
 func _process(_delta: float) -> void:
-	if(creature_object != null):
+	if(object_node != null && (object_data is FigureData)):
 		toggle_ring(red_ring_toggle, "red");
 		toggle_ring(orange_ring_toggle, "orange");
 		toggle_ring(yellow_ring_toggle, "yellow");
@@ -38,25 +40,43 @@ func _process(_delta: float) -> void:
 		toggle_ring(pink_ring_toggle, "pink");
 		toggle_ring(white_ring_toggle, "white");
 
-func _creature_selected(creature: Dictionary) -> void: ## triggered when the Signal SignalBus.creature_selected is emitted.
-	var ability_scores: Array = creature.get("data").stats.get("ability_scores");
-	set_rings(creature.get("data").get("status_rings"));
-	creature_object = creature.get("object");
-	creature_name_text.text = creature.get("data").name;
-	str_data.text = str(ability_scores[0]);
-	dex_data.text = str(ability_scores[1]);
-	con_data.text = str(ability_scores[2]);
-	int_data.text = str(ability_scores[3]);
-	wis_data.text = str(ability_scores[4]);
-	cha_data.text = str(ability_scores[5]);
-	creature_description_text.text = creature.get("data").description;
+func _creature_selected(object: Dictionary) -> void: ## triggered when the Signal SignalBus.creature_selected is emitted.
+	object_data = object.get("data");
+	match object.get("type"):
+		"creature":
+			var ability_scores: Array = object_data.stats.get("ability_scores");
+			set_rings(object_data.get("status_rings"));
+			object_node = object.get("object");
+			object_name_text.text = object.get("data").name;
+			stats_container.show();
+			str_data.text = str(ability_scores[0]);
+			dex_data.text = str(ability_scores[1]);
+			con_data.text = str(ability_scores[2]);
+			int_data.text = str(ability_scores[3]);
+			wis_data.text = str(ability_scores[4]);
+			cha_data.text = str(ability_scores[5]);
+			object_description_text.text = object.get("data").description;
+			creature_condition_rings.show();
+		"object":
+			object_name_text.text = object.get("data").name;
+			stats_container.hide();
+			str_data.text = str(0);
+			dex_data.text = str(0);
+			con_data.text = str(0);
+			int_data.text = str(0);
+			wis_data.text = str(0);
+			cha_data.text = str(0);
+			object_description_text.text = "";
+			creature_condition_rings.hide();
+		_:
+			print_debug("Error: Invalid object_data.type");
 
 
 func toggle_ring(ring: CheckBox, color: String): ## helper function: toggle status_rings based on uf the respective checkbox is pressed on or off
 	if(ring.button_pressed):
-		creature_object.object_data.status_rings.set(color, true);
+		object_node.object_data.status_rings.set(color, true);
 	else:
-		creature_object.object_data.status_rings.set(color, false);
+		object_node.object_data.status_rings.set(color, false);
 
 func set_rings(rings: Dictionary): ## update the checkboxes so that only the ones with the currently visible colors are checked
 	if(rings.get("red") == true):

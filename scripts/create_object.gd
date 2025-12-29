@@ -2,6 +2,7 @@ extends FoldableContainer
 
 @onready var object_name: LineEdit = $VBoxContainer/ObjectName
 @onready var texture_rect: TextureRect = $VBoxContainer/TextureRect
+@onready var collidable: CheckBox = $VBoxContainer/Collidable
 
 @onready var file_dialog_3d: FileDialog = $"../FileDialog_3d"
 
@@ -9,35 +10,35 @@ extends FoldableContainer
 # 	When given a png(or any image type), will just add a png(or the other respective image type)
 # 	When given a 3d model file, will add the 3d model. 
 
-var model = Image.new();
+var gltf_document = GLTFDocument.new();
+var gltf_state = GLTFState.new(); 
+var is_collidable : bool = false; ## if true, then the object will be a collider for the mouse pointer
 
-func _on_file_dialog_3d_file_selected(path: String) -> void:
-	pass # Replace with function body.
-	#
-	#image = Image.new();
-	#image.load(path);
-	#
-	#UserResourceManager.figure_image.get_or_add(path, image);
-	#
-	#var image_texture = ImageTexture.new();
-	#image_texture.set_image(image);
-	#
-	#texture_rect.texture = image_texture;
+func _on_file_dialog_3d_file_selected(path: String) -> void: ## when an appropriate file is selected, processes that file into something the game can use for 3D models.
+	
+	gltf_document = GLTFDocument.new();
+	gltf_state = GLTFState.new(); 
+	
+	var error = gltf_document.append_from_file(path, gltf_state);
+
+	if(error != OK):
+		print_debug("Couldn't load glTF scene: " + error_string(error));
 
 func _on_add_model_pressed() -> void:
 	file_dialog_3d.popup();
 
 
-func create_object() -> void:
-	pass # Replace with function body.
-	#var key = creature_name.text.to_kebab_case();
-	#
-	#Globals.creatures.get_or_add(key, 
-		#FigureData.new(
-			#creature_name.text, 
-			#image, 
-			#format_stats(), # TODO: Change this to be a dictionary of the stats
-			#description.text
-		#)
-	#); # adds the creature with the key:value creature-name, FigureData{}
-	#SignalBus.object_created.emit(key);
+func create_object() -> void: ## adds the object to the Globals.objects dictionary and emits the object_created signal.
+	var key = object_name.text.to_kebab_case();
+	
+	is_collidable = collidable.button_pressed; # is_collidable = true if the collidable button is pressed
+	
+	Globals.objects.get_or_add(key, ObjectData.new(
+		object_name.text, 
+		gltf_document, 
+		gltf_state, 
+		null,
+		is_collidable
+	)
+	); # adds the object with the key:value object-name, model
+	SignalBus.object_created.emit(key);

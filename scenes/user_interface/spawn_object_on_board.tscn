@@ -13,6 +13,7 @@ icon = ExtResource("1_x8mvm")
 icon_alignment = 1
 expand_icon = true
 script = ExtResource("2_qb2vt")
+object_type = null
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 custom_minimum_size = Vector2(0, 24)

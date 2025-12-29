@@ -221,6 +221,10 @@ layout_mode = 2
 layout_mode = 2
 placeholder_text = "name..."
 
+[node name="Collidable" type="CheckBox" parent="VBoxContainer/CreateObjectContainer/VBoxContainer"]
+layout_mode = 2
+text = "Collidable"
+
 [node name="AddModel" type="Button" parent="VBoxContainer/CreateObjectContainer/VBoxContainer"]
 layout_mode = 2
 text = "[Add Model]"

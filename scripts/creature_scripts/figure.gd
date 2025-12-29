@@ -19,7 +19,7 @@ class_name Figure extends Node3D
 
 
 @export var object_type: String = "creature";
-@export var object_data: FigureData = FigureData.new(
+@export var object_data: Resource = FigureData.new(
 	"Thri-Kreen", load("res://assets/creatures/thri-kreen.jpg"), 
 	{"ability_scores": [12, 13, 4, 5, 12, 53]}, 
 	"Cool ant person"
@@ -43,20 +43,43 @@ var current_position = self.position;
 var released = true; ## holds if the figure has been released (ie. the mouse is still held down after clicking).
 
 func _ready() -> void:
-	var new_material = StandardMaterial3D.new();
-	
-	if(not object_data.image is CompressedTexture2D): # if the image is not a Texture (meaning it is likely a user's image), then set it as a texture
-		var image_texture = ImageTexture.new();
-		image_texture.set_image(object_data.image);
-		new_material.albedo_texture = image_texture;
-	else: # otherwise, the image is likely a pre-added image so just use it
-		new_material.albedo_texture = object_data.image;
-	
-	new_material.billboard_mode = BaseMaterial3D.BILLBOARD_FIXED_Y;
-	new_material.billboard_keep_scale = true;
-	
-	image.material_override = new_material;
-	figure_name.text = object_data.name;
+	match object_type:
+		"creature":
+			if(not object_data is FigureData): # confirm object_data is of the FigureData type
+				push_error("Error: object_data is not of type ObjectData | " + type_string(typeof(object_data)));
+			
+			var new_material = StandardMaterial3D.new();
+			
+			if(not object_data.image is CompressedTexture2D): # if the image is not a Texture (meaning it is likely a user's image), then set it as a texture
+				var image_texture = ImageTexture.new();
+				image_texture.set_image(object_data.image);
+				new_material.albedo_texture = image_texture;
+			else: # otherwise, the image is likely a pre-added image so just use it
+				new_material.albedo_texture = object_data.image;
+			
+			new_material.billboard_mode = BaseMaterial3D.BILLBOARD_FIXED_Y;
+			new_material.billboard_keep_scale = true;
+			
+			image.material_override = new_material;
+			figure_name.text = object_data.name;
+			#
+		#"object":
+			#if(not object_data is ObjectData): # confirm object_data is of the ObjectData type
+				#push_error("Error: object_data is not of type ObjectData | " + type_string(typeof(object_data)));
+			#
+			#if(object_data.model != null): # add pre-loaded 3D models
+				#if(object_data.is_collidable):
+					#add_collision_to_scene(object_data.model);
+				#self.add_child(object_data.model);
+			#else: # add user-added 3D models
+				#var scene = object_data.gltf_document.generate_scene(object_data.gltf_state); # Generate the scene from the document
+				#scene.transform.origin = Vector3(0, 0, 0);
+				#if(object_data.is_collidable):
+					#add_collision_to_scene(scene);
+				#self.add_child(scene); # Add the newly loaded scene to the current scene tree as a child of this figure
+			#print_debug("3D model loaded");
+		#_:
+			#print_debug("Error: Invalid object_type");
 
 func _input(event: InputEvent) -> void:
 	if(event.is_action_pressed("left_click")):
@@ -131,7 +154,8 @@ func switch_state(state: State): ## Switch state and set the Global's current se
 func set_current_selected_creature() -> void: ## set the MouseCollision.current_selected_creature to this figure
 	var self_as_creature_dictionary = {}
 	self_as_creature_dictionary = { ## This figure, but as a creature dictionary.
-		"data": object_data, # the figure's data
+		"data": object_data, ## the object's data
+		"type": object_type,
 		"object": self
 	}
 	SignalBus.creature_selected.emit(self_as_creature_dictionary);
@@ -191,3 +215,30 @@ func hide_condition_ring(ring_color: String): ## hide a given colored ring.
 			white_ring.hide();
 		_:
 			print_debug("Error: Invalid color for show_condition_ring()");
+
+# ||| Functions for 3D Models |||
+
+
+func add_collision_to_scene(scene: Node3D): ## add collisions to the scene
+# ||| generates a lot of meshes to have collisions |||
+	var meshes = find_mesh_instances(scene)
+
+	for mesh in meshes:
+		if mesh.mesh:
+			var body := StaticBody3D.new()
+			mesh.get_parent().add_child(body)
+			
+			var col := CollisionShape3D.new()
+			col.shape = mesh.mesh.create_trimesh_shape()
+			body.add_child(col)
+			
+			# Match transform so the collision aligns with the mesh
+			body.transform = mesh.transform
+
+func find_mesh_instances(node: Node) -> Array: ## finds all MeshInstance3D children(both direct and indirect) in a given node
+	var meshes: Array = []
+	for child in node.get_children():
+		if child is MeshInstance3D:
+			meshes.append(child)
+		meshes.append_array(find_mesh_instances(child))
+	return meshes
