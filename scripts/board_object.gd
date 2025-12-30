@@ -43,7 +43,16 @@ func _ready() -> void:
 		var scene = object_data.gltf_document.generate_scene(object_data.gltf_state); # Generate the scene from the document
 		
 		var meshes = find_mesh_instances(scene); # align the model so the base mesh is on the bottom
-		scene.transform.origin = Vector3(0, meshes[0].get_aabb().size.y/2, 0);
+		print("Meshes: " + str(meshes))
+		
+		#var lastLargestSize = 0;
+		#for mesh in meshes:
+			#var mySize = mesh.get_aabb().size.y;
+			#if(mySize > lastLargestSize):
+				#lastLargestSize = mySize;
+		#scene.transform.origin.y = (lastLargestSize/2);
+			
+		scene.transform.origin.y = (meshes[0].get_aabb().size.y/2);
 		#base.mesh.size.x = meshes[0].get_aabb().size.x*0.80;
 		#base.mesh.size.z = meshes[0].get_aabb().size.z*0.9;
 		
