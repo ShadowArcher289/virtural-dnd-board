@@ -3,6 +3,9 @@ extends MarginContainer
 @onready var object_name_text: RichTextLabel = $VBoxContainer/ObjectNameText
 @onready var object_description_text: RichTextLabel = $VBoxContainer/ObjectDescriptionText
 
+@onready var rotation_label: Label = $VBoxContainer/RotationLabel
+@onready var rotation_slider: HSlider = $VBoxContainer/RotationSlider
+
 # Labels for each of the creature's stats
 @onready var stats_container: HBoxContainer = $VBoxContainer/StatsContainer
 @onready var str_data: Label = $VBoxContainer/StatsContainer/Str/StrData
@@ -42,11 +45,12 @@ func _process(_delta: float) -> void:
 
 func _creature_selected(object: Dictionary) -> void: ## triggered when the Signal SignalBus.creature_selected is emitted.
 	object_data = object.get("data");
+	object_node = object.get("object");
+	rotation_slider.value = object_node.rotation_degrees.y;
 	match object.get("type"):
 		"creature":
 			var ability_scores: Array = object_data.stats.get("ability_scores");
 			set_rings(object_data.get("status_rings"));
-			object_node = object.get("object");
 			object_name_text.text = object.get("data").name;
 			stats_container.show();
 			str_data.text = str(ability_scores[0]);
@@ -105,6 +109,10 @@ func set_rings(rings: Dictionary): ## update the checkboxes so that only the one
 		white_ring_toggle.button_pressed = true;
 	else:
 		white_ring_toggle.button_pressed = false;
-	
 
-		
+
+func _on_rotation_slider_value_changed(value: float) -> void: # updates the rotation_label to the rotation slider's value
+	rotation_label.text = "Rotation Degrees (" + str(int(value)) + "\u00B0)";
+	if(object_node != null):
+		object_node.rotation_degrees.y = value;
+	

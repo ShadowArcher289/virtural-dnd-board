@@ -10,4 +10,4 @@ func _creature_selected(_creature: Dictionary) -> void: ## Switch tab to the inf
 	if (MouseCollision.currentState("info")):
 		self.show();
 		self.folded = false;
-		tab_container.current_tab = 3;
+		tab_container.current_tab = 2;

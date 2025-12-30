@@ -22,14 +22,28 @@ layout_mode = 2
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-current_tab = 0
+current_tab = 3
 drag_to_rearrange_enabled = true
 deselect_enabled = true
+
+[node name="AOEs" parent="VBoxContainer/TabContainer" instance=ExtResource("6_tri1x")]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="Create" parent="VBoxContainer/TabContainer" instance=ExtResource("3_2nxaw")]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="Info" parent="VBoxContainer/TabContainer" instance=ExtResource("4_epdas")]
+visible = false
+layout_mode = 2
 
 [node name="Add" type="VBoxContainer" parent="VBoxContainer/TabContainer"]
 layout_mode = 2
 script = ExtResource("1_2nxaw")
-metadata/_tab_index = 0
+metadata/_tab_index = 3
 
 [node name="LineEdit" type="LineEdit" parent="VBoxContainer/TabContainer/Add"]
 layout_mode = 2
@@ -46,21 +60,6 @@ visible = false
 layout_mode = 2
 size_flags_horizontal = 1
 size_flags_vertical = 3
-metadata/_tab_index = 1
-
-[node name="Create" parent="VBoxContainer/TabContainer" instance=ExtResource("3_2nxaw")]
-visible = false
-layout_mode = 2
-metadata/_tab_index = 2
-
-[node name="Info" parent="VBoxContainer/TabContainer" instance=ExtResource("4_epdas")]
-visible = false
-layout_mode = 2
-metadata/_tab_index = 3
-
-[node name="AOEs" parent="VBoxContainer/TabContainer" instance=ExtResource("6_tri1x")]
-visible = false
-layout_mode = 2
 metadata/_tab_index = 4
 
 [connection signal="text_changed" from="VBoxContainer/TabContainer/Add/LineEdit" to="VBoxContainer/TabContainer/Add" method="_on_line_edit_text_changed"]

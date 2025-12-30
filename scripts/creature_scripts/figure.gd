@@ -100,9 +100,7 @@ func _process(_delta: float) -> void:
 		State.PICKED:
 			if MouseCollision.mouse_raycast_data != null && MouseCollision.mouse_raycast_data.get("position") != null:
 				self.global_position = Vector3(MouseCollision.mouse_raycast_data.get("position").x, self.position.y, MouseCollision.mouse_raycast_data.get("position").z);
-				
-				#if (current_position != MouseCollision.mouse_raycast_data.get("position")): # once moved, switch state to still
-					#switch_state(State.STILL);
+			
 			new_material.albedo_color = "#ffdc17";
 			base.material_override = new_material;
 		State.INFO:

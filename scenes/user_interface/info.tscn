@@ -130,6 +130,19 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "Creature Data"
 
+[node name="RotationLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Rotation Degrees (0°)"
+horizontal_alignment = 1
+
+[node name="RotationSlider" type="HSlider" parent="VBoxContainer"]
+layout_mode = 2
+max_value = 360.0
+rounded = true
+tick_count = 9
+ticks_on_borders = true
+ticks_position = 3
+
 [node name="CreatureConditionRings" type="FoldableContainer" parent="VBoxContainer"]
 layout_mode = 2
 title = "Status Rings"
@@ -168,3 +181,5 @@ text = "Pink"
 [node name="WhiteRingToggle" type="CheckBox" parent="VBoxContainer/CreatureConditionRings/VBoxContainer"]
 layout_mode = 2
 text = "White"
+
+[connection signal="value_changed" from="VBoxContainer/RotationSlider" to="." method="_on_rotation_slider_value_changed"]

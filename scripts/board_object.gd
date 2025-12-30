@@ -5,8 +5,6 @@ class_name BoardObject extends Node3D
  
 @onready var base: CSGMesh3D = $Base
 
-
-
 @export var object_type: String = "object";
 @export var object_data: Resource = ObjectData.new("Wooden Chest", null, null, load("res://assets/3d_models/default_models/wooden_chest.glb"), false, "a wooden chest made of wood");
 
@@ -36,14 +34,18 @@ func _ready() -> void:
 		var model = object_data.model.instantiate();
 		
 		var meshes = find_mesh_instances(model); # align the model so the base mesh is on the bottom
-		model.transform.origin = Vector3(0, (meshes[0].get_aabb().size.y/2), 0);
+		model.transform.origin.y = (meshes[0].get_aabb().size.y/2);
+		#base.mesh.size.x = meshes[0].get_aabb().size.x*0.80;
+		#base.mesh.size.z = meshes[0].get_aabb().size.z*0.9;
 		
 		self.add_child(model);
 	else: # add user-added 3D models
 		var scene = object_data.gltf_document.generate_scene(object_data.gltf_state); # Generate the scene from the document
 		
 		var meshes = find_mesh_instances(scene); # align the model so the base mesh is on the bottom
-		scene.transform.origin = Vector3(0, (meshes[0].get_aabb().size.y/2), 0);
+		scene.transform.origin = Vector3(0, meshes[0].get_aabb().size.y/2, 0);
+		#base.mesh.size.x = meshes[0].get_aabb().size.x*0.80;
+		#base.mesh.size.z = meshes[0].get_aabb().size.z*0.9;
 		
 		print_debug(str(scene))
 		if(object_data.is_collidable):
