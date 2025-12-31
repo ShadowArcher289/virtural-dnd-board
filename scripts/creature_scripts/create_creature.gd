@@ -1,5 +1,7 @@
 extends FoldableContainer
 
+const DEFAULT_ICON = preload("res://icon.svg");
+
 @onready var creature_name: LineEdit = $VBoxContainer/CreatureName
 @onready var description: TextEdit = $VBoxContainer/Description
 @onready var texture_rect: TextureRect = $VBoxContainer/TextureRect
@@ -38,11 +40,27 @@ func create_creature() -> void:
 		FigureData.new(
 			creature_name.text, 
 			image, 
-			format_stats(), # TODO: Change this to be a dictionary of the stats
+			format_stats(),
 			description.text
 		)
 	); # adds the creature with the key:value creature-name, FigureData{}
 	SignalBus.creature_created.emit(key);
+	
+	clear_inputs();
 
 func format_stats() -> Dictionary: ## return the stats in the form of a dictionary
 	return {"ability_scores": [int(str_data.text), int(dex_data.text), int(con_data.text), int(int_data.text), int(wis_data.text), int(cha_data.text)], "proficiencies": description.text}; # default
+
+func clear_inputs() -> void: ## clears the inputs upon creation so the user knows the creation worked.
+	creature_name.text = "";
+	str_data.text = "";
+	dex_data.text = "";
+	con_data.text = "";
+	int_data.text = "";
+	wis_data.text = "";
+	cha_data.text = "";
+	description.text = "";
+	texture_rect.texture = DEFAULT_ICON;
+	image = DEFAULT_ICON;
+	
+	

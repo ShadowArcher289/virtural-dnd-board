@@ -204,14 +204,17 @@ placeholder_text = "description..."
 layout_mode = 2
 text = "[Add Model]"
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/CreateObjectContainer/VBoxContainer"]
+[node name="PathLabel" type="Label" parent="VBoxContainer/CreateObjectContainer/VBoxContainer"]
 clip_contents = true
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_vertical = 3
-texture = ExtResource("1_m2j8i")
-expand_mode = 1
-stretch_mode = 5
+theme_override_colors/font_color = Color(0.5890956, 0.5890956, 0.5890956, 1)
+theme_override_font_sizes/font_size = 12
+text = "*path*"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
 
 [node name="CreateObject" type="Button" parent="VBoxContainer/CreateObjectContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)

@@ -3,7 +3,7 @@ extends FoldableContainer
 @onready var object_name: LineEdit = $VBoxContainer/ObjectName
 @onready var collidable: CheckBox = $VBoxContainer/Collidable
 @onready var description: TextEdit = $VBoxContainer/Description
-@onready var texture_rect: TextureRect = $VBoxContainer/TextureRect
+@onready var path_label: Label = $VBoxContainer/PathLabel
 
 @onready var file_dialog_3d: FileDialog = $"../FileDialog_3d"
 
@@ -16,6 +16,8 @@ var gltf_state = GLTFState.new();
 var is_collidable : bool = false; ## if true, then the object will be a collider for the mouse pointer
 
 func _on_file_dialog_3d_file_selected(path: String) -> void: ## when an appropriate file is selected, processes that file into something the game can use for 3D models.
+	
+	path_label.text = path;
 	
 	gltf_document = GLTFDocument.new();
 	gltf_state = GLTFState.new(); 
@@ -44,3 +46,11 @@ func create_object() -> void: ## adds the object to the Globals.objects dictiona
 	)
 	); # adds the object with the key:value object-name, model
 	SignalBus.object_created.emit(key);
+	
+	clear_inputs();
+
+func clear_inputs() -> void: ## clears the inputs upon creation so the user knows the creation worked.
+	object_name.text = "";
+	is_collidable = false;
+	description.text = "";
+	path_label.text = "";

@@ -1,5 +1,7 @@
 extends FoldableContainer
 
+const DEFAULT_ICON = preload("res://icon.svg");
+
 @onready var map_name: LineEdit = $VBoxContainer/MapName
 @onready var texture_rect: TextureRect = $VBoxContainer/TextureRect
 
@@ -28,7 +30,14 @@ func create_map() -> void:
 		"image": image, 
 	}); # adds the creature with the key:value creature-name, Dictionary{}
 	SignalBus.map_uploaded.emit(key);
-
+	
+	clear_inputs();
 
 func _on_add_map_image_pressed() -> void:
 	map_file_dialog.popup();
+
+
+func clear_inputs() -> void: ## clears the inputs upon creation so the user knows the creation worked.
+	map_name.text = "";
+	texture_rect.texture = DEFAULT_ICON;
+	image = DEFAULT_ICON;
