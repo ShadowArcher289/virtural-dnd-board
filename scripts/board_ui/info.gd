@@ -46,7 +46,10 @@ func _process(_delta: float) -> void:
 func _creature_selected(object: Dictionary) -> void: ## triggered when the Signal SignalBus.creature_selected is emitted.
 	object_data = object.get("data");
 	object_node = object.get("object");
+	
 	rotation_slider.value = object_node.rotation_degrees.y;
+	rotation_label.text = "Rotation Degrees (" + str(int(object_node.rotation_degrees.y)) + "\u00B0)";
+	
 	match object.get("type"):
 		"creature":
 			var ability_scores: Array = object_data.stats.get("ability_scores");

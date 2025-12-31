@@ -157,6 +157,7 @@ size_flags_vertical = 3
 placeholder_text = "14"
 
 [node name="Description" type="TextEdit" parent="VBoxContainer/CreateCreatureContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_vertical = 3
 placeholder_text = "description..."
@@ -196,6 +197,7 @@ layout_mode = 2
 text = "Collidable"
 
 [node name="Description" type="TextEdit" parent="VBoxContainer/CreateObjectContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_vertical = 3
 placeholder_text = "description..."

@@ -53,4 +53,4 @@ func clear_inputs() -> void: ## clears the inputs upon creation so the user know
 	object_name.text = "";
 	is_collidable = false;
 	description.text = "";
-	path_label.text = "";
+	path_label.text = "*path*";
