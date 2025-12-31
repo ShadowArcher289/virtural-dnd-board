@@ -12,7 +12,7 @@ size = Vector3(0.5, 0.1, 0.5)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1jr35"]
 albedo_color = Color(1, 0.8635, 0.089999974, 1)
 
-[node name="BoardObject" type="Node3D"]
+[node name="BoardObject" type="Node3D" groups=["board_item"]]
 script = ExtResource("1_1jr35")
 
 [node name="Base" type="CSGMesh3D" parent="."]

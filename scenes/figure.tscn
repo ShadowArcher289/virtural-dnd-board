@@ -84,7 +84,7 @@ outer_radius = 0.6
 inner_radius = 0.55
 outer_radius = 0.6
 
-[node name="Figure" type="Node3D"]
+[node name="Figure" type="Node3D" groups=["board_item"]]
 script = ExtResource("1_upmfi")
 
 [node name="Image" type="MeshInstance3D" parent="."]

@@ -22,6 +22,10 @@ SignalBus="*res://scripts/globals/SignalBus.gd"
 UserResourceManager="*res://scripts/globals/UserResourceManager.gd"
 MouseCollision="*res://scripts/globals/MouseCollision.gd"
 
+[global_group]
+
+board_item="An item that makesup the board"
+
 [input]
 
 camera_up={

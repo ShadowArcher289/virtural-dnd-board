@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://u1xlvnt2pymg"]
+[gd_scene load_steps=5 format=3 uid="uid://u1xlvnt2pymg"]
 
 [ext_resource type="PackedScene" uid="uid://dvbs62al8qbq" path="res://scenes/user_interface/board_menu.tscn" id="1_8qhv0"]
 [ext_resource type="PackedScene" uid="uid://b75lr2wt3pgoq" path="res://scenes/user_interface/board_state_buttons.tscn" id="2_8h0sw"]
 [ext_resource type="PackedScene" uid="uid://dfrcln70vcgq4" path="res://scenes/user_interface/dice_roller.tscn" id="3_y2b6n"]
+[ext_resource type="PackedScene" uid="uid://dlhj7lq640dpa" path="res://scenes/board_saver.tscn" id="4_ya43h"]
 
 [node name="BoardHUD" type="Control"]
 layout_mode = 3
@@ -79,3 +80,13 @@ text = "Creature Data"
 layout_mode = 2
 size_flags_vertical = 3
 text = "Creature Data"
+
+[node name="BoardSaver" parent="." instance=ExtResource("4_ya43h")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2

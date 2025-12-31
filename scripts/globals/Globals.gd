@@ -26,6 +26,6 @@ var maps: Dictionary = { ## dictionary for all the maps in the game
 	}
 }
 
-var objects: Dictionary = { ## dictionary for all the maps in the game
+var objects: Dictionary = { ## dictionary for all the objects in the game
 	"wooden_chest": ObjectData.new("Wooden Chest", null, null, load("res://assets/3d_models/default_models/wooden_chest.glb"), false, "A wooden chest made of wood."),
 }
