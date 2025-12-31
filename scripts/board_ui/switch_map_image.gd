@@ -25,5 +25,6 @@ func switch_map() -> void: ## Switch the combat board's map to a specified map.
 			board_map.material_override.albedo_texture = image_texture;
 		else:
 			board_map.material_override.albedo_texture = object_image;
+		Globals.current_map = map_image_name.to_snake_case();
 	else:
 		print_debug("Invalid map image name. or [map] is null | " + str(object_image) + " | " + str(board_map) + " |");

@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://euut6psdy2po"]
+[gd_scene load_steps=5 format=3 uid="uid://euut6psdy2po"]
 
+[ext_resource type="Script" uid="uid://b3jcdyvjsh7qv" path="res://scripts/board_ui/map.gd" id="1_gldc4"]
 [ext_resource type="Texture2D" uid="uid://ctoianmnul48s" path="res://assets/board_maps/ForestEncampment_digital_day_grid.jpg" id="1_paxxb"]
 [ext_resource type="Script" uid="uid://bc1vti3hocab1" path="res://scripts/board_ui/map_switcher.gd" id="2_gldc4"]
 
@@ -20,6 +21,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 2
 size_flags_vertical = 10
+script = ExtResource("1_gldc4")
 
 [node name="Map" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04705614, -0.5, 0.38062993)

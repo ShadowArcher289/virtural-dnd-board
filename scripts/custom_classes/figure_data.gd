@@ -9,7 +9,7 @@ class_name FigureData
 @export var description : String; ## the figure's description
 @export var status_rings : Dictionary; ## colors that are true have their corresponding ring visible
 
-func _init(f_name: String, f_image: Resource, f_stats: Dictionary={"ability_scores": [10, 10, 10, 10, 10, 10]}, f_description: String ="") -> void:
+func _init(f_name: String="Figure", f_image: Resource=load("res://icon.svg"), f_stats: Dictionary={"ability_scores": [10, 10, 10, 10, 10, 10]}, f_description: String ="") -> void:
 	self.name = f_name;
 	self.image = f_image;
 	self.stats = f_stats;

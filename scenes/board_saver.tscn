@@ -7,6 +7,17 @@ layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_fe475")
 
+[node name="LoadBoardFileDialog" type="FileDialog" parent="."]
+oversampling_override = 1.0
+title = "Select Board"
+initial_position = 1
+dialog_hide_on_ok = true
+file_mode = 0
+access = 1
+root_subfolder = "user://boards/"
+filters = PackedStringArray("*.tres")
+use_native_dialog = true
+
 [node name="PanelContainer" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(200, 100)
 layout_mode = 1
@@ -15,10 +26,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -27.5
-offset_top = -20.0
-offset_right = 27.5
-offset_bottom = 20.0
+offset_left = -300.0
+offset_top = -200.0
+offset_right = 300.0
+offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -34,27 +45,48 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 1
-text = "Save Board?"
+size_flags_vertical = 3
+text = "Save/Load Board?"
 horizontal_alignment = 1
-vertical_alignment = 2
+
+[node name="SelectBoard" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+text = "[Select Board to Load]"
 
 [node name="FilenameInput" type="LineEdit" parent="PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 placeholder_text = "enter filename (.tres)"
 
-[node name="Save" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+
+[node name="Save" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "[Save]"
 
-[node name="Load" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Load" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+size_flags_horizontal = 3
+text = "[Load]"
 
 [node name="Output" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(100, 0)
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 autowrap_mode = 3
 
-[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Save" to="." method="_on_save_pressed"]
-[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Load" to="." method="_on_load_pressed"]
+[node name="Close" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+text = "Close"
+
+[connection signal="file_selected" from="LoadBoardFileDialog" to="." method="_on_load_board_file_dialog_file_selected"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/SelectBoard" to="." method="_on_select_board_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Save" to="." method="_on_save_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Load" to="." method="_on_load_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Close" to="." method="_close"]

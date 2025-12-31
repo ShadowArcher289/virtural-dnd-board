@@ -10,3 +10,7 @@ signal area_of_effect_selected(area_of_effect: String); ## signal a AOE has been
 signal mouse_collided(); ## signals that the mouse has clicked and collided with an object.
 
 signal toggled_2d(toggled_on: bool); ## signals that 2d is toggled on or off
+
+signal board_loaded(); ## signals that a board has been loaded
+
+signal switch_map(map_key: String); ## signal to switch the map and the name of the map to switch to.

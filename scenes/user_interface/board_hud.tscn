@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://u1xlvnt2pymg"]
+[gd_scene load_steps=7 format=3 uid="uid://u1xlvnt2pymg"]
 
+[ext_resource type="Script" uid="uid://bm06dxcsdii4w" path="res://scripts/board_ui/board_hud.gd" id="1_8jqpr"]
 [ext_resource type="PackedScene" uid="uid://dvbs62al8qbq" path="res://scenes/user_interface/board_menu.tscn" id="1_8qhv0"]
 [ext_resource type="PackedScene" uid="uid://b75lr2wt3pgoq" path="res://scenes/user_interface/board_state_buttons.tscn" id="2_8h0sw"]
 [ext_resource type="PackedScene" uid="uid://dfrcln70vcgq4" path="res://scenes/user_interface/dice_roller.tscn" id="3_y2b6n"]
 [ext_resource type="PackedScene" uid="uid://dlhj7lq640dpa" path="res://scenes/board_saver.tscn" id="4_ya43h"]
+[ext_resource type="Texture2D" uid="uid://8gi20yhem3n2" path="res://icon.svg" id="6_gviry"]
 
 [node name="BoardHUD" type="Control"]
 layout_mode = 3
@@ -12,6 +14,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_8jqpr")
 
 [node name="DiceRoller" parent="." instance=ExtResource("3_y2b6n")]
 layout_mode = 1
@@ -90,3 +93,19 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="SaveLoadBoard" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -315.93903
+offset_top = 30.0
+offset_right = -140.0
+offset_bottom = 93.0
+grow_horizontal = 0
+text = "Open/Close Save"
+icon = ExtResource("6_gviry")
+expand_icon = true
+
+[connection signal="pressed" from="SaveLoadBoard" to="." method="_on_save_load_board_pressed"]

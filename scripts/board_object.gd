@@ -50,11 +50,16 @@ func _ready() -> void:
 	else: # add user-added 3D models
 		var scene = object_data.gltf_document.generate_scene(object_data.gltf_state); # Generate the scene from the document
 		
+		print("scene: " + str(scene));
+		print("object_data.gltf_document: " + str(object_data.gltf_document));
+		print("object_data.gltf_state: " + str(object_data.gltf_state));
+
 		var meshes = find_mesh_instances(scene); # align the model so the base mesh is on the bottom
+		print("Meshes: " + str(meshes))
+		
 		if(origin_is_in_center):
 			scene.transform.origin.y = (meshes[0].get_aabb().size.y/2); # move models's origin to be half of the 1st mesh
 
-		print("Meshes: " + str(meshes))
 		new_mesh.size.x = meshes[0].get_aabb().size.x*0.80;
 		new_mesh.size.y = meshes[0].get_aabb().size.y*0.4;
 		new_mesh.size.z = meshes[0].get_aabb().size.z*0.9;
@@ -147,7 +152,43 @@ func add_collision_to_scene(scene: Node3D): ## add collisions to the scene
 func find_mesh_instances(node: Node) -> Array: ## finds all MeshInstance3D children(both direct and indirect) in a given node
 	var meshes: Array = []
 	for child in node.get_children():
-		if child is MeshInstance3D:
+		if (child is MeshInstance3D):
 			meshes.append(child)
+		elif (child is ImporterMeshInstance3D):
+			var converted := convert_importer_mesh(child)
+			child.replace_by(converted)
+			child.queue_free()
+			meshes.append(converted)
+
 		meshes.append_array(find_mesh_instances(child))
 	return meshes
+
+func convert_importer_mesh(importer: ImporterMeshInstance3D) -> MeshInstance3D: ## converts an ImporterMeshInstance3D to a MeshInstance3D
+	var mesh_instance := MeshInstance3D.new()
+	
+	var importer_mesh: ImporterMesh = importer.mesh
+	var array_mesh := importer_mesh_to_array_mesh(importer_mesh)
+	mesh_instance.mesh = array_mesh
+	
+	# Copy transform
+	mesh_instance.transform = importer.transform
+	
+	# Copy materials from the importer mesh
+	var surface_count := importer_mesh.get_surface_count()
+	for i in surface_count:
+		var mat := importer_mesh.get_surface_material(i)
+		if mat:
+			mesh_instance.set_surface_override_material(i, mat)
+	
+	return mesh_instance
+
+func importer_mesh_to_array_mesh(importer_mesh: ImporterMesh) -> ArrayMesh: ## converts and ImporterMesh to an ArrayMesh
+	var array_mesh := ArrayMesh.new()
+	var surface_count := importer_mesh.get_surface_count()
+	
+	for i in surface_count: # iterates for every surface and creates the array_mesh from data of the surfaces
+		var arrays = importer_mesh.get_surface_arrays(i)
+		var primitive = importer_mesh.get_surface_primitive_type(i)
+		array_mesh.add_surface_from_arrays(primitive, arrays)
+		
+	return array_mesh

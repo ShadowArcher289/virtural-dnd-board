@@ -7,7 +7,11 @@ var object_spawners: Array = []; ## stores all the opject spawners
 func _ready() -> void:
 	SignalBus.creature_created.connect(_creature_created);
 	SignalBus.object_created.connect(_object_created);
+	SignalBus.board_loaded.connect(_generate_spawners);
 	
+	_generate_spawners();
+
+func _generate_spawners() -> void: ## generate spawners from the objects in Globals
 	for creature in Globals.creatures: # get every creature stored in the game
 		creature = Globals.creatures.get(creature);
 		create_creature_spawner(creature);
@@ -15,7 +19,6 @@ func _ready() -> void:
 	for object in Globals.objects: # get every object stored in the game
 		object = Globals.objects.get(object);
 		create_object_spawner(object);
-
 
 func _creature_created(key: String): ## add another creature to the add list when one is created
 	var creature = Globals.creatures.get(key);

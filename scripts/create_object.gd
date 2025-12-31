@@ -32,7 +32,7 @@ func _on_add_model_pressed() -> void:
 
 
 func create_object() -> void: ## adds the object to the Globals.objects dictionary and emits the object_created signal.
-	var key = object_name.text.to_kebab_case();
+	var key = object_name.text.to_snake_case();
 	
 	is_collidable = collidable.button_pressed; # is_collidable = true if the collidable button is pressed
 	

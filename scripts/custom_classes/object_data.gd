@@ -10,7 +10,7 @@ class_name ObjectData
 @export var is_collidable : bool; ## if the object triggers collisions or not
 @export var description : String;
 
-func _init(f_name: String, f_gltf_document: GLTFDocument, f_gltf_state: GLTFState, f_model: Resource = null, f_is_collidable: bool = false, f_description: String = "") -> void:
+func _init(f_name: String="Object", f_gltf_document: GLTFDocument = null, f_gltf_state: GLTFState = null, f_model: Resource = null, f_is_collidable: bool = false, f_description: String = "") -> void:
 	self.name = f_name;
 	self.gltf_document = f_gltf_document;
 	self.gltf_state = f_gltf_state;
