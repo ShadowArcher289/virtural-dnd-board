@@ -15,6 +15,8 @@ const BOARD_OBJECT = preload("res://scenes/board_object.tscn")
 
 
 func _ready() -> void:
+	SignalBus.board_loaded.connect(_kill_self); # kill spawner when the board is loaded
+
 	print(object_type);
 	match object_type:
 		"creature":
@@ -43,7 +45,9 @@ func _ready() -> void:
 			print(object_data.model);
 		_:
 			push_error("Error: Invalid object_type");
-		
+
+func _kill_self() -> void:
+	self.queue_free();
 
 func _on_pressed() -> void: ## create a new object.
 	var new_object: Node3D

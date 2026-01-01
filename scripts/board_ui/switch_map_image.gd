@@ -9,6 +9,8 @@ extends Button
 
 
 func _ready() -> void:
+	SignalBus.board_loaded.connect(_kill_self); # kill spawner when the board is loaded
+	
 	if(not object_image is CompressedTexture2D): # if the image is not a Texture (meaning it is likely a user's image), then set it as a texture
 		var image_texture = ImageTexture.new();
 		image_texture.set_image(object_image);
@@ -16,7 +18,10 @@ func _ready() -> void:
 	else: # otherwise, the image is likely a pre-added image so just use it
 		self.icon = object_image;
 	rich_text_label.text = map_image_name;
-		
+
+func _kill_self() -> void:
+	self.queue_free();
+
 func switch_map() -> void: ## Switch the combat board's map to a specified map.
 	if(object_image != null && board_map != null):
 		if(not object_image is CompressedTexture2D): # if the image is not a Texture (meaning it is likely a user's image), then set it as a texture
