@@ -10,6 +10,8 @@ class_name BoardObject extends Node3D
 
 var origin_is_in_center = true; ## true if the origin is in the true-center of the object, (false) assumes the origin is the center-bottom of the object
 
+@export var model_modified_position: Vector3 = Vector3(0, 0, 0); ## x, y, z, modified position for if the user modified the 3d model's position. used when loading the object using the save/load system to save the object's location change.
+
 enum State { ## The types of states for a Figure
 	STILL,
 	PICKED,
@@ -35,6 +37,8 @@ func _ready() -> void:
 			add_collision_to_scene(object_data.model);
 			
 		var model = object_data.model.instantiate();
+		self.add_child(model);
+
 		
 		# UNUSED Because models aren't made consistently and omg it's so annoying when people just don't make models the same way AHHHHHHHH :(
 		#var meshes = find_mesh_instances(model); # align the model so the base mesh is on the bottom
@@ -47,15 +51,20 @@ func _ready() -> void:
 		#base.mesh = new_mesh;
 		#base.transform.origin.y += ((meshes[0].get_aabb().size.y*0.4)/2);
 		
-		self.add_child(model);
+		if(model_modified_position != Vector3(0, 0, 0)): # keep model position when loading from a previously saved board
+			model.global_position = model_modified_position;
+
 	else: # add user-added 3D models
 		var scene = object_data.gltf_document.generate_scene(object_data.gltf_state); # Generate the scene from the document
+		
 		
 		print("scene: " + str(scene));
 		print("object_data.gltf_document: " + str(object_data.gltf_document));
 		print("object_data.gltf_state: " + str(object_data.gltf_state));
 
 		var meshes = find_mesh_instances(scene); # align the model so the base mesh is on the bottom
+		self.add_child(scene); # Add the newly loaded scene to the current scene tree as a child of this figure
+
 		print("Meshes: " + str(meshes))
 		
 		# UNUSED Because models aren't made consistently and omg it's so annoying when people just don't make models the same way AHHHHHHHH :(
@@ -71,8 +80,13 @@ func _ready() -> void:
 		print_debug(str(scene))
 		if(object_data.is_collidable):
 			add_collision_to_scene(scene);
-		self.add_child(scene); # Add the newly loaded scene to the current scene tree as a child of this figure
+		
+		if(model_modified_position != Vector3(0, 0, 0)): # keep model position when loading from a previously saved board
+			scene.global_position = model_modified_position;
+
 	print_debug("3D model loaded");
+
+
 
 func _input(event: InputEvent) -> void:
 	if(event.is_action_pressed("left_click")):

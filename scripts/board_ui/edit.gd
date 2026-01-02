@@ -121,14 +121,17 @@ func _on_toggle_base_visibility_toggled(toggled_on: bool) -> void:
 func _on_model_x_value_changed(value: float) -> void:
 	if(object_node_model != null):
 		object_node_model.global_position.x = value;
+		object_node.model_modified_position.x = object_node_model.global_position.x;
 		
 func _on_model_y_value_changed(value: float) -> void:
 	if(object_node_model != null):
 		object_node_model.global_position.y = value;
+		object_node.model_modified_position.y = object_node_model.global_position.y;
 
 func _on_model_z_value_changed(value: float) -> void:
 	if(object_node_model != null):
 		object_node_model.global_position.z = value;
+		object_node.model_modified_position.z = object_node_model.global_position.z;
 
 # base scale values
 func _on_base_scale_x_value_changed(value: float) -> void:
