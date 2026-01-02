@@ -30,6 +30,7 @@ var current_position = self.position;
 var released = true; ## holds if the object has been released (ie. the mouse is still held down after clicking).
 
 func _ready() -> void:
+	
 	if(not object_data is ObjectData): # confirm object_data is of the ObjectData type
 		push_error("Error: object_data is not of type ObjectData | " + type_string(typeof(object_data)));
 
@@ -111,7 +112,7 @@ func _process(_delta: float) -> void:
 			base.material_override = new_material
 		State.PICKED:
 			if MouseCollision.mouse_raycast_data != null && MouseCollision.mouse_raycast_data.get("position") != null:
-				self.global_position = Vector3(MouseCollision.mouse_raycast_data.get("position").x, self.position.y, MouseCollision.mouse_raycast_data.get("position").z);
+				self.global_position = Vector3(MouseCollision.mouse_raycast_data.get("position").x, MouseCollision.mouse_raycast_data.get("position").y - base.mesh.size.y, MouseCollision.mouse_raycast_data.get("position").z);
 				
 			new_material.albedo_color = "#ffdc17";
 			base.material_override = new_material;

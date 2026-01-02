@@ -47,10 +47,15 @@ func create_object_spawner(object: ObjectData): ## creates an object spawner giv
 
 
 func _on_line_edit_text_changed(new_text: String) -> void: ## A searchbar. show/hide object_spawners when the line_edit search field is edited 
+	var index = 0; # index of the object loop
 	for object_spawner in object_spawners:
-		if(new_text == ""): # when the text is empty, show all
-			object_spawner.show();
-		elif(object_spawner.object_name.to_lower().contains(new_text.to_lower())):
-			object_spawner.show();
+		if(object_spawner != null): # first check if the object is not already freed
+			if(new_text == ""): # when the text is empty, show all
+				object_spawner.show();
+			elif(object_spawner.object_data.name.to_lower().contains(new_text.to_lower())):
+				object_spawner.show();
+			else:
+				object_spawner.hide();
+			index += 1;
 		else:
-			object_spawner.hide();
+			object_spawners.remove_at(index);

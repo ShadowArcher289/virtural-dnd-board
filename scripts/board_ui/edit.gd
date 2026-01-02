@@ -68,6 +68,7 @@ func _creature_selected(object: Dictionary) -> void: ## triggered when the Signa
 			object_base = object_node.get_child(0);
 			
 			model_position_container.hide();
+			model_scale_container.hide();
 			base_scale_container.hide();
 			stats_container.hide();
 			
@@ -84,6 +85,7 @@ func _creature_selected(object: Dictionary) -> void: ## triggered when the Signa
 			object_base = object_node.get_child(0);
 			
 			model_position_container.show();
+			model_scale_container.show();
 			base_scale_container.show();
 			stats_container.hide();
 

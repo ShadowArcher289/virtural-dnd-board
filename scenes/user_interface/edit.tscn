@@ -180,7 +180,7 @@ text = "Model Scale"
 
 [node name="ModelScale" type="SpinBox" parent="VBoxContainer/ModelScaleContainer"]
 layout_mode = 2
-step = 0.1
+step = 0.01
 value = 1.0
 allow_greater = true
 allow_lesser = true

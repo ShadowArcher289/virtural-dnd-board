@@ -22,7 +22,7 @@ func _on_map_file_dialog_file_selected(path: String) -> void:
 	texture_rect.texture = image_texture;
 
 func create_map() -> void:
-	var key = map_name.text.to_kebab_case();
+	var key = map_name.text.to_snake_case();
 	
 	print("MAPS BEING CREATED")
 	Globals.maps.get_or_add(key, {

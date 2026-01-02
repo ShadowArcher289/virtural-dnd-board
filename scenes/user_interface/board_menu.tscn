@@ -52,7 +52,7 @@ layout_mode = 2
 script = ExtResource("1_2nxaw")
 metadata/_tab_index = 4
 
-[node name="LineEdit" type="LineEdit" parent="VBoxContainer/TabContainer/Add"]
+[node name="Searchbar" type="LineEdit" parent="VBoxContainer/TabContainer/Add"]
 layout_mode = 2
 placeholder_text = "search..."
 clear_button_enabled = true
@@ -69,4 +69,4 @@ size_flags_horizontal = 1
 size_flags_vertical = 3
 metadata/_tab_index = 5
 
-[connection signal="text_changed" from="VBoxContainer/TabContainer/Add/LineEdit" to="VBoxContainer/TabContainer/Add" method="_on_line_edit_text_changed"]
+[connection signal="text_changed" from="VBoxContainer/TabContainer/Add/Searchbar" to="VBoxContainer/TabContainer/Add" method="_on_line_edit_text_changed"]
