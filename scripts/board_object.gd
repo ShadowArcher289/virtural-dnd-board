@@ -52,7 +52,7 @@ func _ready() -> void:
 		#base.transform.origin.y += ((meshes[0].get_aabb().size.y*0.4)/2);
 		
 		if(model_modified_position != Vector3(0, 0, 0)): # keep model position when loading from a previously saved board
-			model.global_position = model_modified_position;
+			model.position = model_modified_position;
 
 	else: # add user-added 3D models
 		var scene = object_data.gltf_document.generate_scene(object_data.gltf_state); # Generate the scene from the document
@@ -82,7 +82,7 @@ func _ready() -> void:
 			add_collision_to_scene(scene);
 		
 		if(model_modified_position != Vector3(0, 0, 0)): # keep model position when loading from a previously saved board
-			scene.global_position = model_modified_position;
+			scene.position = model_modified_position;
 
 	print_debug("3D model loaded");
 
