@@ -36,15 +36,16 @@ func _ready() -> void:
 			
 		var model = object_data.model.instantiate();
 		
-		var meshes = find_mesh_instances(model); # align the model so the base mesh is on the bottom
-		if(origin_is_in_center):
-			model.transform.origin.y = (meshes[0].get_aabb().size.y/2); # move models's origin to be half of the 1st mesh
+		# UNUSED Because models aren't made consistently and omg it's so annoying when people just don't make models the same way AHHHHHHHH :(
+		#var meshes = find_mesh_instances(model); # align the model so the base mesh is on the bottom
+		#if(origin_is_in_center):
+			#model.transform.origin.y = (meshes[0].get_aabb().size.y/2); # move models's origin to be half of the 1st mesh
 			
-		new_mesh.size.x = meshes[0].get_aabb().size.x*0.80;
-		new_mesh.size.y = meshes[0].get_aabb().size.y*0.4;
-		new_mesh.size.z = meshes[0].get_aabb().size.z*0.9;
-		base.mesh = new_mesh;
-		base.transform.origin.y += ((meshes[0].get_aabb().size.y*0.4)/2);
+		#new_mesh.size.x = meshes[0].get_aabb().size.x*0.80;
+		#new_mesh.size.y = meshes[0].get_aabb().size.y*0.4;
+		#new_mesh.size.z = meshes[0].get_aabb().size.z*0.9;
+		#base.mesh = new_mesh;
+		#base.transform.origin.y += ((meshes[0].get_aabb().size.y*0.4)/2);
 		
 		self.add_child(model);
 	else: # add user-added 3D models
@@ -57,14 +58,15 @@ func _ready() -> void:
 		var meshes = find_mesh_instances(scene); # align the model so the base mesh is on the bottom
 		print("Meshes: " + str(meshes))
 		
-		if(origin_is_in_center):
-			scene.transform.origin.y = (meshes[0].get_aabb().size.y/2); # move models's origin to be half of the 1st mesh
-
-		new_mesh.size.x = meshes[0].get_aabb().size.x*0.80;
-		new_mesh.size.y = meshes[0].get_aabb().size.y*0.4;
-		new_mesh.size.z = meshes[0].get_aabb().size.z*0.9;
-		base.mesh = new_mesh;
-		base.transform.origin.y += ((meshes[0].get_aabb().size.y*0.4)/2);
+		# UNUSED Because models aren't made consistently and omg it's so annoying when people just don't make models the same way AHHHHHHHH :(
+		#if(origin_is_in_center):
+			#scene.transform.origin.y = (meshes[0].get_aabb().size.y/2); # move models's origin to be half of the 1st mesh
+#
+		#new_mesh.size.x = meshes[0].get_aabb().size.x*0.80;
+		#new_mesh.size.y = meshes[0].get_aabb().size.y*0.4;
+		#new_mesh.size.z = meshes[0].get_aabb().size.z*0.9;
+		#base.mesh = new_mesh;
+		#base.transform.origin.y += ((meshes[0].get_aabb().size.y*0.4)/2);
 		
 		print_debug(str(scene))
 		if(object_data.is_collidable):
