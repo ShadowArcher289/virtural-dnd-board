@@ -16,7 +16,7 @@ const BOARD_OBJECT = preload("res://scenes/board_object.tscn")
 
 func _ready() -> void:
 	SignalBus.board_loaded.connect(_kill_self); # kill spawner when the board is loaded
-
+	
 	print(object_type);
 	match object_type:
 		"creature":
@@ -63,3 +63,7 @@ func _on_pressed() -> void: ## create a new object.
 	new_object.object_data = self.object_data;
 	new_object.show();
 	get_tree().root.add_child(new_object);
+
+
+func _on_delete_button_pressed() -> void:
+	_kill_self();

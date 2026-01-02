@@ -17,6 +17,10 @@ extends Control
 @onready var model_y: SpinBox = $VBoxContainer/ModelPositionContainer/ModelY
 @onready var model_z: SpinBox = $VBoxContainer/ModelPositionContainer/ModelZ
 
+# Edits for each model's scale
+@onready var model_scale_container: HBoxContainer = $VBoxContainer/ModelScaleContainer
+@onready var model_scale: SpinBox = $VBoxContainer/ModelScaleContainer/ModelScale
+
 # Edits for each object's base's scale
 @onready var base_scale_container: HBoxContainer = $VBoxContainer/BaseScaleContainer
 @onready var base_scale_x: SpinBox = $VBoxContainer/BaseScaleContainer/BaseScaleX
@@ -27,6 +31,8 @@ extends Control
 @onready var rotation_slider: HSlider = $VBoxContainer/RotationSlider
 
 @onready var toggle_base_visibility: CheckButton = $VBoxContainer/ToggleBaseVisibility
+
+@onready var delete_button: Button = $VBoxContainer/DeleteButton
 
 # variables to edit:
 # Base scale
@@ -48,6 +54,8 @@ func _ready() -> void:
 	base_scale_z.focus_mode = Control.FOCUS_NONE;
 	
 	toggle_base_visibility.focus_mode = Control.FOCUS_NONE;
+	
+	delete_button.focus_mode = Control.FOCUS_NONE;
 
 
 func _creature_selected(object: Dictionary) -> void: ## triggered when the Signal SignalBus.creature_selected is emitted.
@@ -85,6 +93,8 @@ func _creature_selected(object: Dictionary) -> void: ## triggered when the Signa
 			model_y.value = object_node_model.global_position.y;
 			model_z.value = object_node_model.global_position.z;
 			
+			model_scale.value = object_node_model.scale.x;
+			
 			base_scale_x.value = object_base.scale.x;
 			base_scale_y.value = object_base.scale.y;
 			base_scale_z.value = object_base.scale.z;
@@ -116,6 +126,8 @@ func _on_toggle_base_visibility_toggled(toggled_on: bool) -> void:
 		else:
 			object_base.show(); # show the base;
 
+func _on_delete_button_pressed() -> void:
+	object_node.queue_free();
 
 # model position values
 func _on_model_x_value_changed(value: float) -> void:
@@ -132,6 +144,12 @@ func _on_model_z_value_changed(value: float) -> void:
 	if(object_node_model != null):
 		object_node_model.global_position.z = value;
 		object_node.model_modified_position.z = object_node_model.position.z;
+
+# model scale values
+func _on_model_scale_value_changed(value: float) -> void:
+	if(object_node_model != null):
+		object_node_model.scale = Vector3(value, value, value);
+		object_node.model_modified_scale = Vector3(value, value, value);
 
 # base scale values
 func _on_base_scale_x_value_changed(value: float) -> void:

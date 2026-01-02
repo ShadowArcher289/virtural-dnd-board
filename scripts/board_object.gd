@@ -11,6 +11,7 @@ class_name BoardObject extends Node3D
 var origin_is_in_center = true; ## true if the origin is in the true-center of the object, (false) assumes the origin is the center-bottom of the object
 
 @export var model_modified_position: Vector3 = Vector3(0, 0, 0); ## x, y, z, modified position for if the user modified the 3d model's position. used when loading the object using the save/load system to save the object's location change.
+@export var model_modified_scale: Vector3 = Vector3(0, 0, 0); ## modified position for if the user modified the 3d model's scale. used when loading the object using the save/load system to save the object's scale change.
 
 enum State { ## The types of states for a Figure
 	STILL,
@@ -53,7 +54,9 @@ func _ready() -> void:
 		
 		if(model_modified_position != Vector3(0, 0, 0)): # keep model position when loading from a previously saved board
 			model.position = model_modified_position;
-
+		if(model_modified_scale != Vector3(0, 0, 0)): # keep model scale when loading from a previously saved board
+			model.scale = model_modified_scale;
+			
 	else: # add user-added 3D models
 		var scene = object_data.gltf_document.generate_scene(object_data.gltf_state); # Generate the scene from the document
 		
@@ -83,6 +86,8 @@ func _ready() -> void:
 		
 		if(model_modified_position != Vector3(0, 0, 0)): # keep model position when loading from a previously saved board
 			scene.position = model_modified_position;
+		if(model_modified_scale != Vector3(0, 0, 0)): # keep model scale when loading from a previously saved board
+			scene.scale = model_modified_scale;
 
 	print_debug("3D model loaded");
 
