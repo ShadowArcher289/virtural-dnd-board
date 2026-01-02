@@ -7,7 +7,7 @@ albedo_color = Color(1, 0.8627451, 0.09019608, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_5qgsu"]
 material = SubResource("StandardMaterial3D_tc3ao")
-size = Vector3(0.5, 0.1, 0.5)
+size = Vector3(0.5, 0.2, 0.5)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1jr35"]
 albedo_color = Color(1, 0.8635, 0.089999974, 1)
@@ -16,8 +16,7 @@ albedo_color = Color(1, 0.8635, 0.089999974, 1)
 script = ExtResource("1_1jr35")
 
 [node name="Base" type="CSGMesh3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
-visible = false
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 use_collision = true
 mesh = SubResource("BoxMesh_5qgsu")
 material = SubResource("StandardMaterial3D_1jr35")
