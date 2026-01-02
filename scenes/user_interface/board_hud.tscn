@@ -104,7 +104,7 @@ offset_top = 30.0
 offset_right = -140.0
 offset_bottom = 93.0
 grow_horizontal = 0
-text = "Open/Close Save"
+text = "Save/Load"
 icon = ExtResource("6_gviry")
 expand_icon = true
 
