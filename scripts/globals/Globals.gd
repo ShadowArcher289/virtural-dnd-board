@@ -2,6 +2,8 @@ extends Node
 
 var toggle_2d: bool = false; ## if true: go to 2D, if false; go to 3D
 var current_map: String = "forest"; ## the key to the current map
+var turn_count = 0; ## the number of turns that have passed
+var count_info = ""; ## info like when a creature started concentration. Whatever info the DM would like
 
 var creatures: Dictionary = { ## dictionary for all the creatures made in the game
 	"thri_kreen": FigureData.new("Thri-Kreen", load("res://assets/creatures/thri-kreen.jpg"), {"ability_scores": [12, 13, 4, 5, 12, 53], "max_hp": 40}, "Cool ant person"),

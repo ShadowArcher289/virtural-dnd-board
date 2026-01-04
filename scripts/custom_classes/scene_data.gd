@@ -6,6 +6,8 @@ class_name SceneData
 
 # from Globals:
 @export var current_map: String;
+@export var turn_count: int;
+@export var count_info: String;
 @export var creatures: Dictionary; ## from Globals
 @export var maps: Dictionary; ## from Globals
 @export var objects: Dictionary; ## from Globals
