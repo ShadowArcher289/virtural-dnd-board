@@ -13,9 +13,10 @@ const BOARD_OBJECT = preload("res://scenes/board_object.tscn")
 #@export var creature_stats: Dictionary = {"ability_scores": [12, 13, 4, 5, 12, 53]}; ## Stats for a creature.
 #@export var creature_status_rings: Dictionary = {"red": false, "orange": false, "yellow": false, "green": false, "blue": false, "purple": false, "pink": false, "white": false}
 
+@onready var persistent_button: CheckButton = $PersistentButton
 
 func _ready() -> void:
-	SignalBus.board_loaded.connect(_kill_self); # kill spawner when the board is loaded
+	SignalBus.board_loaded.connect(_board_loaded); # kill spawner when the board is loaded
 	
 	print(object_type);
 	match object_type:
@@ -46,7 +47,11 @@ func _ready() -> void:
 		_:
 			push_error("Error: Invalid object_type");
 
-func _kill_self() -> void:
+func _board_loaded() -> void:
+	if(!persistent_button.button_pressed): # kill the spawner if it is not meant to persist between loaded boards.
+		_kill_self();
+
+func _kill_self() -> void: ## get rid of the spawner
 	self.queue_free();
 
 func _on_pressed() -> void: ## create a new object.
@@ -54,13 +59,14 @@ func _on_pressed() -> void: ## create a new object.
 	match object_type:
 		"creature":
 			new_object = FIGURE.instantiate();
+			new_object.object_data = FigureData.new("", null, {}, "", object_data); # create new deep copy of the data
 		"object":
 			new_object = BOARD_OBJECT.instantiate();
+			new_object.object_data = ObjectData.new("", null, null, null, false, "", object_data); # create new deep copy of the data
 		_:
 			print_debug("Error: Invalid object_type");
 	new_object.position = Vector3(0, 0, 0);
 	new_object.object_type = self.object_type;
-	new_object.object_data = self.object_data;
 	new_object.show();
 	get_tree().root.add_child(new_object);
 

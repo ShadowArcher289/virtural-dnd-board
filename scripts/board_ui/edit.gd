@@ -31,6 +31,7 @@ extends Control
 @onready var rotation_slider: HSlider = $VBoxContainer/RotationSlider
 
 @onready var toggle_base_visibility: CheckButton = $VBoxContainer/ToggleBaseVisibility
+@onready var toggle_object_moveability: CheckButton = $VBoxContainer/ToggleObjectMoveability
 
 @onready var delete_button: Button = $VBoxContainer/DeleteButton
 
@@ -71,6 +72,7 @@ func _creature_selected(object: Dictionary) -> void: ## triggered when the Signa
 			model_scale_container.hide();
 			base_scale_container.hide();
 			stats_container.hide();
+			toggle_object_moveability.hide();
 			
 			object_name_text.text = object.get("data").name;
 
@@ -88,7 +90,8 @@ func _creature_selected(object: Dictionary) -> void: ## triggered when the Signa
 			model_scale_container.show();
 			base_scale_container.show();
 			stats_container.hide();
-
+			toggle_object_moveability.show();
+			
 			object_name_text.text = object.get("data").name;
 			
 			model_x.value = object_node_model.global_position.x;
@@ -100,6 +103,11 @@ func _creature_selected(object: Dictionary) -> void: ## triggered when the Signa
 			base_scale_x.value = object_base.scale.x;
 			base_scale_y.value = object_base.scale.y;
 			base_scale_z.value = object_base.scale.z;
+			
+			if((object_node != null) && !object_node.is_moveable): # check if base is already hidden or not
+				toggle_object_moveability.button_pressed = true;
+			else:
+				toggle_object_moveability.button_pressed = false;
 		_:
 			print_debug("Error: Invalid object_data.type");
 		
@@ -119,14 +127,6 @@ func _on_rotation_slider_value_changed(value: float) -> void:
 	
 	if(object_node != null):
 		object_node.rotation_degrees.y = value;
-	
-
-func _on_toggle_base_visibility_toggled(toggled_on: bool) -> void:
-	if(object_base != null):
-		if(!toggled_on):
-			object_base.hide(); # hide the base;
-		else:
-			object_base.show(); # show the base;
 
 func _on_delete_button_pressed() -> void:
 	object_node.queue_free();
@@ -165,3 +165,18 @@ func _on_base_scale_y_value_changed(value: float) -> void:
 func _on_base_scale_z_value_changed(value: float) -> void:
 	if(object_base != null):
 		object_base.scale.z = value;
+
+# toggles
+func _on_toggle_base_visibility_toggled(toggled_on: bool) -> void:
+	if(object_base != null):
+		if(!toggled_on):
+			object_base.hide(); # hide the base;
+		else:
+			object_base.show(); # show the base;
+
+func _on_toggle_object_moveability_toggled(toggled_on: bool) -> void:
+	if(object_node != null):
+		if(toggled_on): # object cannot move when toggled_on
+			object_node.is_moveable = false;
+		else: # object can move when toggled_off
+			object_node.is_moveable = true;

@@ -10,13 +10,23 @@ class_name ObjectData
 @export var is_collidable : bool; ## if the object triggers collisions or not
 @export var description : String;
 
-func _init(f_name: String="Object", f_gltf_document: GLTFDocument = null, f_gltf_state: GLTFState = null, f_model: Resource = null, f_is_collidable: bool = false, f_description: String = "") -> void:
-	self.name = f_name;
-	self.gltf_document = f_gltf_document;
-	self.gltf_state = f_gltf_state;
-	self.model = f_model;
-	self.is_collidable = f_is_collidable;
-	self.description = f_description;
+func _init(f_name: String="Object", f_gltf_document: GLTFDocument = null, f_gltf_state: GLTFState = null, f_model: Resource = null, f_is_collidable: bool = false, f_description: String = "", copy: ObjectData = null) -> void:
+	if(copy != null): # make a deep copy
+		self.name = copy.name;
+		if(copy.gltf_document != null && copy.gltf_state != null):
+			self.gltf_document = copy.gltf_document.duplicate_deep();
+			self.gltf_state = copy.gltf_state.duplicate_deep();
+		if(copy.model != null):
+			self.model = copy.model.duplicate_deep();
+		self.is_collidable = copy.is_collidable;
+		self.description = copy.description;
+	else:
+		self.name = f_name;
+		self.gltf_document = f_gltf_document;
+		self.gltf_state = f_gltf_state;
+		self.model = f_model;
+		self.is_collidable = f_is_collidable;
+		self.description = f_description;
 
 func _to_string() -> String:
 	return "name: [" + name + "] gltf_document: [" + str(gltf_document) + "] gltf_state: [" + str(gltf_state) + "] model: [" + str(model) + "] is_collidable: [" + str(is_collidable) + "]";

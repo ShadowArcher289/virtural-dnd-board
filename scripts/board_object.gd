@@ -12,6 +12,7 @@ var origin_is_in_center = true; ## true if the origin is in the true-center of t
 
 @export var model_modified_position: Vector3 = Vector3(0, 0, 0); ## x, y, z, modified position for if the user modified the 3d model's position. used when loading the object using the save/load system to save the object's location change.
 @export var model_modified_scale: Vector3 = Vector3(0, 0, 0); ## modified position for if the user modified the 3d model's scale. used when loading the object using the save/load system to save the object's scale change.
+@export var is_moveable: bool = true; ## if false, then the object will not move in the PICKED state;
 
 enum State { ## The types of states for a Figure
 	STILL,
@@ -111,8 +112,9 @@ func _process(_delta: float) -> void:
 			new_material.albedo_color = "#00c600";
 			base.material_override = new_material
 		State.PICKED:
-			if MouseCollision.mouse_raycast_data != null && MouseCollision.mouse_raycast_data.get("position") != null:
-				self.global_position = Vector3(MouseCollision.mouse_raycast_data.get("position").x, MouseCollision.mouse_raycast_data.get("position").y - base.mesh.size.y, MouseCollision.mouse_raycast_data.get("position").z);
+			if(is_moveable):
+				if MouseCollision.mouse_raycast_data != null && MouseCollision.mouse_raycast_data.get("position") != null:
+					self.global_position = Vector3(MouseCollision.mouse_raycast_data.get("position").x, MouseCollision.mouse_raycast_data.get("position").y - base.mesh.size.y, MouseCollision.mouse_raycast_data.get("position").z);
 				
 			new_material.albedo_color = "#ffdc17";
 			base.material_override = new_material;

@@ -55,7 +55,6 @@ func _creature_selected(object: Dictionary) -> void: ## triggered when the Signa
 			var ability_scores: Array = object_data.stats.get("ability_scores");
 			set_rings(object_data.get("status_rings"));
 			object_name_text.text = object.get("data").name;
-			stats_container.show();
 			str_data.text = str(ability_scores[0]);
 			dex_data.text = str(ability_scores[1]);
 			con_data.text = str(ability_scores[2]);
@@ -63,17 +62,20 @@ func _creature_selected(object: Dictionary) -> void: ## triggered when the Signa
 			wis_data.text = str(ability_scores[4]);
 			cha_data.text = str(ability_scores[5]);
 			object_description_text.text = object.get("data").description;
+			
+			#stats_container.show();
 			creature_condition_rings.show();
 		"object":
 			object_name_text.text = object.get("data").name;
-			stats_container.hide();
 			object_description_text.text = object.get("data").description;
+			
+			stats_container.hide();
 			creature_condition_rings.hide();
 		_:
 			print_debug("Error: Invalid object_data.type");
 
 
-func toggle_ring(ring: CheckBox, color: String): ## helper function: toggle status_rings based on uf the respective checkbox is pressed on or off
+func toggle_ring(ring: CheckBox, color: String): ## helper function: toggle status_rings based on if the respective checkbox is pressed on or off
 	if(ring.button_pressed):
 		object_node.object_data.status_rings.set(color, true);
 	else:
