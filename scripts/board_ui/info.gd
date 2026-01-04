@@ -31,6 +31,15 @@ extends MarginContainer
 
 func _ready() -> void:
 	SignalBus.creature_selected.connect(_creature_selected);
+	red_ring_toggle.focus_mode = Control.FOCUS_NONE;
+	orange_ring_toggle.focus_mode = Control.FOCUS_NONE;
+	yellow_ring_toggle.focus_mode = Control.FOCUS_NONE;
+	green_ring_toggle.focus_mode = Control.FOCUS_NONE;
+	blue_ring_toggle.focus_mode = Control.FOCUS_NONE;
+	purple_ring_toggle.focus_mode = Control.FOCUS_NONE;
+	pink_ring_toggle.focus_mode = Control.FOCUS_NONE;
+	white_ring_toggle.focus_mode = Control.FOCUS_NONE;
+	
 
 func _process(_delta: float) -> void:
 	if(object_node != null && (object_data is FigureData)):

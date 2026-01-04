@@ -54,7 +54,10 @@ func _ready() -> void:
 	base_scale_y.focus_mode = Control.FOCUS_NONE;
 	base_scale_z.focus_mode = Control.FOCUS_NONE;
 	
+	rotation_slider.focus_mode = Control.FOCUS_NONE;
+	
 	toggle_base_visibility.focus_mode = Control.FOCUS_NONE;
+	toggle_object_moveability.focus_mode = Control.FOCUS_NONE;
 	
 	delete_button.focus_mode = Control.FOCUS_NONE;
 

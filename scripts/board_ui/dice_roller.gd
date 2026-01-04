@@ -3,10 +3,15 @@ extends Control
 @onready var dice_sprite: Sprite2D = $DiceValueText/DiceSprite
 @onready var dice_value_text: RichTextLabel = $DiceValueText
 
+@onready var button: Button = $DiceValueText/Button
+
 const ROLL_AMOUNT = 10 ## Roll the dice this amount.
 
 var randomizer = RandomNumberGenerator.new();
 var dice_value = 10; ## The value of the dice.
+
+func _ready() -> void:
+	button.focus_mode = Control.FOCUS_NONE;
 
 func _on_button_pressed() -> void:
 	roll_dice();

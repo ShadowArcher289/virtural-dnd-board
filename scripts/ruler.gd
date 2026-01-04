@@ -54,6 +54,17 @@ func _input(event: InputEvent) -> void:
 		if(event.is_action_released("left_click")):
 			switch_point_state("idle");
 
+func _ready() -> void:
+	distance.no_depth_test = true;
+	radius.no_depth_test = true;
+	width.no_depth_test = true;
+	size.no_depth_test = true;
+	
+	distance.render_priority = 1;
+	radius.render_priority = 1;
+	width.render_priority = 1;
+	size.render_priority = 1;
+
 func _process(_delta: float) -> void:
 	
 	# Place points on the map
