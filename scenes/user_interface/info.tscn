@@ -26,6 +26,32 @@ text = "Creature Edit Data"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="HpContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="CurrentHp" type="Label" parent="VBoxContainer/HpContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Modify Current HP"
+vertical_alignment = 1
+
+[node name="IncreaseHp" type="Button" parent="VBoxContainer/HpContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+text = "+"
+
+[node name="DecreaseHp" type="Button" parent="VBoxContainer/HpContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+text = "-"
+
+[node name="ModifyHpValue" type="SpinBox" parent="VBoxContainer/HpContainer"]
+layout_mode = 2
+allow_greater = true
+allow_lesser = true
+update_on_text_changed = true
+select_all_on_focus = true
+
 [node name="StatsContainer" type="HBoxContainer" parent="VBoxContainer"]
 visible = false
 layout_mode = 2
@@ -126,6 +152,13 @@ size_flags_vertical = 3
 text = "14"
 horizontal_alignment = 1
 
+[node name="Label" type="Label" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Description:"
+horizontal_alignment = 1
+vertical_alignment = 2
+
 [node name="ObjectDescriptionText" type="RichTextLabel" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -183,4 +216,6 @@ text = "Pink"
 layout_mode = 2
 text = "White"
 
+[connection signal="pressed" from="VBoxContainer/HpContainer/IncreaseHp" to="." method="_on_increase_hp_pressed"]
+[connection signal="pressed" from="VBoxContainer/HpContainer/DecreaseHp" to="." method="_on_decrease_hp_pressed"]
 [connection signal="value_changed" from="VBoxContainer/RotationSlider" to="." method="_on_rotation_slider_value_changed"]

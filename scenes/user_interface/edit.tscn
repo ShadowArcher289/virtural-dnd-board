@@ -27,6 +27,38 @@ text = "Edit Creature Data"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="HpContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="CurrentHp" type="Label" parent="VBoxContainer/HpContainer"]
+layout_mode = 2
+text = "CurrentHP"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="CurrentHpEditor" type="SpinBox" parent="VBoxContainer/HpContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+allow_greater = true
+allow_lesser = true
+alignment = 1
+select_all_on_focus = true
+
+[node name="MaxHp" type="Label" parent="VBoxContainer/HpContainer"]
+layout_mode = 2
+text = "MaxHP"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="MaxHpEditor" type="SpinBox" parent="VBoxContainer/HpContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+allow_greater = true
+allow_lesser = true
+alignment = 1
+select_all_on_focus = true
+
 [node name="StatsContainer" type="HBoxContainer" parent="VBoxContainer"]
 visible = false
 layout_mode = 2
@@ -298,6 +330,8 @@ size_flags_horizontal = 8
 text = "Delete
 "
 
+[connection signal="value_changed" from="VBoxContainer/HpContainer/CurrentHpEditor" to="." method="_on_current_hp_editor_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/HpContainer/MaxHpEditor" to="." method="_on_max_hp_editor_value_changed"]
 [connection signal="value_changed" from="VBoxContainer/ModelPositionContainer/ModelX" to="." method="_on_model_x_value_changed"]
 [connection signal="value_changed" from="VBoxContainer/ModelPositionContainer/ModelY" to="." method="_on_model_y_value_changed"]
 [connection signal="value_changed" from="VBoxContainer/ModelPositionContainer/ModelZ" to="." method="_on_model_z_value_changed"]

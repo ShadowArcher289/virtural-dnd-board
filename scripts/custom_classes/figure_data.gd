@@ -10,7 +10,7 @@ class_name FigureData
 @export var status_rings : Dictionary; ## colors that are true have their corresponding ring visible
 
 ## Create a new FigureData, if f_copy_figure_data is not null, then instead make a deep copy using that data.
-func _init(f_name: String="Figure", f_image: Resource=load("res://icon.svg"), f_stats: Dictionary={"ability_scores": [10, 10, 10, 10, 10, 10]}, f_description: String ="", copy: FigureData = null) -> void:
+func _init(f_name: String="Figure", f_image: Resource=load("res://icon.svg"), f_stats: Dictionary={"ability_scores": [10, 10, 10, 10, 10, 10], "max_hp": 30}, f_description: String ="", copy: FigureData = null) -> void:
 	if(copy != null): # make a deep copy
 		self.name = copy.name;
 		self.image = copy.image.duplicate_deep();

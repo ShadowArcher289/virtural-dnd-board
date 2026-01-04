@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://c8itwpvj223cr"]
+[gd_scene load_steps=7 format=3 uid="uid://c8itwpvj223cr"]
 
 [ext_resource type="Script" uid="uid://cfsqnos8qqn1r" path="res://scripts/board_ui/area_of_effects.gd" id="1_a2uuu"]
 [ext_resource type="Texture2D" uid="uid://bd3km1hk0urk" path="res://assets/ui/CircleAoeButton.png" id="2_lybem"]
 [ext_resource type="Texture2D" uid="uid://cglf4taftakhr" path="res://assets/ui/SquareAoeButton.png" id="3_1h3ja"]
 [ext_resource type="PackedScene" uid="uid://bgi370v7tnn0r" path="res://scenes/ruler.tscn" id="3_pa28u"]
 [ext_resource type="Texture2D" uid="uid://dedwd020r170h" path="res://assets/ui/ConeAoeButton.png" id="4_56qao"]
+[ext_resource type="Texture2D" uid="uid://bx8spr3cpw3cs" path="res://assets/ui/RectangleAoeButton.png" id="5_1h3ja"]
 
 [node name="AreaOfEffects" type="Control"]
 layout_mode = 3
@@ -61,8 +62,7 @@ custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_horizontal = 3
 toggle_mode = true
-text = "Rectangle"
-icon = ExtResource("4_56qao")
+icon = ExtResource("5_1h3ja")
 icon_alignment = 1
 expand_icon = true
 

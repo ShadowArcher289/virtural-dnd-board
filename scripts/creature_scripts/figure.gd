@@ -21,17 +21,28 @@ class_name Figure extends Node3D
 @export var object_type: String = "creature";
 @export var object_data: Resource = FigureData.new(
 	"Thri-Kreen", load("res://assets/creatures/thri-kreen.jpg"), 
-	{"ability_scores": [12, 13, 4, 5, 12, 53]}, 
+	{"ability_scores": [12, 13, 4, 5, 12, 53], "max_hp": 40}, 
 	"Cool ant person"
 );
-
 #@export var creature_conditions: Array[String] = ["poisoned", "on_fire"]; ## A list of conditions on the creature (ex: poisoned, damaged, petrified)
+
+# colors
+const GREEN = "#00c600";
+const LIGHT_GREEN = "#79ed5f";
+const YELLOW = "#ffdc17";
+const ORANGE = "#ff8f17";
+const RED = "#ff3217";
+const BLACK = "#000000";
+const INFO_COLOR = "#57d5ff";
 
 enum State { ## The types of states for a Figure
 	STILL,
 	PICKED,
 	INFO
 }
+
+@export var max_hp: float = 0;
+@export var current_hp: float = 0;
 
 var new_material = StandardMaterial3D.new();
 
@@ -42,12 +53,21 @@ var current_position = self.position;
 
 var released = true; ## holds if the figure has been released (ie. the mouse is still held down after clicking).
 
+
 func _ready() -> void:
 	match object_type:
 		"creature":
 			if(not object_data is FigureData): # confirm object_data is of the FigureData type
 				push_error("Error: object_data is not of type ObjectData | " + type_string(typeof(object_data)));
 			
+			if(object_data.get("stats").get("max_hp") == null): # account for max_hp being null
+				max_hp = 0;
+			else:
+				if(max_hp == 0.0): # only set hp values if they have not been previously set.
+					max_hp = object_data.get("stats").get("max_hp");
+			if(current_hp == 0.0):
+				current_hp = max_hp;
+				
 			var new_material = StandardMaterial3D.new();
 			
 			if(not object_data.image is CompressedTexture2D): # if the image is not a Texture (meaning it is likely a user's image), then set it as a texture
@@ -95,16 +115,32 @@ func _input(event: InputEvent) -> void:
 func _process(_delta: float) -> void:
 	match current_state:
 		State.STILL:
-			new_material.albedo_color = "#00c600"
+			if(max_hp == 0): # change the base color depending on the hp, green if there is no specified max_hp
+				new_material.albedo_color = GREEN;
+			else:
+				
+				var hp_percentage = (current_hp/max_hp);
+				
+				if(hp_percentage >= 1.0):
+					new_material.albedo_color = GREEN;
+				elif(hp_percentage > 0.45):
+					new_material.albedo_color = LIGHT_GREEN;
+				elif(hp_percentage > 0.25):
+					new_material.albedo_color = ORANGE;
+				elif(hp_percentage > 0.0):
+					new_material.albedo_color = RED;
+				elif(hp_percentage == 0.0):
+					new_material.albedo_color = BLACK;
+				
 			base.material_override = new_material
 		State.PICKED:
 			if MouseCollision.mouse_raycast_data != null && MouseCollision.mouse_raycast_data.get("position") != null:
 				self.global_position = Vector3(MouseCollision.mouse_raycast_data.get("position").x, MouseCollision.mouse_raycast_data.get("position").y - base.mesh.size.y, MouseCollision.mouse_raycast_data.get("position").z);
 			
-			new_material.albedo_color = "#ffdc17";
+			new_material.albedo_color = YELLOW;
 			base.material_override = new_material;
 		State.INFO:
-			new_material.albedo_color = "#57d5ff";
+			new_material.albedo_color = INFO_COLOR;
 			base.material_override = new_material;
 		_:
 			print_debug("Error: Invalid State ()" + str(current_state) + ") for Figure");

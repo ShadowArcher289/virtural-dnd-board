@@ -1,0 +1,58 @@
+[gd_scene load_steps=2 format=3 uid="uid://dm0ae2amp4mev"]
+
+[ext_resource type="Script" uid="uid://bpa2ahx2r3b7o" path="res://scripts/board_ui/turn_counter.gd" id="1_ryynn"]
+
+[node name="TurnCounter" type="Control"]
+layout_mode = 3
+anchor_right = 0.09461805
+anchor_bottom = 0.17592593
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("1_ryynn")
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FoldableContainer" type="FoldableContainer" parent="."]
+layout_mode = 1
+offset_right = 109.0
+offset_bottom = 112.0
+title_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FoldableContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="CounterLabel" type="Label" parent="FoldableContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 32
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="FoldableContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Decrease" type="Button" parent="FoldableContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "v"
+
+[node name="Increase" type="Button" parent="FoldableContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "^"
+
+[connection signal="pressed" from="FoldableContainer/VBoxContainer/HBoxContainer/Decrease" to="." method="_on_decrease_pressed"]
+[connection signal="pressed" from="FoldableContainer/VBoxContainer/HBoxContainer/Increase" to="." method="_on_increase_pressed"]

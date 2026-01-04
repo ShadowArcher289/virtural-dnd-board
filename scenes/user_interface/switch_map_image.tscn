@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://c4waj8rapgell" path="res://scripts/board_ui/switch_map_image.gd" id="1_1v66t"]
 
 [node name="switch_map_image" type="Button"]
+custom_minimum_size = Vector2(100, 100)
 offset_right = 8.0
 offset_bottom = 8.0
 size_flags_horizontal = 3

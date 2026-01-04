@@ -292,7 +292,7 @@ func place_rectangle(p1: MeshInstance3D, p2: MeshInstance3D, given_rectangle: No
 		rectangle_data.get("rectangle_ls1").global_position = calculate_midpoint(p1, rectangle_data.get("rectangle_p4"));
 		rectangle_data.get("rectangle_ls2").mesh.height = calculate_distance_between_two_points(rectangle_data.get("rectangle_p3"), p2);
 		rectangle_data.get("rectangle_ls2").global_position = calculate_midpoint(rectangle_data.get("rectangle_p3"), p2);
-		if(p1.global_position != rectangle_data.get("rectangle_ls1").global_position && p2.global_position != rectangle_data.get("rectangle_ls2").global_position):
+		if((p1.global_position != rectangle_data.get("rectangle_ls1").global_position) && (p2.global_position != rectangle_data.get("rectangle_ls2").global_position)):
 			rectangle_data.get("rectangle_ls1").look_at(p1.global_position);
 			rectangle_data.get("rectangle_ls1").rotation_degrees.x += 90;
 			rectangle_data.get("rectangle_ls2").look_at(p2.global_position);

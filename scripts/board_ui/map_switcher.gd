@@ -1,5 +1,7 @@
 extends Control
 
+@onready var spawners_container: VBoxContainer = $ScrollContainer/SpawnersContainer
+
 const SWITCH_MAP_IMAGE = preload("res://scenes/user_interface/switch_map_image.tscn");
 
 @export var main_map: CSGBox3D;
@@ -26,5 +28,5 @@ func create_switch_map_button(map_image: Dictionary):
 	new_switch_map_to_image.board_map = main_map;
 	new_switch_map_to_image.map_image_name = map_image.get("name");
 	new_switch_map_to_image.object_image = map_image.get("image");
-	self.add_child(new_switch_map_to_image);
+	spawners_container.add_child(new_switch_map_to_image);
 	new_switch_map_to_image.show();

@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://d6tjypoudq5j" path="res://scripts/board_ui/spawn_object_on_board.gd" id="2_qb2vt"]
 
 [node name="SpawnObjectOnBoard" type="Button"]
+custom_minimum_size = Vector2(0, 100)
 offset_right = 124.0
 offset_bottom = 125.0
 size_flags_horizontal = 3

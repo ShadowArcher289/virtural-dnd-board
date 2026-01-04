@@ -11,6 +11,11 @@ extends Control
 @onready var wis_data: Label = $VBoxContainer/StatsContainer/Wis/WisData
 @onready var cha_data: Label = $VBoxContainer/StatsContainer/Cha/ChaData
 
+# Edits for model's hp
+@onready var hp_container: HBoxContainer = $VBoxContainer/HpContainer
+@onready var current_hp_editor: SpinBox = $VBoxContainer/HpContainer/CurrentHpEditor
+@onready var max_hp_editor: SpinBox = $VBoxContainer/HpContainer/MaxHpEditor
+
 # Edits for each model's position
 @onready var model_position_container: HBoxContainer = $VBoxContainer/ModelPositionContainer
 @onready var model_x: SpinBox = $VBoxContainer/ModelPositionContainer/ModelX
@@ -71,6 +76,7 @@ func _creature_selected(object: Dictionary) -> void: ## triggered when the Signa
 			var ability_scores: Array = object_data.stats.get("ability_scores");
 			object_base = object_node.get_child(0);
 			
+			hp_container.show();
 			model_position_container.hide();
 			model_scale_container.hide();
 			base_scale_container.hide();
@@ -85,10 +91,22 @@ func _creature_selected(object: Dictionary) -> void: ## triggered when the Signa
 			int_data.text = str(ability_scores[3]);
 			wis_data.text = str(ability_scores[4]);
 			cha_data.text = str(ability_scores[5]);
+			
+			if(object_node != null && object_node.current_hp != null && object_node.max_hp != null):
+				current_hp_editor.value = object_node.current_hp;
+				max_hp_editor.value = object_node.max_hp;
+			else:
+				object_node.current_hp = 0;
+				object_node.max_hp = 0;
+				
+				current_hp_editor.value = 0;
+				max_hp_editor.value = 0;
+
 		"object":
 			object_node_model = object_node.get_child(-1); # sets the last node in the object to be the object_node_model
 			object_base = object_node.get_child(0);
 			
+			hp_container.show();
 			model_position_container.show();
 			model_scale_container.show();
 			base_scale_container.show();
@@ -183,3 +201,12 @@ func _on_toggle_object_moveability_toggled(toggled_on: bool) -> void:
 			object_node.is_moveable = false;
 		else: # object can move when toggled_off
 			object_node.is_moveable = true;
+
+# hp
+func _on_current_hp_editor_value_changed(value: float) -> void:
+	if(object_node != null):
+		object_node.current_hp = value;
+
+func _on_max_hp_editor_value_changed(value: float) -> void:
+	if(object_node != null):
+		object_node.max_hp = value;

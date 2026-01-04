@@ -6,6 +6,12 @@ extends MarginContainer
 @onready var rotation_label: Label = $VBoxContainer/RotationLabel
 @onready var rotation_slider: HSlider = $VBoxContainer/RotationSlider
 
+# Hp
+@onready var hp_container: HBoxContainer = $VBoxContainer/HpContainer
+@onready var modify_hp_value: SpinBox = $VBoxContainer/HpContainer/ModifyHpValue
+@onready var decrease_hp: Button = $VBoxContainer/HpContainer/DecreaseHp
+@onready var increase_hp: Button = $VBoxContainer/HpContainer/IncreaseHp
+
 # Labels for each of the creature's stats
 @onready var stats_container: HBoxContainer = $VBoxContainer/StatsContainer
 @onready var str_data: Label = $VBoxContainer/StatsContainer/Str/StrData
@@ -40,6 +46,9 @@ func _ready() -> void:
 	pink_ring_toggle.focus_mode = Control.FOCUS_NONE;
 	white_ring_toggle.focus_mode = Control.FOCUS_NONE;
 	
+	modify_hp_value.focus_mode = Control.FOCUS_NONE;
+	decrease_hp.focus_mode = Control.FOCUS_NONE;
+	increase_hp.focus_mode = Control.FOCUS_NONE;
 
 func _process(_delta: float) -> void:
 	if(object_node != null && (object_data is FigureData)):
@@ -74,12 +83,14 @@ func _creature_selected(object: Dictionary) -> void: ## triggered when the Signa
 			
 			#stats_container.show();
 			creature_condition_rings.show();
+			hp_container.show();
 		"object":
 			object_name_text.text = object.get("data").name;
 			object_description_text.text = object.get("data").description;
 			
 			stats_container.hide();
 			creature_condition_rings.hide();
+			hp_container.hide();
 		_:
 			print_debug("Error: Invalid object_data.type");
 
@@ -129,4 +140,13 @@ func _on_rotation_slider_value_changed(value: float) -> void: # updates the rota
 	rotation_label.text = "Rotation Degrees (" + str(int(value)) + "\u00B0)";
 	if(object_node != null):
 		object_node.rotation_degrees.y = value;
-	
+
+func _on_decrease_hp_pressed() -> void:
+	if(object_node != null):
+		object_node.current_hp -= modify_hp_value.value;
+		modify_hp_value.value = 0;
+
+func _on_increase_hp_pressed() -> void:
+	if(object_node != null):
+		object_node.current_hp += modify_hp_value.value;
+		modify_hp_value.value = 0;

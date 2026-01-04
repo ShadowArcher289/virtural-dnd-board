@@ -58,7 +58,17 @@ placeholder_text = "search..."
 clear_button_enabled = true
 select_all_on_focus = true
 
-[node name="SpawnObjectOnBoard" parent="VBoxContainer/TabContainer/Add" instance=ExtResource("2_8rgmx")]
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/TabContainer/Add"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="SpawnersContainer" type="VBoxContainer" parent="VBoxContainer/TabContainer/Add/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SpawnObjectOnBoard" parent="VBoxContainer/TabContainer/Add/ScrollContainer/SpawnersContainer" instance=ExtResource("2_8rgmx")]
 visible = false
 layout_mode = 2
 

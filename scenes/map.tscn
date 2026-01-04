@@ -45,6 +45,16 @@ layout_mode = 2
 button_pressed = true
 text = "Map Visible"
 
+[node name="ScrollContainer" type="ScrollContainer" parent="MapSwitcher"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="SpawnersContainer" type="VBoxContainer" parent="MapSwitcher/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
 light_color = Color(0.89, 0.6823333, 0.5785, 1)

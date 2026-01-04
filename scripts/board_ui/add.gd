@@ -1,5 +1,7 @@
 extends VBoxContainer
 
+@onready var spawners_container: VBoxContainer = $ScrollContainer/SpawnersContainer
+
 const SPAWN_OBJECT_ON_BOARD = preload("res://scenes/user_interface/spawn_object_on_board.tscn");
 
 var object_spawners: Array = []; ## stores all the opject spawners
@@ -33,7 +35,7 @@ func create_creature_spawner(creature: FigureData): ## creates an object spawner
 	var new_creature_spawner = SPAWN_OBJECT_ON_BOARD.instantiate();
 	new_creature_spawner.object_type = "creature";
 	new_creature_spawner.object_data = creature;
-	self.add_child(new_creature_spawner);
+	spawners_container.add_child(new_creature_spawner);
 	object_spawners.append(new_creature_spawner);
 	new_creature_spawner.show();
 func create_object_spawner(object: ObjectData): ## creates an object spawner given an ObjectData
@@ -41,7 +43,7 @@ func create_object_spawner(object: ObjectData): ## creates an object spawner giv
 	var new_object_spawner = SPAWN_OBJECT_ON_BOARD.instantiate();
 	new_object_spawner.object_type = "object";
 	new_object_spawner.object_data = object;
-	self.add_child(new_object_spawner);
+	spawners_container.add_child(new_object_spawner);
 	object_spawners.append(new_object_spawner);
 	new_object_spawner.show();
 
