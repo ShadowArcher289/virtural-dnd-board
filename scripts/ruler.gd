@@ -22,6 +22,17 @@ extends Node3D
 }; ## Dictionary of all the objects used for a cone. numbered from lowest on the left to highest on the right.
 @onready var size: Label3D = $MainCone/Size
 
+@onready var main_rectangle: Node3D = $MainRectangle ## Node to hide all objects of the main rectangle
+@onready var main_rectangle_parts: Dictionary = {
+	"rectangle_ll1": $MainRectangle/RectangleLL1,
+	"rectangle_ll2": $MainRectangle/RectangleLL2,
+	"rectangle_ls1": $MainRectangle/RectangleLS1,
+	"rectangle_ls2": $MainRectangle/RectangleLS2,
+	"rectangle_p3": $MainRectangle/RectangleP3,
+	"rectangle_p4": $MainRectangle/RectangleP4
+};
+@onready var long_line_size: Label3D = $MainRectangle/LongLineSize
+@onready var short_line_size: Label3D = $MainRectangle/ShortLineSize
 
 const RED = "#9c0000";
 
@@ -35,7 +46,8 @@ enum MeasureState {
 	RULER,
 	ATK_AOE_CONE,
 	ATK_AOE_CIRCLE,
-	ATK_AOE_SQUARE
+	ATK_AOE_SQUARE,
+	ATK_AOE_RECTANGLE
 }
 
 const RULER_DISTANCE_MULTIPLIER = 6.67; ## Number to multiply the raw distance to get the D&D 5m per square distance
@@ -59,11 +71,15 @@ func _ready() -> void:
 	radius.no_depth_test = true;
 	width.no_depth_test = true;
 	size.no_depth_test = true;
+	long_line_size.no_depth_test = true;
+	short_line_size.no_depth_test = true;
 	
 	distance.render_priority = 1;
 	radius.render_priority = 1;
 	width.render_priority = 1;
 	size.render_priority = 1;
+	long_line_size.render_priority = 1;
+	short_line_size.render_priority = 1;
 
 func _process(_delta: float) -> void:
 	
@@ -98,6 +114,8 @@ func _process(_delta: float) -> void:
 			place_square(point_1, point_2, main_square);
 		MeasureState.ATK_AOE_CONE:
 			place_cone(point_1, point_2, main_cone, main_cone_parts);
+		MeasureState.ATK_AOE_RECTANGLE:
+			place_rectangle(point_1, point_2, main_rectangle, main_rectangle_parts);
 
 
 func switch_point_state(state: String) -> void: ## Switch the ruler's PlaceState for placing points
@@ -125,6 +143,9 @@ func switch_aoe_state(state: String) -> void: ## Switch the ruler's AoeState for
 		"atk_aoe_square":
 			current_measure_state = MeasureState.ATK_AOE_SQUARE;
 			hide_lines();
+		"atk_aoe_rectangle":
+			current_measure_state = MeasureState.ATK_AOE_RECTANGLE;
+			hide_lines();
 		_:
 			print_debug("Invalid State: " + state);
 
@@ -133,6 +154,7 @@ func hide_lines(): ## hide all the drawn lines
 	main_circle.hide();
 	main_square.hide();
 	main_cone.hide();
+	main_rectangle.hide();
 
 func place_line(p1: MeshInstance3D, p2: MeshInstance3D, given_line: MeshInstance3D) -> void: ## place a given line between two given points
 	if(p1.is_visible_in_tree() && p2.is_visible_in_tree()): # show the line only if both points are visible
@@ -234,6 +256,61 @@ func place_cone(p1: MeshInstance3D, p2: MeshInstance3D, given_cone: Node3D, cone
 	else: # hide the cone otherwise
 		given_cone.hide();
 
+func place_rectangle(p1: MeshInstance3D, p2: MeshInstance3D, given_rectangle: Node3D, rectangle_data: Dictionary) -> void: ## place a given rectangle with a reach of the distance between two given points starting at p1.
+	if(p1.is_visible_in_tree() && p2.is_visible_in_tree()): # show the line only if both points are visible
+		given_rectangle.show();
+		
+		# measurements
+		var rectangle_size_long = absf(p2.global_position.x - p1.global_position.x);
+		var rectangle_size_short = absf(p2.global_position.z - p1.global_position.z);
+		
+		# set extra points
+		rectangle_data.get("rectangle_p3").global_position.x = p2.global_position.x; # top right point
+		rectangle_data.get("rectangle_p3").global_position.z = p1.global_position.z;
+		rectangle_data.get("rectangle_p3").global_position.y = p1.global_position.y;
+
+		rectangle_data.get("rectangle_p4").global_position.z = p2.global_position.z; # bottom left point
+		rectangle_data.get("rectangle_p4").global_position.x = p1.global_position.x;
+		rectangle_data.get("rectangle_p4").global_position.y = p1.global_position.y;
+		
+		# set lines
+		# long lines
+		rectangle_data.get("rectangle_ll1").mesh.height = calculate_distance_between_two_points(p1, rectangle_data.get("rectangle_p3"));
+		rectangle_data.get("rectangle_ll1").global_position = calculate_midpoint(p1, rectangle_data.get("rectangle_p3"));
+		rectangle_data.get("rectangle_ll2").mesh.height = calculate_distance_between_two_points(rectangle_data.get("rectangle_p4"), p2);
+		rectangle_data.get("rectangle_ll2").global_position = calculate_midpoint(rectangle_data.get("rectangle_p4"), p2);
+		if(p1.global_position != rectangle_data.get("rectangle_ll1").global_position && p2.global_position != rectangle_data.get("rectangle_ll2").global_position):
+			rectangle_data.get("rectangle_ll1").look_at(p1.global_position);
+			rectangle_data.get("rectangle_ll1").rotation_degrees.x += 90;
+			rectangle_data.get("rectangle_ll2").look_at(p2.global_position);
+			rectangle_data.get("rectangle_ll2").rotation_degrees.x += 90;
+		else:
+			main_rectangle.hide();
+			
+		# short lines
+		rectangle_data.get("rectangle_ls1").mesh.height = calculate_distance_between_two_points(p1, rectangle_data.get("rectangle_p4"));
+		rectangle_data.get("rectangle_ls1").global_position = calculate_midpoint(p1, rectangle_data.get("rectangle_p4"));
+		rectangle_data.get("rectangle_ls2").mesh.height = calculate_distance_between_two_points(rectangle_data.get("rectangle_p3"), p2);
+		rectangle_data.get("rectangle_ls2").global_position = calculate_midpoint(rectangle_data.get("rectangle_p3"), p2);
+		if(p1.global_position != rectangle_data.get("rectangle_ls1").global_position && p2.global_position != rectangle_data.get("rectangle_ls2").global_position):
+			rectangle_data.get("rectangle_ls1").look_at(p1.global_position);
+			rectangle_data.get("rectangle_ls1").rotation_degrees.x += 90;
+			rectangle_data.get("rectangle_ls2").look_at(p2.global_position);
+			rectangle_data.get("rectangle_ls2").rotation_degrees.x += 90;
+		else:
+			main_rectangle.hide();
+		
+		# line measurement texts
+		long_line_size.global_position = calculate_midpoint(p1, rectangle_data.get("rectangle_p3"));
+		long_line_size.global_position.y = p1.global_position.y + 0.1;
+		long_line_size.text = str(round(rectangle_size_long * RULER_DISTANCE_MULTIPLIER * 100)/100) + "ft";
+
+		short_line_size.global_position = calculate_midpoint(p1, rectangle_data.get("rectangle_p4"));
+		short_line_size.global_position.y = p1.global_position.y + 0.1;
+		short_line_size.text = str(round(rectangle_size_short * RULER_DISTANCE_MULTIPLIER * 100)/100) + "ft";
+
+	else: # hide the cone otherwise
+		given_rectangle.hide();
 
 func calculate_distance_between_two_points(p1: MeshInstance3D, p2: MeshInstance3D) -> float: ## returns the distance between two points(p1 & p2) in a 3D space
 	# c = sqrt(x^2 + y^2 + z^2);

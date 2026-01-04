@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bgi370v7tnn0r"]
+[gd_scene load_steps=19 format=3 uid="uid://bgi370v7tnn0r"]
 
 [ext_resource type="Script" uid="uid://boj2lmi2xhnmu" path="res://scripts/ruler.gd" id="1_0ls0d"]
 [ext_resource type="Material" uid="uid://wf1yx3xdxtne" path="res://assets/themes/ruler_line_red.tres" id="2_wc50e"]
@@ -30,6 +30,31 @@ ring_segments = 4
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_d8awn"]
 material = ExtResource("2_wc50e")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d8awn"]
+albedo_color = Color(0.6117647, 0, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_likjb"]
+material = SubResource("StandardMaterial3D_d8awn")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pvkkx"]
+albedo_color = Color(0.6117647, 0, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_qkiow"]
+material = SubResource("StandardMaterial3D_pvkkx")
+height = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_likjb"]
+albedo_color = Color(0.32941177, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_pvkkx"]
+material = SubResource("StandardMaterial3D_likjb")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qkiow"]
+albedo_color = Color(0.32941177, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_asfig"]
+material = SubResource("StandardMaterial3D_qkiow")
 
 [node name="Ruler" type="Node3D"]
 script = ExtResource("1_0ls0d")
@@ -108,3 +133,50 @@ skeleton = NodePath("../../..")
 [node name="ConeL3" type="MeshInstance3D" parent="MainCone"]
 transform = Transform3D(0.05, 0, 0, 0, 1, 0, 0, 0, 0.05, 0, 0, 0)
 mesh = SubResource("CylinderMesh_wc50e")
+
+[node name="MainRectangle" type="Node3D" parent="."]
+visible = false
+
+[node name="LongLineSize" type="Label3D" parent="MainRectangle"]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 0, 0)
+billboard = 1
+no_depth_test = true
+render_priority = 1
+text = "LongSize"
+
+[node name="ShortLineSize" type="Label3D" parent="MainRectangle"]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 0, 0)
+billboard = 1
+no_depth_test = true
+render_priority = 1
+text = "ShortSize"
+
+[node name="RectangleLL1" type="MeshInstance3D" parent="MainRectangle"]
+transform = Transform3D(0.05, 0, 0, 0, 1, 0, 0, 0, 0.05, 0, 0, 0)
+mesh = SubResource("CylinderMesh_likjb")
+skeleton = NodePath("../..")
+
+[node name="RectangleLL2" type="MeshInstance3D" parent="MainRectangle"]
+transform = Transform3D(0.05, 0, 0, 0, 1, 0, 0, 0, 0.05, 0, 0, 0)
+mesh = SubResource("CylinderMesh_likjb")
+skeleton = NodePath("../..")
+
+[node name="RectangleLS1" type="MeshInstance3D" parent="MainRectangle"]
+transform = Transform3D(0.05, 0, 0, 0, 1, 0, 0, 0, 0.05, 0, 0, 0)
+mesh = SubResource("CylinderMesh_qkiow")
+skeleton = NodePath("../..")
+
+[node name="RectangleLS2" type="MeshInstance3D" parent="MainRectangle"]
+transform = Transform3D(0.05, 0, 0, 0, 1, 0, 0, 0, 0.05, 0, 0, 0)
+mesh = SubResource("CylinderMesh_qkiow")
+skeleton = NodePath("../..")
+
+[node name="RectangleP3" type="MeshInstance3D" parent="MainRectangle"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+mesh = SubResource("SphereMesh_pvkkx")
+skeleton = NodePath("../..")
+
+[node name="RectangleP4" type="MeshInstance3D" parent="MainRectangle"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+mesh = SubResource("SphereMesh_asfig")
+skeleton = NodePath("../..")

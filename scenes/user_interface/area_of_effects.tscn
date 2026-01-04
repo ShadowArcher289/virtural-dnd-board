@@ -56,8 +56,19 @@ icon = ExtResource("4_56qao")
 icon_alignment = 1
 expand_icon = true
 
+[node name="RectangleArea" type="Button" parent="MarginContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+toggle_mode = true
+text = "Rectangle"
+icon = ExtResource("4_56qao")
+icon_alignment = 1
+expand_icon = true
+
 [node name="Ruler" parent="." instance=ExtResource("3_pa28u")]
 
 [connection signal="pressed" from="MarginContainer/GridContainer/CircleArea" to="." method="_on_circle_area_pressed"]
 [connection signal="pressed" from="MarginContainer/GridContainer/SquareArea" to="." method="_on_square_area_pressed"]
 [connection signal="pressed" from="MarginContainer/GridContainer/ConeArea" to="." method="_on_cone_area_pressed"]
+[connection signal="pressed" from="MarginContainer/GridContainer/RectangleArea" to="." method="_on_rectangle_area_pressed"]
