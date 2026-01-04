@@ -60,9 +60,7 @@ func _ready() -> void:
 			if(not object_data is FigureData): # confirm object_data is of the FigureData type
 				push_error("Error: object_data is not of type ObjectData | " + type_string(typeof(object_data)));
 			
-			if(object_data.get("stats").get("max_hp") == null): # account for max_hp being null
-				max_hp = 0;
-			else:
+			if(object_data.get("stats").get("max_hp") != null): # account for max_hp being null
 				if(max_hp == 0.0): # only set hp values if they have not been previously set.
 					max_hp = object_data.get("stats").get("max_hp");
 			if(current_hp == 0.0):
@@ -116,7 +114,7 @@ func _process(_delta: float) -> void:
 	match current_state:
 		State.STILL:
 			if(max_hp == 0): # change the base color depending on the hp, green if there is no specified max_hp
-				new_material.albedo_color = GREEN;
+				new_material.albedo_color = BLACK;
 			else:
 				
 				var hp_percentage = (current_hp/max_hp);
