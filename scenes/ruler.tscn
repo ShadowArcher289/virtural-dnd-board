@@ -180,3 +180,8 @@ skeleton = NodePath("../..")
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
 mesh = SubResource("SphereMesh_asfig")
 skeleton = NodePath("../..")
+
+[node name="RectangleP5" type="MeshInstance3D" parent="MainRectangle"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+mesh = SubResource("SphereMesh_asfig")
+skeleton = NodePath("../..")

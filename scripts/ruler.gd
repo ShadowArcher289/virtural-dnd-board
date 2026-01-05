@@ -29,7 +29,8 @@ extends Node3D
 	"rectangle_ls1": $MainRectangle/RectangleLS1,
 	"rectangle_ls2": $MainRectangle/RectangleLS2,
 	"rectangle_p3": $MainRectangle/RectangleP3,
-	"rectangle_p4": $MainRectangle/RectangleP4
+	"rectangle_p4": $MainRectangle/RectangleP4,
+	"rectangle_p5": $MainRectangle/RectangleP5
 };
 @onready var long_line_size: Label3D = $MainRectangle/LongLineSize
 @onready var short_line_size: Label3D = $MainRectangle/ShortLineSize
@@ -274,15 +275,19 @@ func place_rectangle(p1: MeshInstance3D, p2: MeshInstance3D, given_rectangle: No
 		rectangle_data.get("rectangle_p4").global_position.y = p1.global_position.y;
 		
 		# set lines
+		var p5 = rectangle_data.get("rectangle_p5");
+		p5.global_position = Vector3(p2.global_position.x, p1.global_position.y, p2.global_position.z); # set p5 to be where p2 is but at p1's y level
+		p5.hide();
+		
 		# long lines
 		rectangle_data.get("rectangle_ll1").mesh.height = calculate_distance_between_two_points(p1, rectangle_data.get("rectangle_p3"));
 		rectangle_data.get("rectangle_ll1").global_position = calculate_midpoint(p1, rectangle_data.get("rectangle_p3"));
-		rectangle_data.get("rectangle_ll2").mesh.height = calculate_distance_between_two_points(rectangle_data.get("rectangle_p4"), p2);
-		rectangle_data.get("rectangle_ll2").global_position = calculate_midpoint(rectangle_data.get("rectangle_p4"), p2);
-		if(p1.global_position != rectangle_data.get("rectangle_ll1").global_position && p2.global_position != rectangle_data.get("rectangle_ll2").global_position):
+		rectangle_data.get("rectangle_ll2").mesh.height = calculate_distance_between_two_points(rectangle_data.get("rectangle_p4"), p5);
+		rectangle_data.get("rectangle_ll2").global_position = calculate_midpoint(rectangle_data.get("rectangle_p4"), p5);
+		if(!(p1.global_position.is_equal_approx(rectangle_data.get("rectangle_ll1").global_position)) && !(p5.global_position.is_equal_approx(rectangle_data.get("rectangle_ll2").global_position))):
 			rectangle_data.get("rectangle_ll1").look_at(p1.global_position);
 			rectangle_data.get("rectangle_ll1").rotation_degrees.x += 90;
-			rectangle_data.get("rectangle_ll2").look_at(p2.global_position);
+			rectangle_data.get("rectangle_ll2").look_at(p5.global_position);
 			rectangle_data.get("rectangle_ll2").rotation_degrees.x += 90;
 		else:
 			main_rectangle.hide();
@@ -290,13 +295,14 @@ func place_rectangle(p1: MeshInstance3D, p2: MeshInstance3D, given_rectangle: No
 		# short lines
 		rectangle_data.get("rectangle_ls1").mesh.height = calculate_distance_between_two_points(p1, rectangle_data.get("rectangle_p4"));
 		rectangle_data.get("rectangle_ls1").global_position = calculate_midpoint(p1, rectangle_data.get("rectangle_p4"));
-		rectangle_data.get("rectangle_ls2").mesh.height = calculate_distance_between_two_points(rectangle_data.get("rectangle_p3"), p2);
-		rectangle_data.get("rectangle_ls2").global_position = calculate_midpoint(rectangle_data.get("rectangle_p3"), p2);
-		if((p1.global_position != rectangle_data.get("rectangle_ls1").global_position) && (p2.global_position != rectangle_data.get("rectangle_ls2").global_position)):
+		rectangle_data.get("rectangle_ls2").mesh.height = calculate_distance_between_two_points(rectangle_data.get("rectangle_p3"), rectangle_data.get("rectangle_p5"));
+		rectangle_data.get("rectangle_ls2").global_position = calculate_midpoint(rectangle_data.get("rectangle_p3"), p5);
+		if(!(p1.global_position.is_equal_approx(rectangle_data.get("rectangle_ls1").global_position)) && !(p5.global_position.is_equal_approx(rectangle_data.get("rectangle_ls2").global_position))):
 			rectangle_data.get("rectangle_ls1").look_at(p1.global_position);
 			rectangle_data.get("rectangle_ls1").rotation_degrees.x += 90;
-			rectangle_data.get("rectangle_ls2").look_at(p2.global_position);
+			rectangle_data.get("rectangle_ls2").look_at(p5.global_position);
 			rectangle_data.get("rectangle_ls2").rotation_degrees.x += 90;
+			
 		else:
 			main_rectangle.hide();
 		

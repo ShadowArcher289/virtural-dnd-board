@@ -9,7 +9,7 @@ script = ExtResource("1_fe475")
 
 [node name="LoadBoardFileDialog" type="FileDialog" parent="."]
 oversampling_override = 1.0
-title = "Select Board"
+title = "Open a File"
 initial_position = 1
 dialog_hide_on_ok = true
 file_mode = 0
