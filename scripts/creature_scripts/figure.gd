@@ -6,6 +6,8 @@ class_name Figure extends Node3D
 @onready var image: MeshInstance3D = $Image
 @onready var base: CSGMesh3D = $Base
 @onready var figure_name: Label3D = $FigureName
+@onready var token_border: MeshInstance3D = $TokenBorder
+@onready var token_image: MeshInstance3D = $TokenBorder/TokenImage
 
 @onready var conditions: Node3D = $Conditions ## stores objects to identify conditions on a creature
 @onready var red_ring: MeshInstance3D = $Conditions/RedRing
@@ -72,9 +74,19 @@ func _ready() -> void:
 				var image_texture = ImageTexture.new();
 				image_texture.set_image(object_data.image);
 				new_material.albedo_texture = image_texture;
+				
+				if(token_image != null):
+					token_image.get_active_material(0).set("shader_parameter/albedo_texture", image_texture); # sets the token texture
+				else:
+					print_debug("No token_image found");
 			else: # otherwise, the image is likely a pre-added image so just use it
 				new_material.albedo_texture = object_data.image;
-			
+				
+				if(token_image != null):
+					token_image.get_active_material(0).set("shader_parameter/albedo_texture", object_data.image); # sets the token texture
+				else:
+					print_debug("No token_image found");
+					
 			new_material.billboard_mode = BaseMaterial3D.BILLBOARD_FIXED_Y;
 			new_material.billboard_keep_scale = true;
 			
@@ -113,22 +125,24 @@ func _input(event: InputEvent) -> void:
 func _process(_delta: float) -> void:
 	match current_state:
 		State.STILL:
+			new_material.albedo_color = GREEN;
+			
 			if(max_hp == 0): # change the base color depending on the hp, green if there is no specified max_hp
-				new_material.albedo_color = BLACK;
+				token_border.mesh.material.albedo_color = BLACK;
 			else:
 				
 				var hp_percentage = (current_hp/max_hp);
 				
 				if(hp_percentage >= 1.0):
-					new_material.albedo_color = GREEN;
+					token_border.mesh.material.albedo_color = GREEN;
 				elif(hp_percentage > 0.45):
-					new_material.albedo_color = LIGHT_GREEN;
+					token_border.mesh.material.albedo_color = LIGHT_GREEN;
 				elif(hp_percentage > 0.25):
-					new_material.albedo_color = ORANGE;
+					token_border.mesh.material.albedo_color = ORANGE;
 				elif(hp_percentage > 0.0):
-					new_material.albedo_color = RED;
+					token_border.mesh.material.albedo_color = RED;
 				elif(hp_percentage == 0.0):
-					new_material.albedo_color = BLACK;
+					token_border.mesh.material.albedo_color = BLACK;
 				
 			base.material_override = new_material
 		State.PICKED:
@@ -175,6 +189,13 @@ func _process(_delta: float) -> void:
 		show_condition_ring("white");
 	else:
 		hide_condition_ring("white");
+	
+	if(Globals.toggle_2d == true):
+		image.hide();
+		figure_name.hide();
+	else:
+		image.show();
+		figure_name.show();
 	
 
 func switch_state(state: State): ## Switch state and set the Global's current selected creature to this one if picked.

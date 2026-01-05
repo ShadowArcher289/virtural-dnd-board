@@ -1,0 +1,12 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://t6qdlrafo4vb"]
+
+[ext_resource type="Shader" uid="uid://dmvhd4pl3s4cj" path="res://assets/themes/circle_mask.gdshader" id="1_a6etd"]
+[ext_resource type="Texture2D" uid="uid://c3r0q0hslj6ie" path="res://assets/creatures/thri-kreen.jpg" id="2_cw2tb"]
+
+[resource]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("1_a6etd")
+shader_parameter/albedo_texture = ExtResource("2_cw2tb")
+shader_parameter/circle_center = Vector2(0.5, 0.3)
+shader_parameter/circle_radius = 0.3
