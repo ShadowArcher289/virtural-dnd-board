@@ -202,7 +202,7 @@ func place_square(p1: MeshInstance3D, p2: MeshInstance3D, given_square: MeshInst
 		given_square.mesh.inner_radius = (calculate_distance_between_two_points(p1, p2)/2 - 0.05);
 		given_square.mesh.outer_radius = (given_square.mesh.inner_radius + 0.1);
 		
-		if(given_square.global_position != p2.global_position):
+		if(!(given_square.global_position.is_equal_approx(p2.global_position))):
 			given_square.look_at(p2.global_position); # line's rotation
 			given_square.rotation_degrees.x = 0;
 			given_square.rotation_degrees.z = 0;
@@ -226,7 +226,7 @@ func place_cone(p1: MeshInstance3D, p2: MeshInstance3D, given_cone: Node3D, cone
 		cone_data.get("cone_l2").global_position = p2.global_position;
 		cone_data.get("cone_l2").global_position.y = p1.global_position.y;
 		cone_data.get("cone_l2").mesh.height = cone_size;
-		if(p1.global_position != cone_data.get("cone_l2").global_position):
+		if(!(p1.global_position.is_equal_approx(cone_data.get("cone_l2").global_position))):
 			cone_data.get("cone_l2").look_at(p1.global_position); # rotation
 			cone_data.get("cone_l2").rotation_degrees.z += 90;
 		else:
@@ -245,7 +245,7 @@ func place_cone(p1: MeshInstance3D, p2: MeshInstance3D, given_cone: Node3D, cone
 		cone_data.get("cone_l3").mesh.height = calculate_distance_between_two_points(p1, cone_data.get("cone_p2"));
 		cone_data.get("cone_l1").global_position = calculate_midpoint(p1, cone_data.get("cone_p1"));
 		cone_data.get("cone_l3").global_position = calculate_midpoint(p1, cone_data.get("cone_p2"));
-		if(p1.global_position != cone_data.get("cone_l1").global_position && p1.global_position != cone_data.get("cone_l3").global_position):
+		if(!(p1.global_position.is_equal_approx(cone_data.get("cone_l1").global_position)) && !(p1.global_position.is_equal_approx(cone_data.get("cone_l3").global_position))):
 			cone_data.get("cone_l1").look_at(p1.global_position);
 			cone_data.get("cone_l3").look_at(p1.global_position);
 			cone_data.get("cone_l1").rotation_degrees.x += 90;

@@ -81,7 +81,7 @@ func _creature_selected(object: Dictionary) -> void: ## triggered when the Signa
 			model_scale_container.hide();
 			base_scale_container.hide();
 			stats_container.hide();
-			toggle_object_moveability.hide();
+			toggle_object_moveability.show();
 			
 			object_name_text.text = object.get("data").name;
 
@@ -124,11 +124,6 @@ func _creature_selected(object: Dictionary) -> void: ## triggered when the Signa
 			base_scale_x.value = object_base.scale.x;
 			base_scale_y.value = object_base.scale.y;
 			base_scale_z.value = object_base.scale.z;
-			
-			if((object_node != null) && !object_node.is_moveable): # check if base is already hidden or not
-				toggle_object_moveability.button_pressed = true;
-			else:
-				toggle_object_moveability.button_pressed = false;
 		_:
 			print_debug("Error: Invalid object_data.type");
 		
@@ -141,6 +136,11 @@ func _creature_selected(object: Dictionary) -> void: ## triggered when the Signa
 		toggle_base_visibility.button_pressed = true;
 	else:
 		toggle_base_visibility.button_pressed = false;
+			
+	if((object_node != null) && !object_node.is_moveable): # check if base is already hidden or not
+		toggle_object_moveability.button_pressed = true;
+	else:
+		toggle_object_moveability.button_pressed = false;
 
 
 func _on_rotation_slider_value_changed(value: float) -> void:

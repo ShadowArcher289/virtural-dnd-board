@@ -45,6 +45,7 @@ enum State { ## The types of states for a Figure
 
 @export var max_hp: float = 0;
 @export var current_hp: float = 0;
+@export var is_moveable: bool = true; ## if false, then the object will not move in the PICKED state;
 
 var new_material = StandardMaterial3D.new();
 
@@ -146,8 +147,9 @@ func _process(_delta: float) -> void:
 				
 			base.material_override = new_material
 		State.PICKED:
-			if MouseCollision.mouse_raycast_data != null && MouseCollision.mouse_raycast_data.get("position") != null:
-				self.global_position = Vector3(MouseCollision.mouse_raycast_data.get("position").x, MouseCollision.mouse_raycast_data.get("position").y - base.mesh.size.y, MouseCollision.mouse_raycast_data.get("position").z);
+			if(is_moveable):
+				if MouseCollision.mouse_raycast_data != null && MouseCollision.mouse_raycast_data.get("position") != null:
+					self.global_position = Vector3(MouseCollision.mouse_raycast_data.get("position").x, MouseCollision.mouse_raycast_data.get("position").y - base.mesh.size.y, MouseCollision.mouse_raycast_data.get("position").z);
 			
 			new_material.albedo_color = YELLOW;
 			base.material_override = new_material;
