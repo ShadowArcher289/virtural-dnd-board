@@ -59,8 +59,8 @@ On the bottom is the toolbar. Here the different states determine what happens w
 
 On the top right is a Save/Load button. Click it to open the menu. 
 - **[Select Board to Load]**: Opens the filesystem to where the boards are stored. Open one and it will fill the filename with the corresponding text.
-- **Save**: Saves/Overwrites to a file with the given filename.
-- **Load**: Loads the file with the given filename.
+- **[Save]**: Saves/Overwrites to a file with the given filename.
+- **[Load]**: Loads the file with the given filename.
 - **Close**: Closes the menu.
 
 
