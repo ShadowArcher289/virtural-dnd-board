@@ -164,7 +164,7 @@ func place_line(p1: MeshInstance3D, p2: MeshInstance3D, given_line: MeshInstance
 		# set the line to be in-between the two points
 		given_line.global_position = calculate_midpoint(p1, p2);
 		given_line.mesh.height = calculate_distance_between_two_points(p1, p2);
-		if(p1.global_position != p2.global_position):
+		if(!(p1.global_position.is_equal_approx(p2.global_position))):
 			given_line.look_at(p2.global_position); # line's rotation
 			given_line.rotation_degrees.x += 90;
 		else:

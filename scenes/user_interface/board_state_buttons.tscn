@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b75lr2wt3pgoq"]
 
 [ext_resource type="Script" uid="uid://bc8ji0hrc6rfu" path="res://scripts/board_ui/board_state_buttons.gd" id="1_8impl"]
-[ext_resource type="Texture2D" uid="uid://8gi20yhem3n2" path="res://icon.svg" id="2_ol3v0"]
+[ext_resource type="Texture2D" uid="uid://2bg56r55bgon" path="res://assets/ui/selection_arrow.png" id="2_ol3v0"]
 
 [node name="BoardStateButtons" type="HBoxContainer"]
 anchors_preset = 7
@@ -37,13 +37,12 @@ layout_mode = 2
 text = "Info"
 
 [node name="CurrentState" type="Label" parent="."]
+visible = false
 layout_mode = 2
 text = "State"
 
 [node name="SelectionArrow" type="Sprite2D" parent="."]
-visible = false
 position = Vector2(469, 21)
-scale = Vector2(0.14062506, 0.14062506)
 texture = ExtResource("2_ol3v0")
 
 [connection signal="pressed" from="AttackArea" to="." method="_on_attack_area_pressed"]
