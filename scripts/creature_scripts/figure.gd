@@ -60,6 +60,12 @@ var released = true; ## holds if the figure has been released (ie. the mouse is 
 func _ready() -> void:
 	match object_type:
 		"creature":
+			# change collision layers to 2
+			base.set_collision_layer_value(1, false);
+			base.set_collision_layer_value(2, true);
+			base.set_collision_mask_value(1, false);
+			base.set_collision_mask_value(2, true);
+			
 			if(not object_data is FigureData): # confirm object_data is of the FigureData type
 				push_error("Error: object_data is not of type ObjectData | " + type_string(typeof(object_data)));
 			
@@ -149,7 +155,7 @@ func _process(_delta: float) -> void:
 		State.PICKED:
 			if(is_moveable):
 				if MouseCollision.mouse_raycast_data != null && MouseCollision.mouse_raycast_data.get("position") != null:
-					self.global_position = Vector3(MouseCollision.mouse_raycast_data.get("position").x, MouseCollision.mouse_raycast_data.get("position").y - base.mesh.size.y, MouseCollision.mouse_raycast_data.get("position").z);
+					self.global_position = MouseCollision.mouse_raycast_data.get("position");
 			
 			new_material.albedo_color = YELLOW;
 			base.material_override = new_material;

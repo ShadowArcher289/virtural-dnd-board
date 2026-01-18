@@ -37,6 +37,7 @@ environment = SubResource("Environment_nglv8")
 
 [node name="Camera3D" type="Camera3D" parent="Setup"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 2.7085547)
+cull_mask = 1048573
 current = true
 script = ExtResource("2_tx6nw")
 

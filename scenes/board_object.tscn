@@ -18,5 +18,6 @@ script = ExtResource("1_1jr35")
 [node name="Base" type="CSGMesh3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 use_collision = true
+collision_layer = 2
 mesh = SubResource("BoxMesh_5qgsu")
 material = SubResource("StandardMaterial3D_1jr35")
