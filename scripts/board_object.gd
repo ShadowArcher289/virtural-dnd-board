@@ -32,6 +32,12 @@ var released = true; ## holds if the object has been released (ie. the mouse is 
 
 func _ready() -> void:
 	
+	# change collision layers to 2
+	base.set_collision_layer_value(1, false);
+	base.set_collision_layer_value(2, true);
+	base.set_collision_mask_value(1, false);
+	base.set_collision_mask_value(2, true);
+	
 	if(not object_data is ObjectData): # confirm object_data is of the ObjectData type
 		push_error("Error: object_data is not of type ObjectData | " + type_string(typeof(object_data)));
 
